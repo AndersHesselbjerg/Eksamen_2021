@@ -10,4 +10,5 @@ public class myController {
     public String index(){
         return "index";
     }
+
 }
