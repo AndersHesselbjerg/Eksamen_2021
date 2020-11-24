@@ -11,5 +11,3 @@ public class myController {
         return "index";
     }
 }
-
-kk
