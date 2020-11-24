@@ -9,12 +9,11 @@ import org.springframework.web.context.request.WebRequest;
 public class myController {
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "index";
     }
-}
 
-
+/*
     @PostMapping("/login")
     public String loginUser(WebRequest request) throws LoginSampleException {
         //Retrieve values from HTML form via WebRequest
@@ -27,4 +26,7 @@ public class myController {
 
         // Go to to page dependent on role
         return "userpages/";
+    }
+ */
+
 }
