@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="myCSS.css">
+    <meta charset="UTF-8">
+    <title>Opret nyt projekt</title>
+</head>
+<th:block th:include="/includes/header :: header"></th:block>
+
+<body>
+<div class="container">
+    <h3 id="header3">Opret nyt projekt</h3>
+    <form action="/createProjectForm" method="post">
+
+        <label for="projectName">Navn</label>
+        <input type="text" id="projectName" name="projectName">
+
+        <label for="deadline">Deadline</label>
+        <input type="date" id="deadline" name="deadline">
+
+        <label for="description">Beskrivelse</label>
+        <textarea placeholder="Skriv her, hvad projektet omhandler" id="description" name="description"></textarea> <p>
+
+        <label for="alder">Alder</label>
+        <input type="text" id="alder" name="age">
+
+        <label for="numberOfEmployees">Antal medarbejdere</label>
+        <input type="text" id="numberOfEmployees" name="numberOfEmployees">
+
+        <label for="digselv">Skriv lidt om dig selv</label>
+        <input type="text" id="digselv" name="about">
+
+        <br>
+        <br>
+
+        <input type="submit" value="Opret projekt">
+    </form>
+</div>
+
+</body>
+<th:block th:include="/includes/footer :: footer"></th:block>
+</html>
