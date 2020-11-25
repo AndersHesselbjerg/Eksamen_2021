@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.database.JDBCWriter;
 import com.example.demo.domain.Project;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import java.util.Date;
 public class CreateController {
 
     Project project = new Project();
+    JDBCWriter jdbcWriter = new JDBCWriter();
 
     @GetMapping("/createProject")
     public String createProject() {
@@ -37,7 +39,7 @@ public class CreateController {
     ){
         System.out.println("Det virker!");
         Project project1 = new Project(id, projectName, deadline, description, numberOfEmployees);
-
+        jdbcWriter.createNewProject(project);
         return "addEmployees";
     }
 
