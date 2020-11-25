@@ -16,7 +16,7 @@ public class myController {
 }
 
 
-    @PostMapping("/login")
+   /* @PostMapping("/login")
     public String loginUser(WebRequest request) throws LoginSampleException {
         //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("email");
@@ -28,4 +28,4 @@ public class myController {
 
         // Go to to page dependent on role
         return "userpages/";
-}
+}*/
