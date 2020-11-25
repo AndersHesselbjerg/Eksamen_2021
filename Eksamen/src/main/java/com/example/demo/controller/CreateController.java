@@ -37,6 +37,7 @@ public class CreateController {
     ){
         System.out.println("Det virker!");
         Project project1 = new Project(id, projectName, deadline, description, numberOfEmployees);
+
         return "addEmployees";
     }
 
