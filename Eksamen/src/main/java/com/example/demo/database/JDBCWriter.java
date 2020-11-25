@@ -18,7 +18,7 @@ public class JDBCWriter {
         String searchLog = "select count(*) as count, id, mail, password FROM user WHERE id = ? and mail = ? and password = ?; ";
         PreparedStatement preparedStatement;
         String mail = "";
-        String password= "";
+        String password = "";
         User u = new User(mail, password);
         int res = -1;
         ResultSet resset;
@@ -47,7 +47,7 @@ public class JDBCWriter {
 
 
             }
-        }catch (SQLException sqlerr) {
+        } catch (SQLException sqlerr) {
             System.out.println("fejl i søgning = " + sqlerr.getMessage());
         }
 
@@ -61,7 +61,7 @@ public class JDBCWriter {
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, project.getName());
-            preparedStatement.setDate(2, (java.sql.Date) project.getDeadline());
+            //preparedStatement.setDate(2, (java.sql.Date) project.getDeadline());
             preparedStatement.setString(3, project.getDescription());
             preparedStatement.setShort(4, project.getNumberOfEmployees());
             int row = preparedStatement.executeUpdate();

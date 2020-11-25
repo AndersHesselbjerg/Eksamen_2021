@@ -12,7 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Date;
 
-@Controller
+/*@Controller
 public class CreateController {
 
     Project project = new Project();
@@ -24,7 +24,7 @@ public class CreateController {
     }
 
     @PostMapping("/addEmployees")
-    public String addEmployees(){
+    public String addEmployees() {
         return "addEmployees";
     }
 
@@ -36,11 +36,14 @@ public class CreateController {
             @RequestParam Date deadline,
             @RequestParam String description,
             @RequestParam short numberOfEmployees
-    ){
+    ) {
+
+
         System.out.println("Det virker!");
-        Project project1 = new Project(id, projectName, deadline, description, numberOfEmployees);
+        Project project1 = new Project(id, projectName, description, numberOfEmployees);
         jdbcWriter.createNewProject(project);
         return "addEmployees";
     }
 
 }
+*/

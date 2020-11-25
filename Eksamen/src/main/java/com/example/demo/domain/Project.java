@@ -5,14 +5,12 @@ import java.util.Date;
 public class Project {
     private int id;
     private String name;
-    private Date deadline;
     private String description;
     private short numberOfEmployees;
 
-    public Project(int id, String name, Date deadline, String description, short numberOfEmployees){
+    public Project(int id, String name, String description, short numberOfEmployees){
         this.id = id;
         this.name = name;
-        this.deadline = deadline;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
     }
@@ -35,14 +33,6 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
     }
 
     public String getDescription() {
