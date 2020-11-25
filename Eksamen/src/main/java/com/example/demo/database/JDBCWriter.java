@@ -10,10 +10,11 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class JDBCWriter {
+    /*
 
-    public User logIn(String user, String pass) {
+    public static User logIn(String user, String pass) {
+        System.out.println("SÅ LANGT SÅ GODT ");
         Connection connection = DBManager.getConnection();
-        //String searchStr = "SELECT count(*) as count, user_id, email, password, name, surname, region, age, about, is_admin, image_link, gender_id FROM users WHERE email = ? and password = ?;";
         String searchLog = "select count(*) as count, id, mail, password FROM user WHERE id = ? and mail = ? and password = ?; ";
         PreparedStatement preparedStatement;
         String mail = "";
@@ -52,7 +53,7 @@ public class JDBCWriter {
 
         return u;
     }
-
+/*
     public void createNewProject(Project project){
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO projects(name, deadline, description, numberOfEmployees) VALUES(?, ?, ?, ?)";
@@ -70,4 +71,6 @@ public class JDBCWriter {
             System.out.println("Fejl i oprettelse af projekt=" + sqlerror);
         }
     }
+
+ */
 }

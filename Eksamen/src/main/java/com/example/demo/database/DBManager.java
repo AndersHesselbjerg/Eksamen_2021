@@ -16,6 +16,7 @@ public class DBManager {
 
     public static Connection getConnection(){
         if (connection != null) {
+            System.out.println("Connection true, har en forbindelse i forvejen");
             return connection;
         }
         try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
@@ -32,6 +33,7 @@ public class DBManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Connection true, og oprettet forbindelse i database");
         return connection;
     }
 }
