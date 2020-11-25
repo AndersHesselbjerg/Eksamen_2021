@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="myCSS.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <div th:fragment="header">
     <div class="header">
-        <a href="/">
-            <h2>Projektmanageren</h2>
-        </a>
-        <div class="header-right">
+            <div class="header-left">
+            <li><a class="active" href="/">Home</a></li>
+            </div>
+
+            <div class="header-right">
             <ul class="nav">
                 <li><a href="/createProject">Opret nyt projekt</a></li>
             </ul>
         </div>
+        </ul>
+
     </div>
 </div>
 </body>
