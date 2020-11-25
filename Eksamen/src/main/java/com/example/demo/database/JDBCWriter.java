@@ -1,11 +1,13 @@
 package com.example.demo.database;
 
+import com.example.demo.domain.Project;
 import com.example.demo.domain.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class JDBCWriter {
 
@@ -62,4 +64,21 @@ public class JDBCWriter {
         return u;
     }
 
+    public void createNewProject(Project project){
+        Connection connection = DBManager.getConnection();
+        String sqlstr = "INSERT INTO projects(name, deadline, description, numberOfEmployees) VALUES(?, ?, ?, ?)";
+        PreparedStatement preparedStatement;
+        try{
+            preparedStatement = connection.prepareStatement(sqlstr);
+            preparedStatement.setString(1, project.getName());
+            preparedStatement.setDate(2, (java.sql.Date) project.getDeadline());
+            preparedStatement.setString(3, project.getDescription());
+            preparedStatement.setShort(4, project.getNumberOfEmployees());
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            System.out.println(preparedStatement);
+        } catch(SQLException sqlerror){
+            System.out.println("Fejl i oprettelse af projekt=" + sqlerror);
+        }
+    }
 }
