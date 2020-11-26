@@ -27,7 +27,7 @@ public class JDBCWriter {
             preparedStatement.setString(2, u.getPassword());
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
-            System.out.println(preparedStatement);
+            System.out.println("Tillykke brugeren: " + preparedStatement + " Er oprettet");
 
         } catch (SQLException sqlerr) {
             System.out.println("Fejl i oprettels =" + sqlerr);
@@ -79,7 +79,7 @@ public class JDBCWriter {
 
     public Boolean userExist(String mail, String password) {
         Connection connection = DBManager.getConnection();
-        String searchStr = "SELECT count(*) FROM user where mail = ? and password = ? ";
+        String searchStr = "SELECT * FROM user where mail = ? and password = ? ";
         PreparedStatement preparedStatement;
         int res = -1;
         String theMail = mail;
