@@ -7,11 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/projektoplysninger?serverTimezone=UTC</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="jdbc:mysql://localhost:3306/jdbc:mysql://localhost:3306/projektoplysninger?serverTimezone=UTC" uuid="d09d6096-9795-42ff-8b27-d25582befdce">
+    <data-source source="LOCAL" name="projektoplysninger@localhost [2]" uuid="5b69cf30-4100-4898-8aef-e7b355eaac89">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/jdbc:mysql://localhost:3306/projektoplysninger?serverTimezone=UTC</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/projektoplysninger?serverTimezone=UTC</jdbc-url>
     </data-source>
   </component>
 </project>
