@@ -12,7 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Date;
 
-/*@Controller
+@Controller
 public class CreateController {
 
     Project project = new Project();
@@ -40,10 +40,9 @@ public class CreateController {
 
 
         System.out.println("Det virker!");
-        Project project1 = new Project(id, projectName, description, numberOfEmployees);
+        Project project1 = new Project(id, projectName, description, numberOfEmployees, deadline);
         jdbcWriter.createNewProject(project);
         return "addEmployees";
     }
 
 }
-*/

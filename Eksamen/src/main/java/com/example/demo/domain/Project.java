@@ -1,21 +1,24 @@
 package com.example.demo.domain;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Project {
     private int id;
     private String name;
     private String description;
     private short numberOfEmployees;
+    private LocalDate deadline;
 
-    public Project(int id, String name, String description, short numberOfEmployees){
+    public Project(int id, String name, String description, short numberOfEmployees, LocalDate deadline) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
+        this.deadline = deadline;
     }
 
-    public Project(){
+    public Project() {
 
     }
 
@@ -49,5 +52,13 @@ public class Project {
 
     public void setNumberOfEmployees(short numberOfEmployees) {
         this.numberOfEmployees = numberOfEmployees;
+    }
+
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
 }

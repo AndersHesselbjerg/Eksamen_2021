@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class JDBCWriter {
-    /*
+
 
     public static User logIn(String user, String pass) {
         System.out.println("SÅ LANGT SÅ GODT ");
@@ -53,15 +53,16 @@ public class JDBCWriter {
 
         return u;
     }
-/*
+
     public void createNewProject(Project project){
         Connection connection = DBManager.getConnection();
+        System.out.println();
         String sqlstr = "INSERT INTO projects(name, deadline, description, numberOfEmployees) VALUES(?, ?, ?, ?)";
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, project.getName());
-            //preparedStatement.setDate(2, (java.sql.Date) project.getDeadline());
+            preparedStatement.setDate(2,  project.getDeadline());
             preparedStatement.setString(3, project.getDescription());
             preparedStatement.setShort(4, project.getNumberOfEmployees());
             int row = preparedStatement.executeUpdate();
@@ -72,5 +73,5 @@ public class JDBCWriter {
         }
     }
 
- */
+
 }

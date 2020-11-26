@@ -31,4 +31,3 @@ public class myController {
         // Go to to page dependent on role
         return "userpages/";
     }
- */
