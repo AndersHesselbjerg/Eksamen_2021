@@ -16,6 +16,25 @@ import java.util.Date;
 public class JDBCWriter {
 
 
+    public void createUser(User u) {
+        Connection connection = DBManager.getConnection();
+        String sqlstr = "INSERT INTO user (mail, password ) VAlUES (?, ?);";
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connection.prepareStatement(sqlstr);
+            System.out.println(sqlstr);
+            preparedStatement.setString(1, u.getMail());
+            preparedStatement.setString(2, u.getPassword());
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            System.out.println(preparedStatement);
+
+        } catch (SQLException sqlerr) {
+            System.out.println("Fejl i oprettels =" + sqlerr);
+        }
+    }
+
+
     public User logIn(String user, String pass) {
         System.out.println("SÅ LANGT SÅ GODT ");
         Connection connection = DBManager.getConnection();

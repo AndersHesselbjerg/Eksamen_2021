@@ -18,6 +18,11 @@ public class CreateController {
     Project project = new Project();
     JDBCWriter jdbcWriter = new JDBCWriter();
 
+    @GetMapping("/createUser")
+    public String creatUser(){
+        return "createUser";
+    }
+
     @GetMapping("/createProject")
     public String createProject() {
         return "createProject";
