@@ -57,6 +57,8 @@ public class JDBCWriter {
                 String str = "" + resset.getObject(1);
                 res = Integer.parseInt(str);
                 System.out.println("fundet antal = " + res);
+            }else {
+                System.out.println("log ind succesfull logget ind som: \nMail: " + user);
             }
             if (res == 1) {
                 String id = "" + resset.getObject("id");
