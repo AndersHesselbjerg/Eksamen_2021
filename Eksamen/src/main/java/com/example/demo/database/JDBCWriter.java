@@ -112,19 +112,19 @@ public class JDBCWriter {
     }
 
 
-    /*
 
     public void createNewProject(Project project){
         Connection connection = DBManager.getConnection();
         System.out.println();
-        String sqlstr = "INSERT INTO projects(name, deadline, description, numberOfEmployees) VALUES(?, ?, ?, ?)";
+        String sqlstr = "INSERT INTO projects(name, deadlinedate, deadlinetime, description, numberOfEmployees) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, project.getName());
-            preparedStatement.setDate(2,  project.getDeadline());
-            preparedStatement.setString(3, project.getDescription());
-            preparedStatement.setShort(4, project.getNumberOfEmployees());
+            preparedStatement.setDate(2,  project.getDeadlineDate());
+            preparedStatement.setTime(3, project.getDeadlineTime());
+            preparedStatement.setString(4, project.getDescription());
+            preparedStatement.setShort(5, project.getNumberOfEmployees());
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
             System.out.println(preparedStatement);
@@ -132,8 +132,5 @@ public class JDBCWriter {
             System.out.println("Fejl i oprettelse af projekt=" + sqlerror);
         }
     }
-
-     */
-
 
 }

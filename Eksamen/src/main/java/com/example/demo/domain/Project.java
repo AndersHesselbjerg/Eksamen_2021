@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 
 public class Project {
@@ -8,14 +9,16 @@ public class Project {
     private String name;
     private String description;
     private short numberOfEmployees;
-    private LocalDate deadline;
+    private Date deadlineDate;
+    private Time deadlineTime;
 
-    public Project(int id, String name, String description, short numberOfEmployees, LocalDate deadline) {
+    public Project(int id, String name, String description, short numberOfEmployees, Date deadlineDate, Time deadlineTime) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
-        this.deadline = deadline;
+        this.deadlineDate = deadlineDate;
+        this.deadlineTime = deadlineTime;
     }
 
     public Project() {
@@ -54,11 +57,19 @@ public class Project {
         this.numberOfEmployees = numberOfEmployees;
     }
 
-    public LocalDate getDeadline() {
-        return deadline;
+    public Date getDeadlineDate() {
+        return deadlineDate;
     }
 
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
+    public void setDeadlineDate(Date deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
+
+    public Time getDeadlineTime() {
+        return deadlineTime;
+    }
+
+    public void setDeadlineTime(Time deadlineTime) {
+        this.deadlineTime = deadlineTime;
     }
 }
