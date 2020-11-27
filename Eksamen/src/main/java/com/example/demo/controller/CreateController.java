@@ -28,7 +28,7 @@ public class CreateController {
         return "createProject";
     }
 
-    @PostMapping("/addEmployees")
+    @GetMapping("/addEmployees")
     public String addEmployees() {
         return "addEmployees";
     }
@@ -47,7 +47,7 @@ public class CreateController {
 
         System.out.println("Det virker!");
         Project project1 = new Project(id, projectName, description, numberOfEmployees, deadline);
-        jdbcWriter.createNewProject(project);
+        jdbcWriter.createNewProject(project1);
         return "addEmployees";
     }
 

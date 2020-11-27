@@ -12,16 +12,19 @@
     <h3 id="header3">Opret nyt projekt</h3>
     <form action="/createProjectForm" method="post">
 
-        <label for="projectName">Navn</label>
-        <input type="text" id="projectName" name="projectName">
+        <label for="projectName">Navn</label><br>
+        <input type="text" id="projectName" name="projectName"><br>
 
-        <label for="deadline">Deadline</label>
-        <input type="date" id="deadline" name="deadline">
+        <label for="deadlinedate">Deadline(dato)</label><br>
+        <input type="date" id="deadlinedate" name="deadlinedate"><br>
 
-        <label for="description">Beskrivelse</label>
-        <textarea placeholder="Skriv her, hvad projektet omhandler" id="description" name="description"></textarea> <p>
+        <label for="deadlinetime">Deadline(dato)</label><br>
+        <input type="time" id="deadlinetime" name="deadlinetime"><br>
 
-        <label for="numberOfEmployees">Antal medarbejdere</label>
+        <label for="description">Beskrivelse</label><br>
+        <textarea style="height: 200px; width: 400px;" placeholder="Skriv her, hvad projektet omhandler" id="description" name="description"></textarea> <p>
+
+        <label for="numberOfEmployees">Antal medarbejdere</label><br>
         <input type="text" id="numberOfEmployees" name="numberOfEmployees">
 
         <br>
