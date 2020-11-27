@@ -6,15 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+//import java.util.Date;
+//java.sql.
+
 
 @Repository
 public class JDBCWriter {
-
 
     public void createUser(User u) {
         Connection connection = DBManager.getConnection();
@@ -81,7 +82,7 @@ public class JDBCWriter {
         Connection connection = DBManager.getConnection();
         String searchStr = "SELECT * FROM user where mail = ? and password = ? ";
         PreparedStatement preparedStatement;
-        int res = -1;
+        int res = 1;
         String theMail = mail;
         String thePassword = password;
         ResultSet resset;
@@ -111,10 +112,12 @@ public class JDBCWriter {
         return exist;
     }
 
-
-    /*
-
     public void createNewProject(Project project){
+        LocalDate temp = project.getDeadline();
+        DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        String s = format.format(temp);
+        Date date = Date.valueOf(temp);
+
         Connection connection = DBManager.getConnection();
         System.out.println();
         String sqlstr = "INSERT INTO projects(name, deadline, description, numberOfEmployees) VALUES(?, ?, ?, ?)";
@@ -122,7 +125,7 @@ public class JDBCWriter {
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, project.getName());
-            preparedStatement.setDate(2,  project.getDeadline());
+            preparedStatement.setDate(2, s.);
             preparedStatement.setString(3, project.getDescription());
             preparedStatement.setShort(4, project.getNumberOfEmployees());
             int row = preparedStatement.executeUpdate();
@@ -132,8 +135,6 @@ public class JDBCWriter {
             System.out.println("Fejl i oprettelse af projekt=" + sqlerror);
         }
     }
-
-     */
 
 
 }

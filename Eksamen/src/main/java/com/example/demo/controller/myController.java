@@ -35,6 +35,7 @@ public class myController {
             System.out.println("Der var intet match");
             return "redirect:/";
         } else {
+            jdbcWriter.logIn(mail,password);
             return "createProject";
         }
     }
@@ -49,20 +50,3 @@ public class myController {
     }
 
 }
-/*
-
-    @PostMapping("/login")
-    public String loginUser(WebRequest request) throws LoginSampleException {
-        //Retrieve values from HTML form via WebRequest
-        String email = request.getParameter("email");
-        String pwd = request.getParameter("password");
-
-        // delegate work + data to login controller
-        User user = loginController.login(email, pwd);
-        setSessionInfo(request, user);
-
-        // Go to to page dependent on role
-        return "userpages/";
-    }
-
- */
