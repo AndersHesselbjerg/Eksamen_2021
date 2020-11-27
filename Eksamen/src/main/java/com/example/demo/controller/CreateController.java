@@ -45,7 +45,7 @@ public class CreateController {
                                     @RequestParam short numberOfEmployees) {
         System.out.println("Det virker!");
         Project project1 = new Project(id, projectName, description, numberOfEmployees, deadlineDate, deadlineTime);
-        jdbcWriter.createNewProject(project1);
+        //jdbcWriter.createNewProject(project1);
         return "addEmployees";
     }
 

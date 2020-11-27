@@ -31,12 +31,12 @@ public class myController {
     public String login(@RequestParam String mail, @RequestParam String password){
         boolean user = jdbcWriter.userExist(mail,password);
 
-        if(user == false){
-            System.out.println("Der var intet match");
-            return "redirect:/";
-        } else {
+        if(user != false){
             jdbcWriter.logIn(mail,password);
             return "createProject";
+        } else {
+            System.out.println("Der var intet match");
+            return "redirect:/";
         }
     }
 
