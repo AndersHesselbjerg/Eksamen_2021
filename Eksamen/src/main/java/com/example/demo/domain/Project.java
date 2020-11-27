@@ -9,10 +9,10 @@ public class Project {
     private String name;
     private String description;
     private short numberOfEmployees;
-    private Date deadlineDate;
+    private LocalDate deadlineDate;
     private Time deadlineTime;
 
-    public Project(int id, String name, String description, short numberOfEmployees, Date deadlineDate, Time deadlineTime) {
+    public Project(int id, String name, String description, short numberOfEmployees, LocalDate deadlineDate, Time deadlineTime) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -57,11 +57,11 @@ public class Project {
         this.numberOfEmployees = numberOfEmployees;
     }
 
-    public Date getDeadlineDate() {
+    public LocalDate getDeadlineDate() {
         return deadlineDate;
     }
 
-    public void setDeadlineDate(Date deadlineDate) {
+    public void setDeadlineDate(LocalDate deadlineDate) {
         this.deadlineDate = deadlineDate;
     }
 

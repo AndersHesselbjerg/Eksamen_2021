@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
-
-import java.sql.Time;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Time;
 
 @Controller
 public class CreateController {
@@ -35,22 +34,21 @@ public class CreateController {
         return "addEmployees";
     }
 
+
     @PostMapping("/createProjectForm")
-    public String createProjectForm(
-            @ModelAttribute Project project,
-            @RequestParam int id,
-            @RequestParam String projectName,
-            @RequestParam Date deadlineDate,
-            @RequestParam Time deadlineTime,
-            @RequestParam String description,
-            @RequestParam short numberOfEmployees
-    ) {
-
-
+    public String createProjectForm(@ModelAttribute Project project,
+                                    @RequestParam int id,
+                                    @RequestParam String projectName,
+                                    @RequestParam LocalDate deadlineDate,
+                                    @RequestParam Time deadlineTime,
+                                    @RequestParam String description,
+                                    @RequestParam short numberOfEmployees) {
         System.out.println("Det virker!");
-        Project project1 = new Project(id, projectName, description, numberOfEmployees, (java.sql.Date) deadlineDate, deadlineTime);
+        Project project1 = new Project(id, projectName, description, numberOfEmployees, deadlineDate, deadlineTime);
         jdbcWriter.createNewProject(project1);
         return "addEmployees";
     }
+
+
 
 }
