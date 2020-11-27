@@ -36,17 +36,17 @@ public class CreateController {
 
 
     @PostMapping("/createProjectForm")
-    public String createProjectForm(@ModelAttribute Project project,
-                                    @RequestParam int id,
-                                    @RequestParam String projectName,
-                                    @RequestParam LocalDate deadlineDate,
-                                    @RequestParam Time deadlineTime,
-                                    @RequestParam String description,
-                                    @RequestParam int numberOfEmployees) {
+    public String createProjectForm(
+            @ModelAttribute Project project,
+            @RequestParam int id,
+            @RequestParam String projectName,
+            @RequestParam String description,
+            @RequestParam LocalDate deadlineDate,
+            @RequestParam Time deadlineTime) {
         System.out.println("Det virker!");
-        Project project1 = new Project(id, projectName, description, numberOfEmployees, deadlineDate, deadlineTime);
-        //jdbcWriter.createNewProject(project1);
-        return "addEmployees";
+        Project project1 = new Project(id, projectName, description, deadlineDate, deadlineTime);
+        jdbcWriter.createNewProject(project1);
+        return "index";
     }
 
 

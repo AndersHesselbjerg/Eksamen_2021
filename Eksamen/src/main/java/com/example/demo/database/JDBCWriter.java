@@ -117,9 +117,9 @@ public class JDBCWriter {
         String s = format.format(temp);
         Date date = Date.valueOf(temp);*/
 
+        System.out.println("Så langt så godt");
         Connection connection = DBManager.getConnection();
-        System.out.println();
-        String sqlstr = "INSERT INTO projects(name, deadlineDate, deadlineTime, description, numberOfEmployees) VALUES(?, ?, ?, ?, ?)";
+        String sqlstr = "INSERT INTO projects(name, deadlineDate, DeadlineTime, description) VALUES(?, ?, ?, ?)";
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
@@ -127,10 +127,10 @@ public class JDBCWriter {
             preparedStatement.setObject(2,  project.getDeadlineDate());
             preparedStatement.setTime(3, project.getDeadlineTime());
             preparedStatement.setString(4, project.getDescription());
-            preparedStatement.setInt(5, project.getNumberOfEmployees());
             //preparedStatement.setDate(2, s.);
-            int row = preparedStatement.executeUpdate();
-            System.out.println(row);
+            //int row = preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement(sqlstr);
+            preparedStatement.executeUpdate(sqlstr);
             System.out.println(preparedStatement);
         } catch(SQLException sqlerror){
             System.out.println("Fejl i oprettelse af projekt=" + sqlerror);

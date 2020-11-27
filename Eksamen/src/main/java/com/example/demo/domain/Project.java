@@ -20,6 +20,13 @@ public class Project {
         this.deadlineDate = deadlineDate;
         this.deadlineTime = deadlineTime;
     }
+    public Project(int id, String name, String description, LocalDate deadlineDate, Time deadlineTime) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.deadlineDate = deadlineDate;
+        this.deadlineTime = deadlineTime;
+    }
 
     public Project() {
 
