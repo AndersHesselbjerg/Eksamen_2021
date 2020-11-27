@@ -127,7 +127,7 @@ public class JDBCWriter {
             preparedStatement.setObject(2,  project.getDeadlineDate());
             preparedStatement.setTime(3, project.getDeadlineTime());
             preparedStatement.setString(4, project.getDescription());
-            preparedStatement.setShort(5, project.getNumberOfEmployees());
+            preparedStatement.setInt(5, project.getNumberOfEmployees());
             //preparedStatement.setDate(2, s.);
             int row = preparedStatement.executeUpdate();
             System.out.println(row);

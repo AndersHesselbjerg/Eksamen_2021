@@ -42,7 +42,7 @@ public class CreateController {
                                     @RequestParam LocalDate deadlineDate,
                                     @RequestParam Time deadlineTime,
                                     @RequestParam String description,
-                                    @RequestParam short numberOfEmployees) {
+                                    @RequestParam int numberOfEmployees) {
         System.out.println("Det virker!");
         Project project1 = new Project(id, projectName, description, numberOfEmployees, deadlineDate, deadlineTime);
         jdbcWriter.createNewProject(project1);

@@ -8,11 +8,11 @@ public class Project {
     private int id;
     private String name;
     private String description;
-    private short numberOfEmployees;
+    private int numberOfEmployees;
     private LocalDate deadlineDate;
     private Time deadlineTime;
 
-    public Project(int id, String name, String description, short numberOfEmployees, LocalDate deadlineDate, Time deadlineTime) {
+    public Project(int id, String name, String description, int numberOfEmployees, LocalDate deadlineDate, Time deadlineTime) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -49,7 +49,7 @@ public class Project {
         this.description = description;
     }
 
-    public short getNumberOfEmployees() {
+    public int getNumberOfEmployees() {
         return numberOfEmployees;
     }
 
