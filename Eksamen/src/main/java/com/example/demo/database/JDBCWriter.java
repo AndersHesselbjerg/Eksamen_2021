@@ -129,7 +129,6 @@ public class JDBCWriter {
             preparedStatement.setString(4, project.getDescription());
             //preparedStatement.setDate(2, s.);
             //int row = preparedStatement.executeUpdate();
-            preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.executeUpdate(sqlstr);
             System.out.println(preparedStatement);
         } catch(SQLException sqlerror){
