@@ -35,45 +35,39 @@ public class JDBCWriter {
     }
 
 
-    public User logIn(String user, String pass) {
+    public User logIn(String mail, String password) {
         System.out.println("SÅ LANGT SÅ GODT ");
         Connection connection = DBManager.getConnection();
         String searchLog = "select mail, password FROM user WHERE mail = ? and password = ?; ";
         PreparedStatement preparedStatement;
-        String mail = "";
-        String password = "";
+        //String themail = "";
+        //String password = "";
         User u = new User(mail, password);
-        int res = -1;
-        ResultSet resset;
+
+        ResultSet resultSet;
         try {
             System.out.println("Prøver at logge ind");
             preparedStatement = connection.prepareStatement(searchLog);
-            preparedStatement.setString(1, user);
-            preparedStatement.setString(2, pass);
+            preparedStatement.setString(1, mail);
+            preparedStatement.setString(2, password);
             System.out.println(searchLog);
             System.out.println(preparedStatement);
-            resset = preparedStatement.executeQuery();
-            if (resset.next()) {
-                String str = "" + resset.getObject(1);
-                res = Integer.parseInt(str);
-                System.out.println("fundet antal = " + res);
+            resultSet = preparedStatement.executeQuery();
+
+            int usersFoundinDB = 0;
+            while (resultSet.next()) {
+                 ++usersFoundinDB;
+                // henter data fra databasen og bruger den!!
+            }
+
+            if (usersFoundinDB == 1) {
+                System.out.println("Log ind succesfuldt. Logget ind som: \nMail: " + mail);
             }else {
-                System.out.println("log ind succesfull logget ind som: \nMail: " + user);
+                System.out.println("Fundet brugere i database = " + usersFoundinDB);
             }
-            if (res == 1) {
-                String id = "" + resset.getObject("id");
-                String username = "" + resset.getObject("email");
-                String userPassword = "" + resset.getObject("password");
 
-
-                int idN = Integer.parseInt(id);
-
-                System.out.println("vores id er = " + idN + " og som string " + id);
-
-
-            }
         } catch (SQLException sqlerr) {
-            System.out.println("fejl i søgning = " + sqlerr.getMessage());
+            System.out.println("Fejl i søgning = " + sqlerr.getMessage());
         }
 
         return u;
@@ -83,7 +77,7 @@ public class JDBCWriter {
         Connection connection = DBManager.getConnection();
         String searchStr = "SELECT * FROM user where mail = ? and password = ? ";
         PreparedStatement preparedStatement;
-        int res = 1;
+        int res = -1;
         String theMail = mail;
         String thePassword = password;
         ResultSet resset;
@@ -98,12 +92,12 @@ public class JDBCWriter {
             if (resset.next()) {
                 String str = "" + resset.getObject(1);
                 res = Integer.parseInt(str);
-                System.out.println("fundet antal = " + res);
+                System.out.println("fundet id: = " + res);
             }
             if (res == 1) {
                 exist = true;
+                System.out.println("Id " + res + "Eksistere ");
             } else {
-                System.out.println("fejl. antal fundne profiler: " + res);
             }
 
         } catch (SQLException sqlerr) {

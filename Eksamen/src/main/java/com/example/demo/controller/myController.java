@@ -29,14 +29,14 @@ public class myController {
 
     @PostMapping("/login")//Her
     public String login(@RequestParam String mail, @RequestParam String password){
-        boolean user = jdbcWriter.userExist(mail,password);
+        User user = jdbcWriter.logIn(mail,password);
 
-        if(user != false){
-            jdbcWriter.logIn(mail,password);
-            return "createProject";
-        } else {
+        if(user == null){
             System.out.println("Der var intet match");
             return "redirect:/";
+        } else {
+            System.out.println("User " + user + " er logget ind: ");
+            return "createProject";
         }
     }
 
