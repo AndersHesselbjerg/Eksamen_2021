@@ -4,14 +4,11 @@ import com.example.demo.database.DBManager;
 import com.example.demo.database.JDBCWriter;
 import com.example.demo.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.ArrayList;
 
@@ -30,7 +27,6 @@ public class myController {
     @PostMapping("/login")//Her
     public String login(@RequestParam String mail, @RequestParam String password){
         User user = jdbcWriter.logIn(mail,password);
-
         if(user == null){
             System.out.println("Der var intet match");
             return "redirect:/";

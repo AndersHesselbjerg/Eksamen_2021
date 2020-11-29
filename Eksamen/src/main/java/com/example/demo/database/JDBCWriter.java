@@ -20,6 +20,7 @@ public class JDBCWriter {
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO user (mail, password ) VAlUES (?, ?);";
         PreparedStatement preparedStatement;
+        User user = null;
         try {
             preparedStatement = connection.prepareStatement(sqlstr);
             System.out.println(sqlstr);
@@ -29,51 +30,40 @@ public class JDBCWriter {
             System.out.println(row);
             System.out.println("Tillykke brugeren: " + preparedStatement + " Er oprettet");
 
+
         } catch (SQLException sqlerr) {
             System.out.println("Fejl i oprettels =" + sqlerr);
         }
     }
 
-
     public User logIn(String mail, String password) {
-        System.out.println("SÅ LANGT SÅ GODT ");
         Connection connection = DBManager.getConnection();
-        String searchLog = "select mail, password FROM user WHERE mail = ? and password = ?; ";
+        String searchLog = "select * FROM user WHERE mail = ? and password = ?; ";
         PreparedStatement preparedStatement;
-        //String themail = "";
-        //String password = "";
-        User u = new User(mail, password);
-
         ResultSet resultSet;
+        User user = null;
         try {
-            System.out.println("Prøver at logge ind");
             preparedStatement = connection.prepareStatement(searchLog);
             preparedStatement.setString(1, mail);
             preparedStatement.setString(2, password);
-            System.out.println(searchLog);
-            System.out.println(preparedStatement);
             resultSet = preparedStatement.executeQuery();
 
-            int usersFoundinDB = 0;
-            while (resultSet.next()) {
-                 ++usersFoundinDB;
-                // henter data fra databasen og bruger den!!
+            if (resultSet.next() == false) {
+                return user;
             }
 
-            if (usersFoundinDB == 1) {
-                System.out.println("Log ind succesfuldt. Logget ind som: \nMail: " + mail);
-            }else {
-                System.out.println("Fundet brugere i database = " + usersFoundinDB);
-            }
+            user = new User(resultSet.getInt("id"),resultSet.getString("mail"), resultSet.getString("password"));
+
 
         } catch (SQLException sqlerr) {
             System.out.println("Fejl i søgning = " + sqlerr.getMessage());
         }
 
-        return u;
+        return user;
     }
 
     public Boolean userExist(String mail, String password) {
+
         Connection connection = DBManager.getConnection();
         String searchStr = "SELECT * FROM user where mail = ? and password = ? ";
         PreparedStatement preparedStatement;

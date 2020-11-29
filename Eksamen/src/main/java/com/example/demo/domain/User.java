@@ -6,6 +6,12 @@ public class User {
     public String mail;
     public String password;
 
+    public User(int id, String mail, String password) {
+        this.id = id;
+        this.mail = mail;
+        this.password = password;
+    }
+
     public User(String mail, String password) {
         this.mail = mail;
         this.password = password;
@@ -28,6 +34,7 @@ public class User {
     }
 
     public int getId() {
+
         return id;
     }
 
