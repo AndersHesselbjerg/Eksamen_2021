@@ -2,6 +2,7 @@ package com.example.demo.database;
 
 import com.example.demo.domain.Project;
 import com.example.demo.domain.User;
+import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.stereotype.Repository;
@@ -17,9 +18,9 @@ import java.util.List;
 @Repository
 public class JDBCWriter {
 
-    public void createUser(User u) {
+    public User createUser(User u) {
         Connection connection = DBManager.getConnection();
-        String sqlstr = "INSERT INTO user (mail, password ) VAlUES (?, ?);";
+        String sqlstr = "INSERT INTO user (mail, password ) VALUES (?, ?);";
         PreparedStatement preparedStatement;
         User user = null;
         try {
@@ -30,11 +31,11 @@ public class JDBCWriter {
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
             System.out.println("Tillykke brugeren: " + preparedStatement + " Er oprettet");
-
-
         } catch (SQLException sqlerr) {
             System.out.println("Fejl i oprettels =" + sqlerr);
         }
+
+        return user;
     }
 
     public User logIn(String mail, String password) {
@@ -48,11 +49,9 @@ public class JDBCWriter {
             preparedStatement.setString(1, mail);
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
-
             if (resultSet.next() == false) {
                 return user;
             }
-
             user = new User(resultSet.getInt("id"),resultSet.getString("mail"), resultSet.getString("password"));
 
 
@@ -63,8 +62,31 @@ public class JDBCWriter {
         return user;
     }
 
-    public Boolean userExist(String mail, String password) {
 
+    public Boolean userExist(String mail) {
+        Connection connection = DBManager.getConnection();
+        String searchString = "select * FROM user WHERE mail = ?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        try {
+            preparedStatement = connection.prepareStatement(searchString);
+            preparedStatement.setString(1, mail);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next() == false) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Dette login passer ikke: " + e.getMessage());
+            return false;
+        }
+
+    }
+
+        public Boolean loginCredentialsCorrect(String mail, String password) {
         Connection connection = DBManager.getConnection();
         String searchStr = "SELECT * FROM user where mail = ? and password = ? ";
         PreparedStatement preparedStatement;

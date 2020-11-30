@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Controller
@@ -24,6 +25,24 @@ public class myController {
         return "index";
     }
 
+    @PostMapping("/createUser")
+    public String createUser(@RequestParam String mail, @RequestParam String password, Model model){
+        Boolean userCheck = jdbcWriter.userExist(mail);
+            if (userCheck == false){
+            ArrayList<User> userList = new ArrayList<>();
+            model.addAttribute("user", userList);
+            User u = new User(mail, password);
+            jdbcWriter.createUser(u);
+            return "index";
+
+        } else if (mail.isEmpty() || password.isEmpty()){
+                return "createUser";
+        } else {
+            System.out.println("Denne mail eksisterer allerede");
+            return "createUser";
+        }
+    }
+
     @PostMapping("/login")//Her
     public String login(@RequestParam String mail, @RequestParam String password){
         User user = jdbcWriter.logIn(mail,password);
@@ -35,14 +54,4 @@ public class myController {
             return "createProject";
         }
     }
-
-    @PostMapping("/createUser")
-    public String createUser(@RequestParam String mail, @RequestParam String password, Model model){
-        ArrayList<User> userList = new ArrayList<>();
-        model.addAttribute("user", userList);
-        User u = new User(mail, password);
-        jdbcWriter.createUser(u);
-        return "index";
-    }
-
 }

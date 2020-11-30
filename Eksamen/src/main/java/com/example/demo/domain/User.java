@@ -17,6 +17,10 @@ public class User {
         this.password = password;
     }
 
+    public User(String mail){
+        this.mail = mail;
+    }
+
     public String getMail() {
         return mail;
     }
