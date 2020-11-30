@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Repository
@@ -120,6 +121,31 @@ public class JDBCWriter {
         } catch(SQLException sqlerror){
             System.out.println("Fejl i oprettelse af projekt=" + sqlerror);
         }
+    }
+    public ArrayList<Project> getProjects(){
+        ArrayList<Project> projects = new ArrayList<>();
+        try {
+            Connection connection = DBManager.getConnection();
+            String sqlproject = "SELECT * FROM projects";
+            PreparedStatement prepareStatement;
+            prepareStatement = connection.prepareStatement(sqlproject);
+            ResultSet resultSet = prepareStatement.executeQuery();
+
+            while(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String projectName = resultSet.getString("projectName");
+                String description = resultSet.getString("description");
+                int numberOfEmployees = resultSet.getInt("numberOfEmployees");
+                //Date deadlineDate = resultSet.getDate("deadlineDate");
+                //Time deadlineTime = resultSet.getTime("deadlineTime");
+
+                Project project = new Project(id, projectName, description, numberOfEmployees);
+                projects.add(project);
+            }
+        } catch(SQLException exception){
+            System.out.println("Fejl i nedhentning af projekter");
+        }
+        return projects;
     }
 
 }

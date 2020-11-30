@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="myCSS.css">
+    <meta charset="UTF-8">
+    <title>Delprojekter</title>
+</head>
+<th:block th:include="/includes/indexHeader :: header"></th:block>
+<body>
+
+<h2> Dette er en beige farve </h2>
+<div class="container">
+    <h3 id="header3">DELPROJEKTER</h3>
+    <form th:action="/" method="POST">
+
+        <label></label>
+        <input type="text" th:name="mail" placeholder="Indtast E-mail">
+
+        <label> Kodeord</label>
+        <input type="password" th:name="password" placeholder="Indtast kodeord">
+        <button class="knap" type="submit" name="action" value="1">Log ind</button>
+    </form>
+</div>
+
+</body>
+<th:block th:include="/includes/footer :: footer"></th:block>
+</html>

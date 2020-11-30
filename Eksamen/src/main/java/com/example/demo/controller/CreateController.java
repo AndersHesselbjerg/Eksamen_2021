@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.sql.Time;
 
 @Controller
@@ -41,7 +40,7 @@ public class CreateController {
             @RequestParam int id,
             @RequestParam String projectName,
             @RequestParam String description,
-            @RequestParam LocalDate deadlineDate,
+            @RequestParam Date deadlineDate,
             @RequestParam Time deadlineTime) {
         System.out.println("Det virker!");
         Project project1 = new Project(id, projectName, description, deadlineDate, deadlineTime);
