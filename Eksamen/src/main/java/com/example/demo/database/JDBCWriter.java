@@ -123,7 +123,7 @@ public class JDBCWriter {
         }
     }
     public ArrayList<Project> getProjects(){
-        ArrayList<Project> projects = new ArrayList<>();
+        ArrayList<Project> projectList = new ArrayList<>();
         try {
             Connection connection = DBManager.getConnection();
             String sqlproject = "SELECT * FROM projects";
@@ -140,12 +140,12 @@ public class JDBCWriter {
                 //Time deadlineTime = resultSet.getTime("deadlineTime");
 
                 Project project = new Project(id, projectName, description, numberOfEmployees);
-                projects.add(project);
+                projectList.add(project);
             }
         } catch(SQLException exception){
             System.out.println("Fejl i nedhentning af projekter");
         }
-        return projects;
+        return projectList;
     }
 
 }

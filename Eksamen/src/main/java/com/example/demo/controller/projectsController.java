@@ -23,12 +23,10 @@ public class projectsController {
         return "subProjects";
     }
 
-    @RequestMapping("/projects")
+    @GetMapping("/projects")
     public String projects(Model model){
         ArrayList<Project> projectList = jdbcWriter.getProjects();
         model.addAttribute("project", projectList);
         return "projects";
     }
-
-    //@RequestMapping(value="/projects", method=RequestMethod.GET)
 }
