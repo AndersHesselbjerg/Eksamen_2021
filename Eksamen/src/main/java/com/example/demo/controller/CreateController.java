@@ -3,12 +3,11 @@ package com.example.demo.controller;
 import com.example.demo.database.JDBCWriter;
 import com.example.demo.domain.Project;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
+
 import java.sql.Date;
 import java.sql.Time;
 
@@ -31,6 +30,11 @@ public class CreateController {
     @GetMapping("/addEmployees")
     public String addEmployees() {
         return "addEmployees";
+    }
+
+    @GetMapping("/userProfile")
+    public String userProfile() {
+        return "userProfile";
     }
 
 
