@@ -11,7 +11,15 @@
 <h2> Dette er en beige farve </h2>
 <div class="container">
     <h3 id="header3">PROJEKTER</h3>
-
+    <tbody>
+    <tr th:each="proj:${project}">
+        <td th:text="${proj.name}" />
+        <td th:text="${proj.description}" />
+        <td th:text="${proj.numberOfEmployees}" />
+        <td th:text="${proj.deadlineDate}" />
+        <td th:text="${proj.deadlineTime}" />
+    </tr>
+    </tbody>
 </div>
 
 </body>
