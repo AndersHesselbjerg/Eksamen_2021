@@ -4,12 +4,17 @@ import com.example.demo.domain.Project;
 import com.example.demo.domain.User;
 import org.springframework.stereotype.Repository;
 
+import java.net.PortUnreachableException;
 import java.sql.*;
 import java.util.ArrayList;
 
 
 @Repository
 public class JDBCWriter {
+
+    public JDBCWriter(){
+
+    }
 
     public User createUser(User u) {
         Connection connection = DBManager.getConnection();
@@ -117,15 +122,15 @@ public class JDBCWriter {
     
     public Project createProject(Project project){
         Connection connection = DBManager.getConnection();
-        String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees) VALUES(?, ?, ?)";
+        String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees, deadline) VALUES(?, ?, ?, ?)";
         System.out.println("Så langt så godt");
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, project.getName());
             preparedStatement.setString(2, project.getDescription());
-            //preparedStatement.setObject(2,  project.getDeadlineDate());
             preparedStatement.setInt(3, project.getNumberOfEmployees());
+            preparedStatement.setObject(4,  project.getDeadline());
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
             System.out.println("Tillykke projekt: " + preparedStatement + ". Blev oprettet");
@@ -136,7 +141,6 @@ public class JDBCWriter {
     }
 
 
-    /*
     public ArrayList<Project> getProjects(){
         ArrayList<Project> projectList = new ArrayList<>();
         try {
@@ -151,10 +155,10 @@ public class JDBCWriter {
                 String projectName = resultSet.getString("projectName");
                 String description = resultSet.getString("description");
                 int numberOfEmployees = resultSet.getInt("numberOfEmployees");
-                //Date deadlineDate = resultSet.getDate("deadlineDate");
+                Date deadline = resultSet.getDate("deadlineDate");
                 //Time deadlineTime = resultSet.getTime("currentTime");
 
-                Project project = new Project(id, projectName, description, numberOfEmployees);
+                Project project = new Project(id, projectName, description, numberOfEmployees, deadline);
                 projectList.add(project);
             }
         } catch(SQLException exception){
@@ -162,7 +166,5 @@ public class JDBCWriter {
         }
         return projectList;
     }
-
- */
 
 }

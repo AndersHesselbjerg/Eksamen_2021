@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">--->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
@@ -16,6 +17,16 @@
 
 <!-- overview - current projects-->
 
+<th:block th:each="p : ${projects}">
+    <tr>
+        <td th:text="${p.name}">...</td>
+        <td th:text="${p.description}">...</td>
+        <td th:text="${p.numberOfEmployees}">...</td>
+
+    </tr>
+</th:block>
+
+
 <div class="right-panel">
 
 
@@ -24,18 +35,7 @@
 
 
         <div class="project-list">
-            <div class="project-list-item">
-                Project 1
-            </div>
-            <div class="project-list-item">
-                Project 2
-            </div>
-            <div class="project-list-item">
-                Project 3
-            </div>
-            <div class="project-list-item">
-                Project 4
-            </div>
+
 
             <div class="project-list-item">
                 Project 1
@@ -63,6 +63,18 @@
                 Project 4
             </div>
 
+            <div class="project-list-item">
+                Project 1
+            </div>
+            <div class="project-list-item">
+                Project 2
+            </div>
+            <div class="project-list-item">
+                Project 3
+            </div>
+            <div class="project-list-item">
+                Project 4
+            </div>
 
         </div>
 

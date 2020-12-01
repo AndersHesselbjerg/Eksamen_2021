@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class projectsController {
 
     JDBCWriter jdbcWriter = new JDBCWriter();
-/*
+
     @GetMapping("/subProjects")
     public String subProjects(){
         return "subProjects";
@@ -30,5 +30,5 @@ public class projectsController {
         model.addAttribute("project", projectList);
         return "projects";
     }
-     */
+     
 }

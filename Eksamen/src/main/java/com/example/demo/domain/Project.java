@@ -1,28 +1,31 @@
 package com.example.demo.domain;
 
-import javax.swing.plaf.PanelUI;
+import java.sql.Date;
 
 public class Project {
     public int id;
     public String name;
     public String description;
     public int numberOfEmployees;
+    public Date deadline;
 
-    public Project(){
+    public Project(){ // Grunden til at vi laver en tom konstructor, så Spring laver instanser som der skal bruges i systemet
 
     }
 
-    public Project(int id, String name, String description, int numberOfEmployees) {
+    public Project(int id, String name, String description, int numberOfEmployees, Date deadline) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
+        this.deadline = deadline;
     }
 
-    public Project (String name, String description, int numberOfEmployees) {
+    public Project (String name, String description, int numberOfEmployees, Date deadline) {
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
+        this.deadline = deadline;
     }
 
     public int getId() {
@@ -57,16 +60,13 @@ public class Project {
         this.numberOfEmployees = numberOfEmployees;
     }
 
-/*
-    public Time getCurrentTime() {
-        return currentTime;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setCurrentTime(Time currentTime) {
-        this.currentTime = currentTime;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
-
- */
 
     @Override
     public String toString() {
