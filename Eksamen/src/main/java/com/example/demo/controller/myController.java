@@ -2,15 +2,20 @@ package com.example.demo.controller;
 
 import com.example.demo.database.DBManager;
 import com.example.demo.database.JDBCWriter;
+import com.example.demo.domain.Project;
 import com.example.demo.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 
 @Controller
@@ -51,7 +56,13 @@ public class myController {
             return "redirect:/";
         } else {
             System.out.println("User " + user + " er logget ind: ");
-            return "createProject";
+            return "userProfile";
         }
+    }
+
+    @PostMapping("/createProject")
+    public String createProject(Project project){
+            jdbcWriter.createProject(project);
+            return "userProfile";
     }
 }

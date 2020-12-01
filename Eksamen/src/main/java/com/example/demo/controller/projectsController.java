@@ -17,11 +17,12 @@ import java.util.ArrayList;
 public class projectsController {
 
     JDBCWriter jdbcWriter = new JDBCWriter();
-
+/*
     @GetMapping("/subProjects")
     public String subProjects(){
         return "subProjects";
     }
+
 
     @GetMapping("/projects")
     public String projects(Model model){
@@ -29,4 +30,5 @@ public class projectsController {
         model.addAttribute("project", projectList);
         return "projects";
     }
+     */
 }

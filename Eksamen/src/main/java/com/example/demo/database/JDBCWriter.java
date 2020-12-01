@@ -2,17 +2,10 @@ package com.example.demo.database;
 
 import com.example.demo.domain.Project;
 import com.example.demo.domain.User;
-import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 
 @Repository
@@ -119,31 +112,31 @@ public class JDBCWriter {
 
         return exist;
     }
-    
-    public void createNewProject(Project project){
-        /*LocalDate temp = project.getDeadlineDate();
-        DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-        String s = format.format(temp);
-        Date date = Date.valueOf(temp);*/
 
-        System.out.println("Så langt så godt");
+
+    
+    public Project createProject(Project project){
         Connection connection = DBManager.getConnection();
-        String sqlstr = "INSERT INTO projects(name, deadlineDate, DeadlineTime, description) VALUES(?, ?, ?, ?)";
+        String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees) VALUES(?, ?, ?)";
+        System.out.println("Så langt så godt");
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, project.getName());
-            preparedStatement.setObject(2,  project.getDeadlineDate());
-            preparedStatement.setTime(3, project.getDeadlineTime());
-            preparedStatement.setString(4, project.getDescription());
-            //preparedStatement.setDate(2, s.);
-            //int row = preparedStatement.executeUpdate();
-            preparedStatement.executeUpdate(sqlstr);
-            System.out.println(preparedStatement);
+            preparedStatement.setString(2, project.getDescription());
+            //preparedStatement.setObject(2,  project.getDeadlineDate());
+            preparedStatement.setInt(3, project.getNumberOfEmployees());
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            System.out.println("Tillykke projekt: " + preparedStatement + ". Blev oprettet");
         } catch(SQLException sqlerror){
             System.out.println("Fejl i oprettelse af projekt=" + sqlerror);
         }
+        return project;
     }
+
+
+    /*
     public ArrayList<Project> getProjects(){
         ArrayList<Project> projectList = new ArrayList<>();
         try {
@@ -159,7 +152,7 @@ public class JDBCWriter {
                 String description = resultSet.getString("description");
                 int numberOfEmployees = resultSet.getInt("numberOfEmployees");
                 //Date deadlineDate = resultSet.getDate("deadlineDate");
-                //Time deadlineTime = resultSet.getTime("deadlineTime");
+                //Time deadlineTime = resultSet.getTime("currentTime");
 
                 Project project = new Project(id, projectName, description, numberOfEmployees);
                 projectList.add(project);
@@ -169,5 +162,7 @@ public class JDBCWriter {
         }
         return projectList;
     }
+
+ */
 
 }

@@ -17,9 +17,6 @@ body {
 
 }
 
-
-
-
 @keyframes slide {
     0% {
         background-image: url(./images/office1.jpg);
