@@ -2,22 +2,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="myCSS.css">
+    <link rel="stylesheet" href="profile.css">
     <meta charset="UTF-8">
-    <title>Delprojekter</title>
+    <title>Projekter</title>
 </head>
-<th:block th:include="/includes/indexHeader :: header"></th:block>
+
 <body>
+<div class="slider" />
+<th:block th:include="/includes/header :: header"></th:block>
 
 <h2> Dette er en beige farve </h2>
 <div class="container">
     <h3 id="header3">PROJEKTER</h3>
     <tbody>
     <tr th:each="proj:${project}">
-        <td th:text="${proj.name}" />
-        <td th:text="${proj.description}" />
-        <td th:text="${proj.numberOfEmployees}" />
-        <td th:text="${proj.deadlineDate}" />
-        <td th:text="${proj.currentTime}" />
+        <p>Projektnavn: </p><td th:text="${proj.name}"></td><br />
+        <td th:text="${proj.description}" /><br />
+        <td th:text="${proj.numberOfEmployees}" /><br />
+        <td th:text="${proj.deadline}" /><br />
     </tr>
     </tbody>
 </div>
