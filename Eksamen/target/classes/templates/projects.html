@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="myCSS.css">
+    <meta charset="UTF-8">
+    <title>Delprojekter</title>
+</head>
+<th:block th:include="/includes/indexHeader :: header"></th:block>
+<body>
+
+<h2> Dette er en beige farve </h2>
+<div class="container">
+    <h3 id="header3">PROJEKTER</h3>
+    <tbody>
+    <tr th:each="proj:${project}">
+        <td th:text="${proj.name}" />
+        <td th:text="${proj.description}" />
+        <td th:text="${proj.numberOfEmployees}" />
+        <td th:text="${proj.deadlineDate}" />
+        <td th:text="${proj.currentTime}" />
+    </tr>
+    </tbody>
+</div>
+
+</body>
+<th:block th:include="/includes/footer :: footer"></th:block>
+</html>
