@@ -26,9 +26,9 @@ public class myController {
     JDBCWriter jdbcWriter;
 
     @GetMapping("/")//her giver du data
-    public String index(Model model, HttpSession httpSession) {
+    public String index(Model model, HttpSession session) {
         DBManager.getConnection();
-        User user = (User)httpSession.getAttribute("user"); // parantesen gør bare at den caster det som getAtribut returner om til User
+        User user = (User)session.getAttribute("user"); // parantesen gør bare at den caster det som getAtribut returner om til User
 
         if (user != null){
             model.addAttribute("user", user);
@@ -37,13 +37,19 @@ public class myController {
     }
 
     @PostMapping("/createUser")
-    public String createUser(@RequestParam String mail, @RequestParam String password, Model model){
+    public String createUser(@RequestParam String mail, @RequestParam String password, Model model, HttpSession session){
         Boolean userCheck = jdbcWriter.userExist(mail);
-            if (userCheck == false){
+        if (userCheck == false){
             ArrayList<User> userList = new ArrayList<>();
             model.addAttribute("users", userList);
-            User u = new User(mail, password);
-            jdbcWriter.createUser(u);
+            User user = new User(mail, password);
+            jdbcWriter.createUser(user);
+
+            User user2 = (User)session.getAttribute("user");
+
+            if (user2 != null){
+                model.addAttribute("user", user2);
+            }
             return "index";
 
         } else if (mail.isEmpty() || password.isEmpty()){
@@ -71,8 +77,13 @@ public class myController {
     }
 
     @PostMapping("/createProject")
-    public String createProject(Project project){
+    public String createProject(Project project, Model model, HttpSession session){
             jdbcWriter.createProject(project);
+        User user = (User)session.getAttribute("user"); // parantesen gør bare at den caster det som getAtribut returner om til User
+
+        if (user != null){
+            model.addAttribute("user", user);
+        }
             return "userProfile";
     }
 }
