@@ -152,16 +152,17 @@ public class JDBCWriter {
 
             while(resultSet.next()){
                 int id = resultSet.getInt("id");
-                String projectName = resultSet.getString("projectName");
+                String projectName = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 int numberOfEmployees = resultSet.getInt("numberOfEmployees");
-                Date deadline = resultSet.getDate("deadlineDate");
+                Date deadline = resultSet.getDate("deadline"); // Grunden til det ikke virkede før, er at
                 //Time deadlineTime = resultSet.getTime("currentTime");
 
                 Project project = new Project(id, projectName, description, numberOfEmployees, deadline);
                 projectList.add(project);
             }
         } catch(SQLException exception){
+            exception.printStackTrace();
             System.out.println("Fejl i nedhentning af projekter");
         }
         return projectList;

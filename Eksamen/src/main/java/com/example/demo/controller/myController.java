@@ -49,13 +49,15 @@ public class myController {
     }
 
     @PostMapping("/login")//Her
-    public String login(@RequestParam String mail, @RequestParam String password){
+    public String login(@RequestParam String mail, @RequestParam String password, Model model){
         User user = jdbcWriter.logIn(mail,password);
+        ArrayList<Project> projects = jdbcWriter.getProjects();
         if(user == null){
             System.out.println("Der var intet match");
             return "redirect:/";
         } else {
             System.out.println("User " + user + " er logget ind: ");
+            model.addAttribute("projects", projects);
             return "userProfile";
         }
     }

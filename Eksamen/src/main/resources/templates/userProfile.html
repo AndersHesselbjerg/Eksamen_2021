@@ -17,15 +17,6 @@
 
 <!-- overview - current projects-->
 
-<th:block th:each="p : ${projects}">
-    <tr>
-        <td th:text="${p.name}">...</td>
-        <td th:text="${p.description}">...</td>
-        <td th:text="${p.numberOfEmployees}">...</td>
-
-    </tr>
-</th:block>
-
 
 <div class="right-panel">
 
@@ -37,9 +28,17 @@
         <div class="project-list">
 
 
-            <div class="project-list-item">
-                Project 1
-            </div>
+            <th:block th:each="p : ${projects}">
+                <div class="project-list-item">
+                    Project 1
+                </div>
+                <tr>
+                    <td th:text="${p.name}">...</td>
+                    <td th:text="${p.description}">...</td>
+                    <td th:text="${p.numberOfEmployees}">...</td>
+
+                </tr>
+            </th:block>
             <div class="project-list-item">
                 Project 2
             </div>
