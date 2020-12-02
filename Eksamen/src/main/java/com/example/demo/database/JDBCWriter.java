@@ -112,6 +112,7 @@ public class JDBCWriter {
         try {
             Connection connection = DBManager.getConnection();
             String sqlproject = "SELECT * FROM projects";
+            String sqlSubproject = "SELECT * FROM subprojects WHERE mainProject = projects.name";
             PreparedStatement prepareStatement;
             prepareStatement = connection.prepareStatement(sqlproject);
             ResultSet resultSet = prepareStatement.executeQuery();
@@ -121,7 +122,7 @@ public class JDBCWriter {
                 String projectName = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 int numberOfEmployees = resultSet.getInt("numberOfEmployees");
-                Date deadline = resultSet.getDate("deadline"); // Grunden til det ikke virkede før, er at
+                Date deadline = resultSet.getDate("deadlineDate"); // Grunden til det ikke virkede før, er at
                 //Time deadlineTime = resultSet.getTime("currentTime");
 
                 Project project = new Project(id, projectName, description, numberOfEmployees, deadline);

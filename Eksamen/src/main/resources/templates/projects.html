@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="myCSS.css">
     <link rel="stylesheet" href="profile.css">
     <meta charset="UTF-8">
-    <title>Delprojekter</title>
+    <title>Projekter</title>
 </head>
 
 <body>
@@ -16,11 +16,10 @@
     <h3 id="header3">PROJEKTER</h3>
     <tbody>
     <tr th:each="proj:${project}">
-        <td th:text="${proj.name}" />
-        <td th:text="${proj.description}" />
-        <td th:text="${proj.numberOfEmployees}" />
-        <td th:text="${proj.deadlineDate}" />
-        <td th:text="${proj.currentTime}" />
+        <p>Projektnavn: <td th:text="${proj.name}"></td><br /><p />
+        <td th:text="${proj.description}" /><br />
+        <td th:text="${proj.numberOfEmployees}" /><br />
+        <td th:text="${proj.deadline}" /><br />
     </tr>
     </tbody>
 </div>
