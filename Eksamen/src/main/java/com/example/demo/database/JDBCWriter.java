@@ -2,24 +2,23 @@ package com.example.demo.database;
 
 import com.example.demo.domain.Project;
 import com.example.demo.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.stereotype.Repository;
 
+import java.net.PortUnreachableException;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 
 @Repository
 public class JDBCWriter {
 
-    public void createUser(User u) {
+    public JDBCWriter(){
+
+    }
+
+    public User createUser(User u) {
         Connection connection = DBManager.getConnection();
-        String sqlstr = "INSERT INTO user (mail, password ) VAlUES (?, ?);";
+        String sqlstr = "INSERT INTO user (mail, password ) VALUES (?, ?);";
         PreparedStatement preparedStatement;
         User user = null;
         try {
@@ -30,11 +29,11 @@ public class JDBCWriter {
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
             System.out.println("Tillykke brugeren: " + preparedStatement + " Er oprettet");
-
-
         } catch (SQLException sqlerr) {
             System.out.println("Fejl i oprettels =" + sqlerr);
         }
+
+        return user;
     }
 
     public User logIn(String mail, String password) {
@@ -48,11 +47,9 @@ public class JDBCWriter {
             preparedStatement.setString(1, mail);
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
-
             if (resultSet.next() == false) {
                 return user;
             }
-
             user = new User(resultSet.getInt("id"),resultSet.getString("mail"), resultSet.getString("password"));
 
 
@@ -63,8 +60,31 @@ public class JDBCWriter {
         return user;
     }
 
-    public Boolean userExist(String mail, String password) {
 
+    public Boolean userExist(String mail) {
+        Connection connection = DBManager.getConnection();
+        String searchString = "select * FROM user WHERE mail = ?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        try {
+            preparedStatement = connection.prepareStatement(searchString);
+            preparedStatement.setString(1, mail);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next() == false) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Dette login passer ikke: " + e.getMessage());
+            return false;
+        }
+
+    }
+
+        public Boolean loginCredentialsCorrect(String mail, String password) {
         Connection connection = DBManager.getConnection();
         String searchStr = "SELECT * FROM user where mail = ? and password = ? ";
         PreparedStatement preparedStatement;
@@ -97,31 +117,30 @@ public class JDBCWriter {
 
         return exist;
     }
-    
-    public void createNewProject(Project project){
-        /*LocalDate temp = project.getDeadlineDate();
-        DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-        String s = format.format(temp);
-        Date date = Date.valueOf(temp);*/
 
-        System.out.println("Så langt så godt");
+
+    
+    public Project createProject(Project project){
         Connection connection = DBManager.getConnection();
-        String sqlstr = "INSERT INTO projects(name, deadlineDate, DeadlineTime, description) VALUES(?, ?, ?, ?)";
+        String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees, deadline) VALUES(?, ?, ?, ?)";
+        System.out.println("Så langt så godt");
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, project.getName());
-            preparedStatement.setObject(2,  project.getDeadlineDate());
-            preparedStatement.setTime(3, project.getDeadlineTime());
-            preparedStatement.setString(4, project.getDescription());
-            //preparedStatement.setDate(2, s.);
-            //int row = preparedStatement.executeUpdate();
-            preparedStatement.executeUpdate(sqlstr);
-            System.out.println(preparedStatement);
+            preparedStatement.setString(2, project.getDescription());
+            preparedStatement.setInt(3, project.getNumberOfEmployees());
+            preparedStatement.setObject(4,  project.getDeadline());
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            System.out.println("Tillykke projekt: " + preparedStatement + ". Blev oprettet");
         } catch(SQLException sqlerror){
             System.out.println("Fejl i oprettelse af projekt=" + sqlerror);
         }
+        return project;
     }
+
+
     public ArrayList<Project> getProjects(){
         ArrayList<Project> projectList = new ArrayList<>();
         try {
@@ -133,16 +152,17 @@ public class JDBCWriter {
 
             while(resultSet.next()){
                 int id = resultSet.getInt("id");
-                String projectName = resultSet.getString("projectName");
+                String projectName = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 int numberOfEmployees = resultSet.getInt("numberOfEmployees");
-                //Date deadlineDate = resultSet.getDate("deadlineDate");
-                //Time deadlineTime = resultSet.getTime("deadlineTime");
+                Date deadline = resultSet.getDate("deadline"); // Grunden til det ikke virkede før, er at
+                //Time deadlineTime = resultSet.getTime("currentTime");
 
-                Project project = new Project(id, projectName, description, numberOfEmployees);
+                Project project = new Project(id, projectName, description, numberOfEmployees, deadline);
                 projectList.add(project);
             }
         } catch(SQLException exception){
+            exception.printStackTrace();
             System.out.println("Fejl i nedhentning af projekter");
         }
         return projectList;

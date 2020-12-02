@@ -2,11 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="myCSS.css">
+    <link rel="stylesheet" href="profile.css">
     <meta charset="UTF-8">
     <title>Delprojekter</title>
 </head>
-<th:block th:include="/includes/indexHeader :: header"></th:block>
+
 <body>
+<div class="slider" />
+<th:block th:include="/includes/header :: header"></th:block>
 
 <h2> Dette er en beige farve </h2>
 <div class="container">
@@ -17,7 +20,7 @@
         <td th:text="${proj.description}" />
         <td th:text="${proj.numberOfEmployees}" />
         <td th:text="${proj.deadlineDate}" />
-        <td th:text="${proj.deadlineTime}" />
+        <td th:text="${proj.currentTime}" />
     </tr>
     </tbody>
 </div>

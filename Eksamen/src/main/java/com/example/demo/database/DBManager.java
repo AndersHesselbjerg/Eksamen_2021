@@ -33,7 +33,7 @@ public class DBManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Connection true, og oprettet forbindelse i database");
+        System.out.println("Got con");
         return connection;
     }
 }

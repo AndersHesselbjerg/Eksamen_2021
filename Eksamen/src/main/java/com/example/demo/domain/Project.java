@@ -1,40 +1,31 @@
 package com.example.demo.domain;
 
 import java.sql.Date;
-import java.sql.Time;
 
 public class Project {
-    private int id;
-    private String name;
-    private String description;
-    private int numberOfEmployees;
-    private Date deadlineDate;
-    private Time deadlineTime;
+    public int id;
+    public String name;
+    public String description;
+    public int numberOfEmployees;
+    public Date deadline;
 
-    public Project(int id, String name, String description, int numberOfEmployees, Date deadlineDate, Time deadlineTime) {
+    public Project(){ // Grunden til at vi laver en tom konstructor, så Spring laver instanser som der skal bruges i systemet
+
+    }
+
+    public Project(int id, String name, String description, int numberOfEmployees, Date deadline) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
-        this.deadlineDate = deadlineDate;
-        this.deadlineTime = deadlineTime;
+        this.deadline = deadline;
     }
-    public Project(int id, String name, String description, int numberOfEmployees) {
-        this.id = id;
+
+    public Project (String name, String description, int numberOfEmployees, Date deadline) {
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
-    }
-    public Project(int id, String name, String description, Date deadlineDate, Time deadlineTime) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.deadlineDate = deadlineDate;
-        this.deadlineTime = deadlineTime;
-    }
-
-    public Project() {
-
+        this.deadline = deadline;
     }
 
     public int getId() {
@@ -65,23 +56,24 @@ public class Project {
         return numberOfEmployees;
     }
 
-    public void setNumberOfEmployees(short numberOfEmployees) {
+    public void setNumberOfEmployees(int numberOfEmployees) {
         this.numberOfEmployees = numberOfEmployees;
     }
 
-    public Date getDeadlineDate() {
-        return deadlineDate;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setDeadlineDate(Date deadlineDate) {
-        this.deadlineDate = deadlineDate;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
-    public Time getDeadlineTime() {
-        return deadlineTime;
-    }
-
-    public void setDeadlineTime(Time deadlineTime) {
-        this.deadlineTime = deadlineTime;
+    @Override
+    public String toString() {
+        return "Project{" +
+                ",name=' " + name + '\'' +
+                ", description=' " + description + '\'' +
+                ", numberOfEmployees= " + numberOfEmployees +
+                '}';
     }
 }

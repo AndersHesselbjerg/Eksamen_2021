@@ -10,26 +10,22 @@
 <body>
 <div class="container">
     <h3 id="header3">Opret nyt projekt</h3>
-    <form action="/createProjectForm" method="post">
+    <form action="#" th:action="@{/createProject}" th:object="${project}" method="post">
 
         <label for="projectName">Navn</label><br>
-        <input type="text" id="projectName" name="projectName"><br>
+        <input type="text" id="projectName" th:field="*{name}"><br>
 
         <label for="deadlinedate">Deadline(dato)</label><br>
-        <input type="date" id="deadlinedate" name="deadlinedate"><br>
-
-        <label for="deadlinetime">Deadline(tidspunkt)</label><br>
-        <input type="time" id="deadlinetime" name="deadlinetime"><br>
+        <input type="date" id="deadlinedate" th:field="*{deadline}"><br>
 
         <label for="description">Beskrivelse</label><br>
-        <textarea style="height: 200px; width: 400px;" placeholder="Skriv her, hvad projektet omhandler" id="description" name="description"></textarea><br>
+        <textarea style="height: 200px; width: 400px;" placeholder="Skriv her, hvad projektet omhandler" id="description" th:field="*{description}"></textarea><br>
 
         <label for="numberOfEmployees">Antal medarbejdere</label><br>
-        <input type="text" id="numberOfEmployees" name="numberOfEmployees"><br>
-
+        <input type="text" id="numberOfEmployees" th:field="*{numberOfEmployees}"><br>
         <br>
 
-        <input type="submit" value="Opret projekt">
+        <button class="knap" type="submit" name="action" value="1">Opret projekt</button>
     </form>
 </div>
 
