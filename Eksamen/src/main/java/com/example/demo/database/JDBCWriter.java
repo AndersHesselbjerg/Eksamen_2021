@@ -84,40 +84,6 @@ public class JDBCWriter {
 
     }
 
-        public Boolean loginCredentialsCorrect(String mail, String password) {
-        Connection connection = DBManager.getConnection();
-        String searchStr = "SELECT * FROM user where mail = ? and password = ? ";
-        PreparedStatement preparedStatement;
-        int res = -1;
-        String theMail = mail;
-        String thePassword = password;
-        ResultSet resset;
-        Boolean exist = false;
-        try {
-            preparedStatement = connection.prepareStatement(searchStr);
-            preparedStatement.setString(1, theMail);
-            preparedStatement.setString(2, thePassword);
-            System.out.println(searchStr);
-            System.out.println(preparedStatement);
-            resset = preparedStatement.executeQuery();
-            if (resset.next()) {
-                String str = "" + resset.getObject(1);
-                res = Integer.parseInt(str);
-                System.out.println("fundet id: = " + res);
-            }
-            if (res == 1) {
-                exist = true;
-                System.out.println("Id " + res + "Eksistere ");
-            } else {
-            }
-
-        } catch (SQLException sqlerr) {
-            System.out.println("fejl i exist = " + sqlerr.getMessage());
-        }
-
-        return exist;
-    }
-
 
     
     public Project createProject(Project project){
@@ -166,6 +132,42 @@ public class JDBCWriter {
             System.out.println("Fejl i nedhentning af projekter");
         }
         return projectList;
+    }
+
+
+
+    public Boolean loginCredentialsCorrect(String mail, String password) {
+        Connection connection = DBManager.getConnection();
+        String searchStr = "SELECT * FROM user where mail = ? and password = ? ";
+        PreparedStatement preparedStatement;
+        int res = -1;
+        String theMail = mail;
+        String thePassword = password;
+        ResultSet resset;
+        Boolean exist = false;
+        try {
+            preparedStatement = connection.prepareStatement(searchStr);
+            preparedStatement.setString(1, theMail);
+            preparedStatement.setString(2, thePassword);
+            System.out.println(searchStr);
+            System.out.println(preparedStatement);
+            resset = preparedStatement.executeQuery();
+            if (resset.next()) {
+                String str = "" + resset.getObject(1);
+                res = Integer.parseInt(str);
+                System.out.println("fundet id: = " + res);
+            }
+            if (res == 1) {
+                exist = true;
+                System.out.println("Id " + res + "Eksistere ");
+            } else {
+            }
+
+        } catch (SQLException sqlerr) {
+            System.out.println("fejl i exist = " + sqlerr.getMessage());
+        }
+
+        return exist;
     }
 
 }

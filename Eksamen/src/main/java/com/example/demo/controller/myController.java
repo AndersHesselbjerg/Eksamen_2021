@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -25,8 +26,13 @@ public class myController {
     JDBCWriter jdbcWriter;
 
     @GetMapping("/")//her giver du data
-    public String index() {
+    public String index(Model model, HttpSession httpSession) {
         DBManager.getConnection();
+        User user = (User)httpSession.getAttribute("user"); // parantesen gør bare at den caster det som getAtribut returner om til User
+
+        if (user != null){
+            model.addAttribute("user", user);
+        }
         return "index";
     }
 
@@ -35,7 +41,7 @@ public class myController {
         Boolean userCheck = jdbcWriter.userExist(mail);
             if (userCheck == false){
             ArrayList<User> userList = new ArrayList<>();
-            model.addAttribute("user", userList);
+            model.addAttribute("users", userList);
             User u = new User(mail, password);
             jdbcWriter.createUser(u);
             return "index";
@@ -49,7 +55,7 @@ public class myController {
     }
 
     @PostMapping("/login")//Her
-    public String login(@RequestParam String mail, @RequestParam String password, Model model){
+    public String login(@RequestParam String mail, @RequestParam String password, Model model, HttpSession session){
         User user = jdbcWriter.logIn(mail,password);
         ArrayList<Project> projects = jdbcWriter.getProjects();
         if(user == null){
@@ -57,6 +63,8 @@ public class myController {
             return "redirect:/";
         } else {
             System.out.println("User " + user + " er logget ind: ");
+            session.setAttribute("user", user);
+            model.addAttribute("user", user);
             model.addAttribute("projects", projects);
             return "userProfile";
         }
