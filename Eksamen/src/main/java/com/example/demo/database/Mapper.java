@@ -59,6 +59,7 @@ public class Mapper {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         User user = null;
+        int isItAdmin = user.getIsAdmin();
         try {
             preparedStatement = connection.prepareStatement(searchLog);
             preparedStatement.setString(1, mail);
@@ -67,7 +68,7 @@ public class Mapper {
             if (resultSet.next() == false) {
                 return user;
             }
-            user = new User(resultSet.getInt("id"),resultSet.getString("mail"), resultSet.getString("password"));
+            user = new User(resultSet.getString("mail"), resultSet.getString("password"), isItAdmin);
 
 
         } catch (SQLException sqlerr) {

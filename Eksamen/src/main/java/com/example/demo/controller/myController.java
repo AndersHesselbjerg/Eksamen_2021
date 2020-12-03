@@ -48,7 +48,7 @@ public class myController {
     public String login(@RequestParam String mail, @RequestParam String password, WebRequest webRequest, Model model){
         mail = webRequest.getParameter("mail");
         password = webRequest.getParameter("password");
-        User user = mapper.logIn(mail,password);
+        User user = mapper.logIn(mail, password);
         setSessionInfo(webRequest, user);
         ArrayList<Project> projects = mapper.getProjects();
 
@@ -56,10 +56,26 @@ public class myController {
             System.out.println("Der var intet match");
             return "redirect:/";
         } else {
-            System.out.println("User " + user + " er logget ind: ");
-            model.addAttribute("projects", projects);
-            return "userProfile";
+            if(user.getIsAdmin() == 0) {
+                System.out.println("User " + user + " er logget ind: ");
+                model.addAttribute("projects", projects);
+                return "userProfile";
+            }else{
+                System.out.println("Admin " + user + " er logget ind: ");
+                return "admin";
+            }
         }
+    }
+    /*@PostMapping("/admin")
+    public String admin(@RequestParam String mail, @RequestParam String password, @RequestParam int isAdmin, int action, Model model){
+        if(action == 1){
+            System.out.println("Login tried!!!");
+        }
+        return "admin";
+    }*/
+    @GetMapping("/admin")
+    public String admin(Model model){
+        return "admin";
     }
 
     @PostMapping("DeleteUser")
