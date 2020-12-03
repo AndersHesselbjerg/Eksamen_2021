@@ -123,6 +123,28 @@ public class Mapper {
         }
         return project;
     }
+
+    public Project updateProject(Project project) {
+        Connection connection = DBManager.getConnection();
+        String sqlstr = "UPDATE project set(name, description, numberOfEmployees, deadline) VALUES(?, ?, ?, ?)";
+        //update projects set name = 'tobias' where id = '1';
+        System.out.println("Så langt så godt");
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connection.prepareStatement(sqlstr);
+            preparedStatement.setString(1, project.getName());
+            preparedStatement.setString(2, project.getDescription());
+            preparedStatement.setInt(3, project.getNumberOfEmployees());
+            preparedStatement.setObject(4, project.getDeadline());
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            System.out.println("Tillykke projekt: " + preparedStatement + ". blev opdateret");
+        } catch (SQLException sqlerror) {
+            System.out.println("Fejl i opdatering af projekt=" + sqlerror);
+        }
+        return project;
+    }
+
     public Project getProjectByName(String name){
         try {
             Connection connection = DBManager.getConnection();

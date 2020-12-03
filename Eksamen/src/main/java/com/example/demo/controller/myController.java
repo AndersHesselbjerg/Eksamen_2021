@@ -96,13 +96,13 @@ public class myController {
         return "userProfile";
     }
 
-    @PostMapping("updateProject")
+    @PostMapping("/updateProject")
     public String updateProject(WebRequest webRequest, Project project, User user){
         webRequest.getParameter("mail");
         webRequest.getParameter("password");
         mapper.createProject(project);
         setSessionInfo(webRequest, user);
-        return "projects";
+        return "project";
 
 
     }
