@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 
 @Repository
-public class JDBCWriter {
+public class Mapper {
 
-    public JDBCWriter(){
+    public Mapper(){
 
     }
 
@@ -32,7 +32,6 @@ public class JDBCWriter {
         } catch (SQLException sqlerr) {
             System.out.println("Fejl i oprettels =" + sqlerr);
         }
-
         return user;
     }
 

@@ -1,29 +1,22 @@
 package com.example.demo.controller;
 
-import com.example.demo.database.JDBCWriter;
+import com.example.demo.database.Mapper;
 import com.example.demo.domain.Project;
-import com.example.demo.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 
 @Controller
 public class CreateController {
 
 
-    JDBCWriter jdbcWriter;
+    Mapper mapper;
     Project project;
 
-    public CreateController(JDBCWriter jdbcWriter){
-        this.jdbcWriter = jdbcWriter;
+    public CreateController(Mapper mapper){
+        this.mapper = mapper;
     }
 
     @GetMapping("/createProject")
@@ -46,7 +39,7 @@ public class CreateController {
     @GetMapping("/userProfile")
     public String userProfile(Model model) {
         ArrayList<Project> projects = new ArrayList<>();
-        projects = jdbcWriter.getProjects();
+        projects = mapper.getProjects();
         model.addAttribute("projects", projects);
         return "userProfile";
 

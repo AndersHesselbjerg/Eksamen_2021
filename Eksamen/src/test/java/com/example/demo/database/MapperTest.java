@@ -5,33 +5,30 @@ import com.example.demo.domain.User;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class JDBCWriterTest {
+class MapperTest {
     Project project = new Project("Alexander","Dette er en test", 5, Date.valueOf("2020-10-10"));
 
     @Test
     void createUser() {
-        JDBCWriter jdbcWriter = new JDBCWriter();
+        Mapper mapper = new Mapper();
         User user = new User("a", "abc");
-        jdbcWriter.createUser(user);
+        mapper.createUser(user);
     }
 
     @Test
     void creatProject(){
-        JDBCWriter jdbcWriter = new JDBCWriter();
-        jdbcWriter.createProject(project);
+        Mapper mapper = new Mapper();
+        mapper.createProject(project);
     }
 
     @Test
     void getProject(){
-        JDBCWriter jdbcWriter = new JDBCWriter();
+        Mapper mapper = new Mapper();
         ArrayList<Project> projects = new ArrayList<>();
         projects.add(project);
-        jdbcWriter.getProjects();
+        mapper.getProjects();
 
     }
 
