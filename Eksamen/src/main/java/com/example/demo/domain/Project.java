@@ -1,6 +1,6 @@
 package com.example.demo.domain;
 
-import com.example.demo.database.JDBCWriter;
+import com.example.demo.database.Mapper;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class Project {
     private Date deadline;
     private ArrayList<Subproject> subprojects;
 
-    JDBCWriter jdbcWriter = new JDBCWriter();
+    Mapper mapper = new Mapper();
 
     public Project(){ // Grunden til at vi laver en tom konstructor, så Spring laver instanser som der skal bruges i systemet
 
@@ -25,7 +25,7 @@ public class Project {
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
-        this.subprojects = jdbcWriter.getSubprojects(name, this);
+        this.subprojects = mapper.getSubprojects(name, this);
     }
 
     public Project (String name, String description, int numberOfEmployees, Date deadline) {
@@ -33,7 +33,7 @@ public class Project {
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
-        this.subprojects = jdbcWriter.getSubprojects(name, this);
+        this.subprojects = mapper.getSubprojects(name, this);
     }
 
     public int getId() {

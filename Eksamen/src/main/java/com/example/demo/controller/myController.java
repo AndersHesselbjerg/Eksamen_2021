@@ -63,7 +63,7 @@ public class myController {
     @PostMapping("/login")//Her
     public String login(@RequestParam String mail, @RequestParam String password, Model model /*HttpSession session*/){
         User user = mapper.logIn(mail,password);
-        setSessionInfo();
+        //setSessionInfo();
         ArrayList<Project> projects = mapper.getProjects();
         if(user == null){
             System.out.println("Der var intet match");

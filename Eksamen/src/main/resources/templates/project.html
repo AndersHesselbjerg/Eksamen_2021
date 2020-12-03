@@ -13,21 +13,15 @@
 
 <h2> Dette er en beige farve </h2>
 <div class="container">
-    <h3 id="header3">PROJEKTER</h3>
+    <h3 id="header3">$</h3>
     <tbody>
     <tr th:each="proj:${project}">
         <p>Projektnavn: <td th:text="${proj.name}"></td><br /><p />
-        <tr th:each="subp:${subproject}">
-            <td th:text="${subp.name}"/>
-        </tr>
         <td th:text="${proj.description}" /><br />
         <td th:text="${proj.numberOfEmployees}" /><br />
         <td th:text="${proj.deadline}" /><br />
     </tr>
     </tbody>
-    <tr th:each="subp:${subproject}">
-        <td th:text="${subp.name}"/>
-    </tr>
 </div>
 
 </body>

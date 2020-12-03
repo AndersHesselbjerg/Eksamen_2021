@@ -156,6 +156,10 @@ public class Mapper {
         return subprojectList;
     }
 
+    public Project getOneProject(Project project){
+        return project;
+    }
+
 
     public ArrayList<Project> getProjects(){
         ArrayList<Project> projectList = new ArrayList<>();
