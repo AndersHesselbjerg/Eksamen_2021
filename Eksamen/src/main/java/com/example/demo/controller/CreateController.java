@@ -31,6 +31,11 @@ public class CreateController {
         return "createUser";
     }
 
+    @GetMapping("RemoveUser")
+    public String removeUser(){
+        return "removeUser";
+    }
+
     @GetMapping("/addEmployees")
     public String addEmployees() {
         return "addEmployees";
