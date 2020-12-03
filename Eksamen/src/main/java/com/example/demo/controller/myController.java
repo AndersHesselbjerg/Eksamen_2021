@@ -71,8 +71,6 @@ public class myController {
 
 
 
-
-
     @PostMapping("/createProject")
     public String createProject(WebRequest webRequest, Project project, User user){
         webRequest.getParameter("mail");
@@ -80,6 +78,17 @@ public class myController {
         mapper.createProject(project);
         setSessionInfo(webRequest, user);
         return "userProfile";
+    }
+
+    @PostMapping("updateProject")
+    public String updateProject(WebRequest webRequest, Project project, User user){
+        webRequest.getParameter("mail");
+        webRequest.getParameter("password");
+        mapper.createProject(project);
+        setSessionInfo(webRequest, user);
+        return "projects";
+
+
     }
 
     private void setSessionInfo(WebRequest request, User user) {
