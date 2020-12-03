@@ -21,35 +21,19 @@ public class myController {
     Mapper mapper;
 
     @GetMapping("/")//her giver du data
-    public String index(Model model /*HttpSession session*/) { // spring securaty!
+    public String index() { // spring securaty!
         DBManager.getConnection();
-        /*
-        User user = (User)session.getAttribute("user"); // parantesen gør bare at den caster det som getAtribut returner om til User
-
-        if (user != null){
-            model.addAttribute("user", user);
-        }
-
-         */
         return "index";
     }
 
     @PostMapping("/createUser")
-    public String createUser(@RequestParam String mail, @RequestParam String password, Model model /*HttpSession session*/){
+    public String createUser(@RequestParam String mail, @RequestParam String password, Model model){
         Boolean userCheck = mapper.userExist(mail);
         if (userCheck == false){
             ArrayList<User> userList = new ArrayList<>();
             model.addAttribute("users", userList);
             User user = new User(mail, password);
             mapper.createUser(user);
-
-            /*User user2 = (User)session.getAttribute("user");
-
-            if (user2 != null){
-                model.addAttribute("user", user2);
-            }
-
-             */
             return "index";
 
         } else if (mail.isEmpty() || password.isEmpty()){
@@ -61,34 +45,41 @@ public class myController {
     }
 
     @PostMapping("/login")//Her
-    public String login(@RequestParam String mail, @RequestParam String password, Model model /*HttpSession session*/){
+    public String login(@RequestParam String mail, @RequestParam String password, WebRequest webRequest, Model model){
+        mail = webRequest.getParameter("mail");
+        password = webRequest.getParameter("password");
         User user = mapper.logIn(mail,password);
-        //setSessionInfo();
+        setSessionInfo(webRequest, user);
         ArrayList<Project> projects = mapper.getProjects();
+
         if(user == null){
             System.out.println("Der var intet match");
             return "redirect:/";
         } else {
             System.out.println("User " + user + " er logget ind: ");
-            //session.setAttribute("user", user);
-            //model.addAttribute("user", user);
             model.addAttribute("projects", projects);
             return "userProfile";
         }
     }
 
+    @PostMapping("DeleteUser")
+    public String removeUser(@RequestParam int removeUser){
+        mapper.deleteUser(removeUser);
+        return "index";
+    }
+
+
+
+
+
+
     @PostMapping("/createProject")
-    public String createProject(Project project, Model model /* HttpSession session*/){
-            mapper.createProject(project);
-            /*
-        User user = (User)session.getAttribute("user"); // parantesen gør bare at den caster det som getAtribut returner om til User
-
-        if (user != null){
-            model.addAttribute("user", user);
-        }
-
-             */
-            return "userProfile";
+    public String createProject(WebRequest webRequest, Project project, User user){
+        webRequest.getParameter("mail");
+        webRequest.getParameter("password");
+        mapper.createProject(project);
+        setSessionInfo(webRequest, user);
+        return "userProfile";
     }
 
     private void setSessionInfo(WebRequest request, User user) {

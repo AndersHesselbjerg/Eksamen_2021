@@ -1,7 +1,6 @@
 package com.example.demo.domain;
 
 public class User {
-
     public int id;
     public String mail;
     public String password;

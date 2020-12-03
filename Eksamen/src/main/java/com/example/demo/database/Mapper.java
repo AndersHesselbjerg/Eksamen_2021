@@ -36,6 +36,23 @@ public class Mapper {
         return user;
     }
 
+
+    public void deleteUser(int id){
+        Connection connection = DBManager.getConnection();
+        String sqlRemove = "DELETE FROM user WHERE id = '?' ";
+        PreparedStatement preparedStatement;
+        String userIDstr = "" + id;
+        User user = null;
+        try{
+            preparedStatement = connection.prepareStatement(sqlRemove);
+            preparedStatement.setString(id, userIDstr );
+            preparedStatement.execute(sqlRemove);
+            System.out.println("Tillykke bruger: " + preparedStatement + " er blevet slettet");
+        } catch(SQLException sqlerr){
+            System.out.println("Fejl =" + sqlerr);
+        }
+    }
+
     public User logIn(String mail, String password) {
         Connection connection = DBManager.getConnection();
         String searchLog = "select * FROM user WHERE mail = ? and password = ?; ";
@@ -161,6 +178,8 @@ public class Mapper {
     }
 
 
+
+
     public ArrayList<Project> getProjects(){
         ArrayList<Project> projectList = new ArrayList<>();
         try {
@@ -175,7 +194,7 @@ public class Mapper {
                 String projectName = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 int numberOfEmployees = resultSet.getInt("numberOfEmployees");
-                Date deadline = resultSet.getDate("deadlineDate"); // Grunden til det ikke virkede før, er at
+                Date deadline = resultSet.getDate("deadline"); // Grunden til det ikke virkede før, er at den skal heder deadline og ikke deadlinedate
                 //Time deadlineTime = resultSet.getTime("currentTime");
 
                 Project project = new Project(id, projectName, description, numberOfEmployees, deadline);

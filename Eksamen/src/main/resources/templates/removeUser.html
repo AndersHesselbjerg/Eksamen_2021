@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="myCSS.css">
+    <link rel="stylesheet" href="profile.css">
+    <meta charset="UTF-8">
+    <title>removeUser</title>
+</head>
+
+<body>
+<form th:action="@{/deleteUser}" method="POST">
+
+    <label> Vælg en bruger der skal slettes </label>
+    <input type="password" th:name="password " placeholder="Indtast kodeord">
+    <br>
+    <button class="knap" type="submit" name="action" value="1"> SLet bruger! </button>
+</form>
+
+
+</body>
+
+<th:block th:include="/includes/footer :: footer"></th:block>
+</html>
