@@ -4,12 +4,12 @@ body{
 
 .footer{
     background-color: #333;
-    text-align: center;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     color: white;
+    text-align: center;
     webkit-border-radius: 10px;
     khtml-border-radius: 10px;
     moz-border-radius: 10px;
