@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.database.DBManager;
 import com.example.demo.database.JDBCWriter;
+import com.example.demo.domain.Subproject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +19,10 @@ public class projectsController {
 
     JDBCWriter jdbcWriter = new JDBCWriter();
 
-    @GetMapping("/subProjects")
-    public String subProjects(){
-        return "subProjects";
-    }
-
-
     @GetMapping("/projects")
     public String projects(Model model){
         ArrayList<Project> projectList = jdbcWriter.getProjects();
+        //ArrayList<Subproject> subprojectList = jdbcWriter.getSubprojects();
         model.addAttribute("project", projectList);
         return "projects";
     }

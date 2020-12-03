@@ -1,13 +1,19 @@
 package com.example.demo.domain;
 
+import com.example.demo.database.JDBCWriter;
+
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Project {
-    public int id;
-    public String name;
-    public String description;
-    public int numberOfEmployees;
-    public Date deadline;
+    private int id;
+    private String name;
+    private String description;
+    private int numberOfEmployees;
+    private Date deadline;
+    private ArrayList<Subproject> subprojects;
+
+    JDBCWriter jdbcWriter = new JDBCWriter();
 
     public Project(){ // Grunden til at vi laver en tom konstructor, så Spring laver instanser som der skal bruges i systemet
 
@@ -19,6 +25,7 @@ public class Project {
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
+        this.subprojects = jdbcWriter.getSubprojects(name, this);
     }
 
     public Project (String name, String description, int numberOfEmployees, Date deadline) {
@@ -26,6 +33,7 @@ public class Project {
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
+        this.subprojects = jdbcWriter.getSubprojects(name, this);
     }
 
     public int getId() {
@@ -66,6 +74,14 @@ public class Project {
 
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
+    }
+
+    public ArrayList<Subproject> getSubprojects() {
+        return subprojects;
+    }
+
+    public void setSubprojects(ArrayList<Subproject> subprojects) {
+        this.subprojects = subprojects;
     }
 
     @Override

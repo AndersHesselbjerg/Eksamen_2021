@@ -36,6 +36,9 @@
                     <td th:text="${p.name}">...</td>
                     <td th:text="${p.description}">...</td>
                     <td th:text="${p.numberOfEmployees}">...</td>
+                    <th:block th:each="sp : ${p.subprojects}">
+                        <td th:text="${sp.name}" />
+                    </th:block>
 
                 </tr>
             </th:block>
