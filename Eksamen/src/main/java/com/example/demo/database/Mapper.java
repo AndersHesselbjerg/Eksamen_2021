@@ -1,6 +1,7 @@
 package com.example.demo.database;
 
 import com.example.demo.domain.Project;
+import com.example.demo.domain.Subproject;
 import com.example.demo.domain.User;
 import org.springframework.stereotype.Repository;
 
@@ -121,6 +122,56 @@ public class Mapper {
         }
         return project;
     }
+    public Project getProjectByName(String name){
+        try {
+            Connection connection = DBManager.getConnection();
+            String sqlproject = "SELECT * FROM projects WHERE name = '" + name + "'";
+            PreparedStatement prepareStatement;
+            prepareStatement = connection.prepareStatement(sqlproject);
+            ResultSet resultSet = prepareStatement.executeQuery();
+
+            if(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String projectName = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                int numberOfEmployees = resultSet.getInt("numberOfEmployees");
+                Date deadline = resultSet.getDate("deadlineDate"); // Grunden til det ikke virkede før, er at
+                //Time deadlineTime = resultSet.getTime("currentTime");
+
+                Project project = new Project(id, projectName, description, numberOfEmployees, deadline);
+                return project;
+            } else{
+                return null;
+            }
+        } catch(SQLException exception){
+            exception.printStackTrace();
+            System.out.println("Fejl i nedhentning af projekter");
+            return null;
+        }
+    }
+
+    public ArrayList<Subproject> getSubprojects(String projectName, Project project1){
+        ArrayList<Subproject> subprojectList = new ArrayList<>();
+        try{
+            Connection connection = DBManager.getConnection();
+            String sqlSubproject = "SELECT * FROM subprojects WHERE mainProject = '" + projectName + "'";
+            PreparedStatement prepareStatement;
+            prepareStatement = connection.prepareStatement(sqlSubproject);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while(resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String subProjectname = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                Project mainProject = project1;
+
+                Subproject subproject = new Subproject(id, projectName, description, mainProject);
+                subprojectList.add(subproject);
+            }
+        } catch (SQLException sqlerr){
+            System.out.println("Fejl i underprojekter" + sqlerr);
+        }
+        return subprojectList;
+    }
 
 
 
@@ -130,7 +181,6 @@ public class Mapper {
         try {
             Connection connection = DBManager.getConnection();
             String sqlproject = "SELECT * FROM projects";
-            String sqlSubproject = "SELECT * FROM subprojects WHERE mainProject = projects.name";
             PreparedStatement prepareStatement;
             prepareStatement = connection.prepareStatement(sqlproject);
             ResultSet resultSet = prepareStatement.executeQuery();
