@@ -7,11 +7,10 @@ import com.example.demo.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @Controller
@@ -45,7 +44,7 @@ public class myController {
     }
 
     @PostMapping("/login")//Her
-    public String login(@RequestParam String mail, @RequestParam String password, WebRequest webRequest, Model model){
+    public String login(@RequestParam String mail, @RequestParam String password, WebRequest webRequest, Model model, HttpSession session){
         mail = webRequest.getParameter("mail");
         password = webRequest.getParameter("password");
         User user = mapper.logIn(mail, password);
@@ -57,10 +56,13 @@ public class myController {
             return "redirect:/";
         } else {
             if(user.getIsAdmin() == 0) {
+                session.setAttribute("login", user); // her add vi session
                 System.out.println("User " + user + " er logget ind: ");
                 model.addAttribute("projects", projects);
                 return "userProfile";
-            }else{
+            }
+
+            else{
                 System.out.println("Admin " + user + " er logget ind: ");
                 return "admin";
             }
@@ -88,21 +90,28 @@ public class myController {
 
 
     @PostMapping("/createProject")
-    public String createProject(WebRequest webRequest, Project project, User user){
-        webRequest.getParameter("mail");
-        webRequest.getParameter("password");
-        mapper.createProject(project);
-        setSessionInfo(webRequest, user);
+    public String createProject(Project project, HttpSession session){
+        /*
+        //webRequest.getParameter("mail");
+        //webRequest.getParameter("password");
+        User theuser = (User) session.getAttribute("login");
+        int userid = theuser.getId();
+        mapper.createProject(project, userid);
+        //setSessionInfo(webRequest, user);
+         */
+        System.out.println("Test gfesgfesg");
         return "userProfile";
     }
 
-    @PostMapping("/updateProject")
-    public String updateProject(WebRequest webRequest, Project project, User user){
+    @PostMapping("updateProject")
+    public String updateProject(WebRequest webRequest, Project project, User user, HttpSession session){
         webRequest.getParameter("mail");
         webRequest.getParameter("password");
-        mapper.createProject(project);
+        User theuser = (User) session.getAttribute("login");
+        int userid = theuser.getId();
+        mapper.createProject(project, userid);
         setSessionInfo(webRequest, user);
-        return "project";
+        return "projects";
 
 
     }
