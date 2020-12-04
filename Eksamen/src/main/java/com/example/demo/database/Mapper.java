@@ -59,7 +59,7 @@ public class Mapper {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         User user = null;
-        int isItAdmin = user.getIsAdmin();
+        //int isItAdmin = user.getIsAdmin();
         try {
             preparedStatement = connection.prepareStatement(searchLog);
             preparedStatement.setString(1, mail);
@@ -68,7 +68,7 @@ public class Mapper {
             if (resultSet.next() == false) {
                 return user;
             }
-            user = new User(resultSet.getString("mail"), resultSet.getString("password"), isItAdmin);
+            user = new User(resultSet.getInt("id"),resultSet.getString("mail"), resultSet.getString("password"), resultSet.getInt("isAdmin"));
 
 
         } catch (SQLException sqlerr) {
@@ -104,9 +104,9 @@ public class Mapper {
 
 
     
-    public Project createProject(Project project){
+    public Project createProject(Project project, int userID){
         Connection connection = DBManager.getConnection();
-        String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees, deadline) VALUES(?, ?, ?, ?)";
+        String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees, deadline, userID) VALUES(?, ?, ?, ?, ?)";
         System.out.println("Så langt så godt");
         PreparedStatement preparedStatement;
         try{
@@ -115,6 +115,7 @@ public class Mapper {
             preparedStatement.setString(2, project.getDescription());
             preparedStatement.setInt(3, project.getNumberOfEmployees());
             preparedStatement.setObject(4,  project.getDeadline());
+            preparedStatement.setInt(5, userID);
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
             System.out.println("Tillykke projekt: " + preparedStatement + ". Blev oprettet");
@@ -123,6 +124,8 @@ public class Mapper {
         }
         return project;
     }
+
+
     public Project getProjectByName(String name){
         try {
             Connection connection = DBManager.getConnection();

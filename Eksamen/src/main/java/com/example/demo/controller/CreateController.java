@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @Controller
@@ -19,10 +20,14 @@ public class CreateController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/createProject")
-    public String showCreateProject(Project project, Model model) { // Model model fletter data, og tager dem fra thymeleaf og bruger dem
-        model.addAttribute("project", project);
-        return "createProject";
+    @GetMapping("/createNewProject")
+    public String showCreateProject(Project project, Model model, HttpSession session) { // Model model fletter data, og tager dem fra thymeleaf og bruger dem
+        if (session.getAttribute("login") != null){
+            model.addAttribute("project", project);
+            return "createProject";
+        } else {
+            return "index";
+        }
     }
 
 
