@@ -14,14 +14,16 @@
 <h2> Dette er en beige farve </h2>
 <div class="container">
     <h3 id="header3">PROJEKTER</h3>
+    <form action="/getOneProject" method="POST">
     <tbody>
     <tr th:each="proj:${project}">
-        <p>Projektnavn: <td th:text="${proj.name}"></td><br /><p />
-        <td th:text="${proj.description}" /><br />
-        <td th:text="${proj.numberOfEmployees}" /><br />
-        <td th:text="${proj.deadline}" /><br />
+        <p>Projektnavn: <a href="/getOneProject"><td name="name" th:text="${proj.name}"></td><br /><p /></a>
+        <td name="description" th:text="${proj.description}" /><br />
+        <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /><br />
+        <td name="deadline" th:text="${proj.deadline}" /><br />
     </tr>
     </tbody>
+    </form>
 </div>
 
 </body>
