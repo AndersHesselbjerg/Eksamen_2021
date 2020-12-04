@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.domain.Project;
+import org.springframework.web.context.request.WebRequest;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Controller
 public class projectsController {
@@ -23,14 +25,29 @@ public class projectsController {
 
 
     @GetMapping("/projects")
-    public String projects(Model model){
+    public String projects(Model model) {
         ArrayList<Project> projectList = mapper.getProjects();
+        ArrayList<Subproject> subProjectList = new ArrayList<>();
+        for (Project project : projectList) {
+            subProjectList.addAll(mapper.getSubprojects(project.getName(), project));
+        }
         model.addAttribute("project", projectList);
+        model.addAttribute("subproject", subProjectList);
         return "projects";
     }
+
     @PostMapping("/project")
     public String project(@RequestParam Project project, Model model){
+        ArrayList<Project> oneProject = mapper.getOneProject(project);
+        model.addAttribute("project", oneProject);
         return "project";
     }
-     
+    @PostMapping("/getOneProject")
+    public String getOneProject(WebRequest request,
+                                @RequestParam String name,
+                                @RequestParam String description,
+                                @RequestParam int numberOfEmployees,
+                                @RequestParam Date deadline) {
+        return "redirect:/project";
+    }
 }
