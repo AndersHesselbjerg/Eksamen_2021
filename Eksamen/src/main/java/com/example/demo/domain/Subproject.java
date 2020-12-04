@@ -4,15 +4,17 @@ public class Subproject {
     private int id;
     private String name;
     private String description;
-    private Project mainProject;
     private int projectID;
 
-    public Subproject(int id, String name, String description, Project mainProject, int projectID){
+    public Subproject(int id, String name, String description, int projectID){
         this.id = id;
         this.name = name;
         this.description = description;
-        this.mainProject = mainProject;
         this.projectID = projectID;
+    }
+
+    public Subproject(){
+
     }
 
     public int getId() {
@@ -39,14 +41,6 @@ public class Subproject {
         this.description = description;
     }
 
-    public Project getMainProject() {
-        return mainProject;
-    }
-
-    public void setMainProject(Project mainProject) {
-        this.mainProject = mainProject;
-    }
-
     public int getProjectID() {
         return projectID;
     }
@@ -61,7 +55,7 @@ public class Subproject {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", mainProject=" + mainProject +
+                ", projectID=" + projectID +
                 '}';
     }
 }

@@ -29,7 +29,7 @@ public class projectsController {
         ArrayList<Project> projectList = mapper.getProjects();
         ArrayList<Subproject> subProjectList = new ArrayList<>();
         for (Project project : projectList) {
-            ArrayList<Subproject> thisSubproject = mapper.getSubprojects(project.getName(), project);
+            ArrayList<Subproject> thisSubproject = mapper.getSubprojects(project.getId(), project);
             subProjectList.addAll(thisSubproject);
         }
         model.addAttribute("project", projectList);
