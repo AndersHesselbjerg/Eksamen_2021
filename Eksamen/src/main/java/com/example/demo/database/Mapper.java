@@ -155,17 +155,18 @@ public class Mapper {
         ArrayList<Subproject> subprojectList = new ArrayList<>();
         try{
             Connection connection = DBManager.getConnection();
-            String sqlSubproject = "SELECT * FROM subprojects WHERE mainProject = '" + projectName + "'";
+            String sqlSubproject = "SELECT * FROM subprojects WHERE mainProject = \'" + projectName + "\'";
             PreparedStatement prepareStatement;
             prepareStatement = connection.prepareStatement(sqlSubproject);
             ResultSet resultSet = prepareStatement.executeQuery();
+            System.out.println(resultSet);
             while(resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String subProjectname = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 Project mainProject = project1;
 
-                Subproject subproject = new Subproject(id, projectName, description, mainProject);
+                Subproject subproject = new Subproject(id, subProjectname, description, mainProject);
                 subprojectList.add(subproject);
             }
         } catch (SQLException sqlerr){
@@ -174,8 +175,10 @@ public class Mapper {
         return subprojectList;
     }
 
-    public Project getOneProject(Project project){
-        return project;
+    public ArrayList<Project> getOneProject(Project project){
+        ArrayList<Project> oneProject = new ArrayList<>();
+        oneProject.add(project);
+        return oneProject;
     }
 
 
