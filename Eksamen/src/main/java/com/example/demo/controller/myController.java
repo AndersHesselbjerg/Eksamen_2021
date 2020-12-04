@@ -63,18 +63,13 @@ public class myController {
             }
 
             else{
+                session.setAttribute("login", user);
                 System.out.println("Admin " + user + " er logget ind: ");
                 return "admin";
             }
         }
     }
-    /*@PostMapping("/admin")
-    public String admin(@RequestParam String mail, @RequestParam String password, @RequestParam int isAdmin, int action, Model model){
-        if(action == 1){
-            System.out.println("Login tried!!!");
-        }
-        return "admin";
-    }*/
+
     @GetMapping("/admin")
     public String admin(Model model){
         return "admin";
@@ -91,15 +86,11 @@ public class myController {
 
     @PostMapping("/createProject")
     public String createProject(Project project, HttpSession session){
-        /*
-        //webRequest.getParameter("mail");
-        //webRequest.getParameter("password");
         User theuser = (User) session.getAttribute("login");
         int userid = theuser.getId();
         mapper.createProject(project, userid);
-        //setSessionInfo(webRequest, user);
-         */
-        System.out.println("Test gfesgfesg");
+
+        System.out.println("Project created successfully");
         return "userProfile";
     }
 
