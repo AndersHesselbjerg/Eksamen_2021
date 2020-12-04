@@ -6,6 +6,10 @@ public class Subproject {
     private String description;
     private Project mainProject;
 
+    public Subproject(){
+
+    }
+
     public Subproject(int id, String name, String description, Project mainProject){
         this.id = id;
         this.name = name;

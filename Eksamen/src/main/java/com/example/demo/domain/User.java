@@ -6,6 +6,10 @@ public class User {
     public String password;
     public int isAdmin;
 
+    public User(){
+
+    }
+
     public User(int id, String mail, String password, int isAdmin) {
         this.id = id;
         this.mail = mail;
