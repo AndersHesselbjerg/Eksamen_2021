@@ -15,10 +15,11 @@
  <h3 id="header3">ADMIN</h3>
     <form th:action="@{/removeUser}" method="POST">
 <button class="knap" type="submit" name="action" value="1"> Slet bruger her </button>
-        <form th:action="@{/createProject}" method="POST">
+    </form>
+        <form th:action="@{/createNewProject}" method="GET">
     <button class="knap" type="submit" name="action" value="1"> Opret nyt prpjekt her </button>
+        </form>
 </div>
-</form>
 </body>
 
 
