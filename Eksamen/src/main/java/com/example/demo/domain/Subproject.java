@@ -5,12 +5,14 @@ public class Subproject {
     private String name;
     private String description;
     private Project mainProject;
+    private int projectID;
 
-    public Subproject(int id, String name, String description, Project mainProject){
+    public Subproject(int id, String name, String description, Project mainProject, int projectID){
         this.id = id;
         this.name = name;
         this.description = description;
         this.mainProject = mainProject;
+        this.projectID = projectID;
     }
 
     public int getId() {
@@ -43,6 +45,14 @@ public class Subproject {
 
     public void setMainProject(Project mainProject) {
         this.mainProject = mainProject;
+    }
+
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 
     @Override
