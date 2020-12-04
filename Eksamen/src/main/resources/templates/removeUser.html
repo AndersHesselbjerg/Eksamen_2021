@@ -8,10 +8,10 @@
 </head>
 
 <body>
-<form th:action="@{/deleteUser}" method="POST">
+<form th:action="@{/removeUser}" method="POST">
 
     <label> Vælg en bruger der skal slettes </label>
-    <input type="password" th:name="password " placeholder="Indtast kodeord">
+    <input type="password" th:name="password " placeholder="Indtast et bruger id">
     <br>
     <button class="knap" type="submit" name="action" value="1"> SLet bruger! </button>
 </form>

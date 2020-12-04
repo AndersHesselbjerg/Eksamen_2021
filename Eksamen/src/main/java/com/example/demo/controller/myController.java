@@ -80,10 +80,15 @@ public class myController {
         return "admin";
     }
 
-    @PostMapping("DeleteUser")
+    @GetMapping("RemoveUser")
+    public String removeUser(){
+        return "removeUser";
+    }
+
+    @PostMapping("removeUser")
     public String removeUser(@RequestParam int removeUser){
         mapper.deleteUser(removeUser);
-        return "index";
+        return "";
     }
 
 
