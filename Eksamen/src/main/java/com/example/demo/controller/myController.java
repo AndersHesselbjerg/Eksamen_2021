@@ -75,11 +75,6 @@ public class myController {
         return "admin";
     }
 
-    @GetMapping("RemoveUser")
-    public String removeUser(){
-        return "removeUser";
-    }
-
     @PostMapping("removeUser")
     public String removeUser(@RequestParam int removeUser){
         mapper.deleteUser(removeUser);

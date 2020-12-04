@@ -4,17 +4,17 @@ public class Subproject {
     private int id;
     private String name;
     private String description;
-    private Project mainProject;
+    private int projectID;
 
-    public Subproject(){
-
-    }
-
-    public Subproject(int id, String name, String description, Project mainProject){
+    public Subproject(int id, String name, String description, int projectID){
         this.id = id;
         this.name = name;
         this.description = description;
-        this.mainProject = mainProject;
+        this.projectID = projectID;
+    }
+
+    public Subproject(){
+
     }
 
     public int getId() {
@@ -41,12 +41,12 @@ public class Subproject {
         this.description = description;
     }
 
-    public Project getMainProject() {
-        return mainProject;
+    public int getProjectID() {
+        return projectID;
     }
 
-    public void setMainProject(Project mainProject) {
-        this.mainProject = mainProject;
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Subproject {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", mainProject=" + mainProject +
+                ", projectID=" + projectID +
                 '}';
     }
 }
