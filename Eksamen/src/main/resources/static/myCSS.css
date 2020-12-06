@@ -135,3 +135,7 @@ li a:hover:not(.active) {
 .p footer1 {
     text-align: center;
 }
+
+.knapper {
+    position: relative;
+}

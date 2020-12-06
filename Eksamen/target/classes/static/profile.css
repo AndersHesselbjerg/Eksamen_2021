@@ -65,7 +65,7 @@ body {
 .right-panel {
 
     position: absolute;
-    right: 5%;
+    right: 10%;
     top: 20%;
     color: #fff;
     background-color: rgba(0, 0, 0, 0.5);
@@ -74,17 +74,7 @@ body {
 
 }
 
-.left-panel {
 
-    position: absolute;
-    left: 5%;
-    top: 20%;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-
-
-
-}
 
 .project-list-container {
     padding: 25px;
@@ -92,17 +82,15 @@ body {
 
 }
 
-.left-panel .container {
-    padding: 100px;
 
-}
 
 .project-list {
 
     padding-left: 10px;
     font-size: 20px;
     overflow-y: auto;
-    height: 300px;
+    height: 500px;
+    width: 1500px;
 
 }
 
