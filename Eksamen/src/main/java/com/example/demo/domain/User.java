@@ -7,7 +7,10 @@ public class User {
     public int isAdmin;
     public int adminID;
 
+
+
     public User(){
+
 
     }
 

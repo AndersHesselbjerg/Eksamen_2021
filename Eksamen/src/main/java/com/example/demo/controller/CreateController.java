@@ -22,6 +22,8 @@ public class CreateController {
         this.mapper = mapper;
     }
 
+
+
     @GetMapping("/createNewProject")
     public String showCreateProject(Project project, Model model, HttpSession session) {// Model model fletter data, og tager dem fra thymeleaf og bruger dem
         User theuser = (User) session.getAttribute("login");
