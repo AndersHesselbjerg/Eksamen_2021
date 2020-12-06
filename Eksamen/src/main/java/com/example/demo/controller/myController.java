@@ -25,6 +25,17 @@ public class myController {
         return "index";
     }
 
+    @GetMapping("/removeUser")
+    public String removeuser(){
+        return "removeUser";
+    }
+
+    @GetMapping("/createUser")
+    public String createUser(){
+
+        return "createUser";
+    }
+
     @PostMapping("/createUser")
     public String createUser(@RequestParam String mail, @RequestParam String password, Model model){
         Boolean userCheck = mapper.userExist(mail);
@@ -75,10 +86,12 @@ public class myController {
         return "admin";
     }
 
-    @PostMapping("removeUser")
-    public String removeUser(@RequestParam int removeUser){
+    @PostMapping("removeUser") //mangler session
+    public String removeUser(@RequestParam int removeUser, HttpSession session){
+        User user = (User) session.getAttribute("login");
         mapper.deleteUser(removeUser);
-        return "";
+        checkLogin(user);
+        return "removeUser";
     }
 
 
@@ -86,10 +99,10 @@ public class myController {
 
     @PostMapping("/createProject")
     public String createProject(Project project, HttpSession session){
-        User theuser = (User) session.getAttribute("login");
-        int userid = theuser.getId();
+        User user = (User) session.getAttribute("login");
+        int userid = user.getId();
         mapper.createProject(project, userid);
-
+        checkLogin(user);
         System.out.println("Project created successfully");
         return "userProfile";
     }
@@ -103,8 +116,10 @@ public class myController {
         mapper.createProject(project, userid);
         setSessionInfo(webRequest, user);
         return "projects";
+    }
 
-
+    private void checkLogin(User user) {
+        System.out.println("Bruger: " + user + ", er stadig logget ind! ");
     }
 
     private void setSessionInfo(WebRequest request, User user) {

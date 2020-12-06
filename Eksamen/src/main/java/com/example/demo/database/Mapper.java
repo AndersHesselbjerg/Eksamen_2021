@@ -68,7 +68,7 @@ public class Mapper {
             if (resultSet.next() == false) {
                 return user;
             }
-            user = new User(resultSet.getInt("id"),resultSet.getString("mail"), resultSet.getString("password"), resultSet.getInt("isAdmin"));
+            user = new User(resultSet.getInt("id"),resultSet.getString("mail"), resultSet.getString("password"), resultSet.getInt("isAdmin"), resultSet.getInt("adminID"));
 
 
         } catch (SQLException sqlerr) {
@@ -156,19 +156,21 @@ public class Mapper {
 
     public ArrayList<Subproject> getSubprojects(int projectID, Project project1){
         ArrayList<Subproject> subprojectList = new ArrayList<>();
-        try{
             Connection connection = DBManager.getConnection();
             String sqlSubproject = "SELECT * FROM subprojects WHERE projectID = \'" + projectID + "\'";
             PreparedStatement prepareStatement;
-            prepareStatement = connection.prepareStatement(sqlSubproject);
-            ResultSet resultSet = prepareStatement.executeQuery();
-            System.out.println(resultSet);
-            while(resultSet.next()) {
+            ResultSet resultSet;
+            try {
+                prepareStatement = connection.prepareStatement(sqlSubproject);
+                resultSet = prepareStatement.executeQuery();
+                System.out.println(resultSet);
+
+                System.out.println(subprojectList);
+                while(resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String subProjectname = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 int projectID1 = resultSet.getInt("projectID");
-                Project mainProject = project1;
 
                 Subproject subproject = new Subproject(id, subProjectname, description, projectID1);
                 subprojectList.add(subproject);

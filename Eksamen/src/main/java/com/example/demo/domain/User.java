@@ -5,22 +5,25 @@ public class User {
     public String mail;
     public String password;
     public int isAdmin;
+    public int adminID;
 
     public User(){
 
     }
 
-    public User(int id, String mail, String password, int isAdmin) {
+    public User(int id, String mail, String password, int isAdmin, int adminID) {
         this.id = id;
         this.mail = mail;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.adminID = adminID;
     }
 
-    public User(int id, String mail, String password) {
+    public User(int id, String mail, String password, int adminID) {
         this.id = id;
         this.mail = mail;
         this.password = password;
+        this.adminID = adminID;
     }
 
     public User(String mail, String password) {
@@ -70,8 +73,22 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
+    public int getAdminID() {
+        return adminID;
+    }
+
+    public void setAdminID(int adminID) {
+        this.adminID = adminID;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", mail='" + mail + '\'' + ", password='" + password + '\'' + '}';
+        return "User{" +
+                "id=" + id +
+                ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", adminID=" + adminID +
+                '}';
     }
 }

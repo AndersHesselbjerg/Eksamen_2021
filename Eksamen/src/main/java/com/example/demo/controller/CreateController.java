@@ -6,6 +6,7 @@ import com.example.demo.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ public class CreateController {
         User theuser = (User) session.getAttribute("login");
         int userid = theuser.getIsAdmin();
         if (userid == 1){
+            if (theuser.getIsAdmin() == 1)
+                theuser.adminID++;
+            System.out.println("Admins id er: " + theuser.adminID);
             model.addAttribute("project", project);
             return "createProject";
         } else {

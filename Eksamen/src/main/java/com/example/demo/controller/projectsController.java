@@ -23,6 +23,11 @@ public class projectsController {
         return "subProjects";
     }
 
+    @PostMapping("/subproject")
+    public String subProject(){
+        return "";
+    }
+
 
     @GetMapping("/projects")
     public String projects(Model model) {
