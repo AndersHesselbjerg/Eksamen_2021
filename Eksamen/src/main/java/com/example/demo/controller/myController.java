@@ -25,6 +25,12 @@ public class myController {
         return "index";
     }
 
+    @GetMapping("/createUser")
+    public String createUser(){
+        return "createUser";
+
+    }
+
     @PostMapping("/createUser")
     public String createUser(@RequestParam String mail, @RequestParam String password, Model model){
         Boolean userCheck = mapper.userExist(mail);
