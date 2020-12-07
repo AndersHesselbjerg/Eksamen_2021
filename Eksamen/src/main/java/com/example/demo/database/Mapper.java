@@ -107,7 +107,6 @@ public class Mapper {
     public Project createProject(Project project, int userID){
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees, deadline, userID) VALUES(?, ?, ?, ?, ?)";
-        System.out.println("Så langt så godt");
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
@@ -118,13 +117,29 @@ public class Mapper {
             preparedStatement.setInt(5, userID);
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
-            System.out.println("Tillykke projekt: " + preparedStatement + ". Blev oprettet");
+            System.out.println("Tillykke projekt: " + preparedStatement + " blev oprettet");
         } catch(SQLException sqlerror){
             System.out.println("Fejl i oprettelse af projekt=" + sqlerror);
         }
         return project;
     }
-
+    public Subproject createSubProject(Subproject subproject, int userID){
+        Connection connection = DBManager.getConnection();
+        String sqlstr = "INSERT INTO subprojects(name, description, projectID) VALUES(?, ?, ?)";
+        PreparedStatement preparedStatement;
+        try{
+            preparedStatement = connection.prepareStatement(sqlstr);
+            preparedStatement.setString(1, subproject.getName());
+            preparedStatement.setString(2, subproject.getDescription());
+            preparedStatement.setInt(3, subproject.getProjectID());
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            System.out.println("Tillykke delprojekt: " + preparedStatement + " blev oprettet.");
+        } catch(SQLException sqlerror){
+            System.out.println("Fejl i oprettelse af delprojekt=" + sqlerror);
+        }
+        return subproject;
+    }
 
     public Project getProjectByName(String name){
         try {
