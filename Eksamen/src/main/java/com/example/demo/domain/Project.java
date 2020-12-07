@@ -12,11 +12,16 @@ public class Project {
     private int numberOfEmployees;
     private Date deadline;
     private ArrayList<Subproject> subprojects;
-    private int userID;
+    //private int userID;
+    private ArrayList<Integer> userID;
+    private int subID;
+    private String subName;
+    private String subDes;
+    private int subProjectID;
 
     Mapper mapper = new Mapper();
 
-    public Project(){ // Grunden til at vi laver en tom konstructor, så Spring laver instanser som der skal bruges i systemet
+    public Project() { // Grunden til at vi laver en tom konstructor, så Spring laver instanser som der skal bruges i systemet
 
     }
 
@@ -28,8 +33,14 @@ public class Project {
         this.deadline = deadline;
         this.subprojects = mapper.getSubprojects(id, this);
     }
+    public Project(int subID, String subName, String subDes, int subProjectID){
+        this.subID = subID;
+        this.subName = subName;
+        this.subDes = subDes;
+        this.subProjectID = subProjectID;
+    }
 
-    public Project (String name, String description, int numberOfEmployees, Date deadline) {
+    public Project(String name, String description, int numberOfEmployees, Date deadline) {
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
@@ -37,7 +48,7 @@ public class Project {
         this.subprojects = mapper.getSubprojects(id, this);
     }
 
-    public Project (String name, String description, int numberOfEmployees, Date deadline, int userID) {
+    public Project(String name, String description, int numberOfEmployees, Date deadline, ArrayList userID) {
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
@@ -45,7 +56,6 @@ public class Project {
         this.subprojects = mapper.getSubprojects(id, this);
         this.userID = userID;
     }
-
 
 
     public int getId() {
@@ -96,13 +106,15 @@ public class Project {
         this.subprojects = subprojects;
     }
 
-    public int getUserID() {
-        return userID;
-    }
+    public ArrayList<Integer> getUserID() { return userID; }
 
-    public void setUserID(int userID) {
+    public void setUserID(ArrayList<Integer> userID) {
         this.userID = userID;
     }
+
+
+    //public void setUserID(int userID) { this.userID = userID;
+
 
     @Override
     public String toString() {
