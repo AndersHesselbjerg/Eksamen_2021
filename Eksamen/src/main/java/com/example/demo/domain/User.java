@@ -11,7 +11,6 @@ public class User {
 
     public User(){
 
-
     }
 
     public User(int id, String mail, String password, int isAdmin, int adminID) {
@@ -60,7 +59,6 @@ public class User {
     }
 
     public int getId() {
-
         return id;
     }
 
@@ -77,6 +75,7 @@ public class User {
     }
 
     public int getAdminID() {
+
         return adminID;
     }
 

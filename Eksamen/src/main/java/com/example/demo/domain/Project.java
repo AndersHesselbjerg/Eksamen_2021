@@ -12,6 +12,7 @@ public class Project {
     private int numberOfEmployees;
     private Date deadline;
     private ArrayList<Subproject> subprojects;
+    //Arraylist af brugere skal laves i project
     private int userID;
 
     Mapper mapper = new Mapper();

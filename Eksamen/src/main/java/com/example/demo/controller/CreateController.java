@@ -29,9 +29,8 @@ public class CreateController {
         User theuser = (User) session.getAttribute("login");
         int userid = theuser.getIsAdmin();
         if (userid == 1){
-            if (theuser.getIsAdmin() == 1)
-                theuser.adminID++;
-            System.out.println("Admins id er: " + theuser.adminID);
+            theuser.adminID++;
+            //System.out.println("Admins id er: " + theuser.adminID);
             model.addAttribute("project", project);
             return "createProject";
         } else {
