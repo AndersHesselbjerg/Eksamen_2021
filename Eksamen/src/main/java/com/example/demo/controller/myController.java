@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.database.DBManager;
 import com.example.demo.database.Mapper;
 import com.example.demo.domain.Project;
+import com.example.demo.domain.Subproject;
 import com.example.demo.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -103,6 +104,16 @@ public class myController {
         int userid = user.getId();
         mapper.createProject(project, userid);
         checkLogin(user);
+        System.out.println("Project created successfully");
+        return "userProfile";
+    }
+
+    @PostMapping("/createSubProject")
+    public String createSubProject(Subproject subproject, HttpSession session){
+        User theuser = (User) session.getAttribute("login");
+        int userid = theuser.getId();
+        mapper.createSubProject(subproject, userid);
+
         System.out.println("Project created successfully");
         return "userProfile";
     }

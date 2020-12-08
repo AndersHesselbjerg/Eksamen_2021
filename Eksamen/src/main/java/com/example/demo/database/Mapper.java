@@ -107,7 +107,6 @@ public class Mapper {
     public Project createProject(Project project, int userID){
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees, deadline, userID) VALUES(?, ?, ?, ?, ?)";
-        System.out.println("Så langt så godt");
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
@@ -118,13 +117,29 @@ public class Mapper {
             preparedStatement.setInt(5, userID);
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
-            System.out.println("Tillykke projekt: " + preparedStatement + ". Blev oprettet");
+            System.out.println("Tillykke projekt: " + preparedStatement + " blev oprettet");
         } catch(SQLException sqlerror){
             System.out.println("Fejl i oprettelse af projekt=" + sqlerror);
         }
         return project;
     }
-
+    public Subproject createSubProject(Subproject subproject, int userID){
+        Connection connection = DBManager.getConnection();
+        String sqlstr = "INSERT INTO subprojects(name, description, projectID) VALUES(?, ?, ?)";
+        PreparedStatement preparedStatement;
+        try{
+            preparedStatement = connection.prepareStatement(sqlstr);
+            preparedStatement.setString(1, subproject.getName());
+            preparedStatement.setString(2, subproject.getDescription());
+            preparedStatement.setInt(3, subproject.getProjectID());
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            System.out.println("Tillykke delprojekt: " + preparedStatement + " blev oprettet.");
+        } catch(SQLException sqlerror){
+            System.out.println("Fejl i oprettelse af delprojekt=" + sqlerror);
+        }
+        return subproject;
+    }
 
     public Project getProjectByName(String name){
         try {
@@ -181,11 +196,44 @@ public class Mapper {
         return subprojectList;
     }
 
-    public ArrayList<Project> getOneProject(Project project){
-        ArrayList<Project> oneProject = new ArrayList<>();
-        oneProject.add(project);
-        return oneProject;
+    public ArrayList<Project> getOneProject(int id) throws SQLException {
+        ArrayList<Project> allprojects = new ArrayList<>();
+        Connection connection = DBManager.getConnection();
+        String sqlproject = "SELECT projects.id, projects.name, subprojects.name, subprojects.description, subprojects.id, subprojects.projectID, projects.description, projects.numberOfEmployees, projects.deadline FROM projects left join subprojects on projects.id = subprojects.projectID WHERE id = \'" + id + "\'";
+        PreparedStatement prepareStatement;
+        prepareStatement = connection.prepareStatement(sqlproject);
+        ResultSet resultSet = prepareStatement.executeQuery();
+        System.out.println(resultSet);
+        int projectID = resultSet.getInt("projects.id");
+        String projectName = resultSet.getString("projects.name");
+        String projectDes = resultSet.getString("projects.description");
+        int numOfEmp = resultSet.getInt("projects.numberOfEmployees");
+        Date deadline = resultSet.getDate("projects.deadline");
+        Project project = new Project(projectID, projectName, projectDes, numOfEmp, deadline);
+        allprojects.add(project);
+
+        while(resultSet.next()){
+            int subID = resultSet.getInt("subprojects.id");
+            String subName = resultSet.getString("subprojects.name");
+            String subDes = resultSet.getString("subprojects.description");
+            int subProjectID = resultSet.getInt("subprojects.projectID");
+            Project subproject = new Project(subID, subName, subDes, subProjectID);
+            allprojects.add(subproject);
+        }
+
+
+        return allprojects;
+
+
+        //SELECT projects.name, subprojects.name, projects.description, projects.numberOfEmployees, projects.deadline,
+               // FROM projects
+        //left join subprojects on projects.id = subprojects.projectID
+        //order by projects.name
+
+
     }
+    // Den skal først retuneere et objekt. tage et parameter som er et id. i metoden skal vi hente et objekt fra databasen. Hent et objekt fra databasen
+    // hent alle subprojekter fra databasen og tilføj dem til arraylisten der ligger i det enkelte projekt.
 
 
 

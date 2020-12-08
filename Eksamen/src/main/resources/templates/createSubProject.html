@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="myCSS.css">
+    <link rel="stylesheet" href="profile.css">
+    <meta charset="UTF-8">
+    <title>Opret nyt delprojekt</title>
+</head>
+
+
+<body>
+<div class="slider" />
+<th:block th:include="/includes/header :: header"></th:block>
+<div class="container">
+    <h3 id="header3">Opret nyt delprojekt</h3>
+    <form th:action="@{/createSubProject}" th:object="${subproject}" method="post">
+
+        <label for="projectName">Navn</label><br>
+        <input type="text" id="projectName" th:field="*{name}"><br>
+
+        <label for="description">Beskrivelse</label><br>
+        <textarea style="height: 200px; width: 400px;" placeholder="Skriv her, hvad projektet omhandler" id="description" th:field="*{description}"></textarea><br>
+
+        <label for="numberOfEmployees">Antal medarbejdere</label><br>
+        <input type="text" id="numberOfEmployees" th:field="*{numberOfEmployees}"><br>
+        <br>
+
+        <button class="knap" type="submit" name="action" value="1">Opret delprojekt</button>
+    </form>
+</div>
+
+</body>
+<th:block th:include="/includes/footer :: footer"></th:block>
+</html>

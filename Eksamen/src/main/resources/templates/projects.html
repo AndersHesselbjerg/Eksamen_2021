@@ -11,7 +11,6 @@
 <div class="slider" />
 <th:block th:include="/includes/header :: header"></th:block>
 
-<h2> Dette er en beige farve </h2>
 <div class="container">
     <h3 id="header3">PROJEKTER</h3>
     <form action="/getOneProject" method="POST">
@@ -19,8 +18,9 @@
     <tr th:each="proj:${project}">
         <p>Projektnavn: <a href="/getOneProject"><td name="name" th:text="${proj.name}"></td><br /><p /></a>
         <td name="description" th:text="${proj.description}" /><br />
-        <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /><br />
+        <td name="numberOfEmployees" th:text="${proj.numOfEmp}" /><br />
         <td name="deadline" th:text="${proj.deadline}" /><br />
+        <td name="subName" th:text="${proj.subName}" />
     </tr>
     </tbody>
     </form>
