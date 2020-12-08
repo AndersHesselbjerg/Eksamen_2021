@@ -17,9 +17,13 @@
     <tbody>
     <tr th:each="proj:${project}">
         <p>Projektnavn: <a href="/getOneProject"><td name="name" th:text="${proj.name}"></td><br /><p /></a>
+        <!---pathVariable--->
         <td name="description" th:text="${proj.description}" /><br />
         <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /><br />
         <td name="deadline" th:text="${proj.deadline}" /><br />
+    </tr>
+    <tr th:each="subproj:${subproject}">
+        <td name="subDescription" th:text="${subproj.description}" /><br />
     </tr>
     </tbody>
     </form>

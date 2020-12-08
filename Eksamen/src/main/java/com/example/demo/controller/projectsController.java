@@ -10,7 +10,6 @@ import com.example.demo.domain.Project;
 import org.springframework.web.context.request.WebRequest;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,30 +23,26 @@ public class projectsController {
         return "subProjects";
     }
 
-    @PostMapping("/subproject")
-    public String subProject(){
-        return "";
-    }
-
 
     @GetMapping("/projects")
-    public String projects(Model model) throws SQLException {
-        ArrayList<Project> projectList = mapper.getOneProject(3);
-        /*for (Project project : projectList) {
+    public String projects(Model model) {
+        ArrayList<Project> projectList = mapper.getProjects();
+        ArrayList<Subproject> subProjectList = new ArrayList<>();
+        for (Project project : projectList) {
             ArrayList<Subproject> thisSubproject = mapper.getSubprojects(project.getId(), project);
             subProjectList.addAll(thisSubproject);
-        }*/
+        }
         model.addAttribute("project", projectList);
-        //model.addAttribute("subProject", projectList);
+        model.addAttribute("subproject", subProjectList);
         return "projects";
     }
 
-    /*@PostMapping("/project")
+    @PostMapping("/project")
     public String project(@RequestParam Project project, Model model){
         ArrayList<Project> oneProject = mapper.getOneProject(project);
         model.addAttribute("project", oneProject);
         return "project";
-    }*/
+    }
     @PostMapping("/getOneProject")
     public String getOneProject(WebRequest request,
                                 @RequestParam String name,

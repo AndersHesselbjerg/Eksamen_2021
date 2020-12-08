@@ -31,7 +31,7 @@ public class Project {
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
-        this.subprojects = mapper.getSubprojects(id, this);
+        //this.subprojects = mapper.getSubprojects(id, this);
     }
     public Project(int subID, String subName, String subDes, int subProjectID){
         this.subID = subID;
@@ -45,7 +45,7 @@ public class Project {
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
-        this.subprojects = mapper.getSubprojects(id, this);
+        //this.subprojects = mapper.getSubprojects(id, this);
     }
 
     public Project(String name, String description, int numberOfEmployees, Date deadline, ArrayList userID) {
@@ -53,7 +53,7 @@ public class Project {
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
-        this.subprojects = mapper.getSubprojects(id, this);
+        //this.subprojects = mapper.getSubprojects(id, this);
         this.userID = userID;
     }
 
