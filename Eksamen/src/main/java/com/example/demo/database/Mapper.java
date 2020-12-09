@@ -5,7 +5,6 @@ import com.example.demo.domain.Subproject;
 import com.example.demo.domain.User;
 import org.springframework.stereotype.Repository;
 
-import java.net.PortUnreachableException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -37,7 +36,7 @@ public class Mapper {
     }
 
 
-    public void deleteUser(int id){
+    public User deleteUser(int id){
         Connection connection = DBManager.getConnection();
         String sqlRemove = "DELETE FROM user WHERE id = '?' ";
         PreparedStatement preparedStatement;
@@ -51,6 +50,7 @@ public class Mapper {
         } catch(SQLException sqlerr){
             System.out.println("Fejl =" + sqlerr);
         }
+        return user;
     }
 
     public User logIn(String mail, String password) {
@@ -212,7 +212,7 @@ public class Mapper {
         Project project = new Project(projectID, projectName, projectDes, numOfEmp, deadline);
         allprojects.add(project);
 
-        while(resultSet.next()){
+        while (resultSet.next()) {
             int subID = resultSet.getInt("subprojects.id");
             String subName = resultSet.getString("subprojects.name");
             String subDes = resultSet.getString("subprojects.description");
@@ -226,14 +226,39 @@ public class Mapper {
 
 
         //SELECT projects.name, subprojects.name, projects.description, projects.numberOfEmployees, projects.deadline,
-               // FROM projects
+        // FROM projects
         //left join subprojects on projects.id = subprojects.projectID
         //order by projects.name
-
+        // Den skal først retuneere et objekt. tage et parameter som er et id. i metoden skal vi hente et objekt fra databasen. Hent et objekt fra databasen
+        // hent alle subprojekter fra databasen og tilføj dem til arraylisten der ligger i det enkelte projekt.
 
     }
-    // Den skal først retuneere et objekt. tage et parameter som er et id. i metoden skal vi hente et objekt fra databasen. Hent et objekt fra databasen
-    // hent alle subprojekter fra databasen og tilføj dem til arraylisten der ligger i det enkelte projekt.
+
+    public Project deleteProject(int projectID){
+        Connection connection = DBManager.getConnection();
+        String sqlStr = "Delete from projects where id = '?' ";
+        PreparedStatement preparedStatement;
+        String projectIDstr = "" + projectID;
+        ResultSet resultSet;
+        Project project = null;
+        try{
+            preparedStatement = connection.prepareStatement(sqlStr);
+            preparedStatement.setString(projectID, projectIDstr);
+            resultSet = preparedStatement.executeQuery(sqlStr);
+            System.out.println("Tillykke project: " + preparedStatement + " er blevet slettet");
+            if (resultSet.next() == false) {
+                return project;
+            }
+            project = new Project(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("Description"), resultSet.getInt("numberOfemployees"));
+        } catch(SQLException sqlerr){
+
+            System.out.println("Fejl =" + sqlerr);
+        }
+            return project;
+    }
+
+
+
 
 
 
@@ -263,42 +288,6 @@ public class Mapper {
             System.out.println("Fejl i nedhentning af projekter");
         }
         return projectList;
-    }
-
-
-
-    public Boolean loginCredentialsCorrect(String mail, String password) {
-        Connection connection = DBManager.getConnection();
-        String searchStr = "SELECT * FROM user where mail = ? and password = ? ";
-        PreparedStatement preparedStatement;
-        int res = -1;
-        String theMail = mail;
-        String thePassword = password;
-        ResultSet resset;
-        Boolean exist = false;
-        try {
-            preparedStatement = connection.prepareStatement(searchStr);
-            preparedStatement.setString(1, theMail);
-            preparedStatement.setString(2, thePassword);
-            System.out.println(searchStr);
-            System.out.println(preparedStatement);
-            resset = preparedStatement.executeQuery();
-            if (resset.next()) {
-                String str = "" + resset.getObject(1);
-                res = Integer.parseInt(str);
-                System.out.println("fundet id: = " + res);
-            }
-            if (res == 1) {
-                exist = true;
-                System.out.println("Id " + res + "Eksistere ");
-            } else {
-            }
-
-        } catch (SQLException sqlerr) {
-            System.out.println("fejl i exist = " + sqlerr.getMessage());
-        }
-
-        return exist;
     }
 
 }

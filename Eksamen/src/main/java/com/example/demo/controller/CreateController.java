@@ -51,4 +51,9 @@ public class CreateController {
         return "userProfile";
 
     }
+
+    @GetMapping("/removeProject")
+    public String removeProject(){
+        return ("removeProject");
+    }
 }

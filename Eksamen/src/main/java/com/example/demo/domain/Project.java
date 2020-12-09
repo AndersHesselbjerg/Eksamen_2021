@@ -33,6 +33,8 @@ public class Project {
         this.deadline = deadline;
         this.subprojects = mapper.getSubprojects(id, this);
     }
+
+
     public Project(int subID, String subName, String subDes, int subProjectID){
         this.subID = subID;
         this.subName = subName;

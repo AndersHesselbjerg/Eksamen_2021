@@ -64,15 +64,23 @@
 
 
             <div class="knapper">
-                                            <!--intet input i action endnu -->
-                <form action="" method="get">
+                <form action="" method="GET">
                     Choose one:
                     <button class="knap" name="subject" type="submit" value="View">View</button>
-                    <button class="knap" name="subject" type="submit" value="update">Update</button>
-                    <button class="knap" name="subject" type="submit" value="delete">Delete</button>
                 </form>
-
             </div>
+
+            <div class="knapper">
+                <form th:action="@{/createNewProject}" method="GET">
+                    <button class="knap" name="subject" type="submit" value="update">Update</button>
+                </form>
+            </div>
+
+            <form th:action="@{/removeProject}" method="post">
+            <div class="knapper">
+                    <button class="knap" name="subject" type="submit" value="delete">Delete</button>
+            </div>
+            </form>
 
 
 
