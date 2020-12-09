@@ -37,6 +37,15 @@ public class myController {
         return "createUser";
     }
 
+    @PostMapping("removeProject")
+    public String removeProject(@RequestParam int id, Model model, HttpSession session){
+        User user = (User) session.getAttribute("login");
+        checkLogin(user);
+        model.addAttribute("user");
+        mapper.deleteProject(id);
+        return "userProfile";
+    }
+
     @PostMapping("/createUser")
     public String createUser(@RequestParam String mail, @RequestParam String password, Model model){
         Boolean userCheck = mapper.userExist(mail);
