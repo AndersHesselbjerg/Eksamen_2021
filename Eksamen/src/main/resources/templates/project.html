@@ -14,12 +14,15 @@
 <div class="container">
     <h3 id="header3">$</h3>
     <tbody>
-    <tr th:each="proj:${project}">
+    <tr th:each="proj,stats:${project}">
         <p>Projektnavn: <td th:text="${proj.name}"></td><br /><p />
         <td th:text="${proj.description}" /><br />
         <td th:text="${proj.numberOfEmployees}" /><br />
         <td th:text="${proj.deadline}" /><br />
-
+        <td name="subprojects" th:text="${proj.subprojects}" /><br/>
+        <tr th:each="subproj:${project}">
+            <td th:text="${subproj.getSubprojects().get(1)}"/>
+        </tr>
     </tr>
     </tbody>
 </div>

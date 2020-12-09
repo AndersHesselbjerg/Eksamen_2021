@@ -33,6 +33,14 @@ public class Project {
         this.deadline = deadline;
         //this.subprojects = mapper.getSubprojects(id, this);
     }
+    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.numberOfEmployees = numberOfEmployees;
+        this.deadline = deadline;
+        this.subprojects = subprojects;
+    }
     public Project(int subID, String subName, String subDes, int subProjectID){
         this.subID = subID;
         this.subName = subName;
@@ -110,6 +118,13 @@ public class Project {
 
     public void setUserID(ArrayList<Integer> userID) {
         this.userID = userID;
+    }
+
+    public Subproject getSubprojectByID(){
+        return subprojects.get(id);
+    }
+    public int getSubprojectsName(){
+        return subprojects.get(id).getProjectID();
     }
 
 
