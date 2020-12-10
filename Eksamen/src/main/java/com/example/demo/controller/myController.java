@@ -5,6 +5,7 @@ import com.example.demo.database.Mapper;
 import com.example.demo.domain.Project;
 import com.example.demo.domain.Subproject;
 import com.example.demo.domain.User;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +43,7 @@ public class myController {
         User user = (User) session.getAttribute("login");
         checkLogin(user);
         model.addAttribute("user");
-        mapper.deleteProject(id);
+        System.out.println(mapper.deleteProject(id));
         return "userProfile";
     }
 
@@ -70,7 +71,6 @@ public class myController {
         password = webRequest.getParameter("password");
         User user = mapper.logIn(mail, password);
         setSessionInfo(webRequest, user);
-        ArrayList<Project> projects = mapper.getProjects();
 
         if(user == null){
             System.out.println("Der var intet match");
@@ -79,10 +79,9 @@ public class myController {
             if(user.getIsAdmin() == 0) {
                 session.setAttribute("login", user); // her add vi session
                 System.out.println("User " + user + " er logget ind: ");
-                model.addAttribute("projects", projects);
-                return "userProfile";
+                model.addAttribute("projects", mapper.getProjects());
+                return "redirect:/userProfile";
             }
-
             else{
                 session.setAttribute("login", user);
                 System.out.println("Admin " + user + " er logget ind: ");
@@ -133,7 +132,7 @@ public class myController {
         webRequest.getParameter("password");
         User theuser = (User) session.getAttribute("login");
         int userid = theuser.getId();
-        mapper.createProject(project, userid);
+
         setSessionInfo(webRequest, user);
         return "projects";
     }

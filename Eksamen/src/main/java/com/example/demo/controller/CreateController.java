@@ -45,11 +45,8 @@ public class CreateController {
 
     @GetMapping("/userProfile")
     public String userProfile(Model model) {
-        ArrayList<Project> projects = new ArrayList<>();
-        projects = mapper.getProjects();
-        model.addAttribute("projects", projects);
+        model.addAttribute("projects", mapper.getProjects());
         return "userProfile";
-
     }
 
     @GetMapping("/removeProject")
