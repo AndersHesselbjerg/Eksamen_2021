@@ -12,6 +12,7 @@ public class Project {
     private int numberOfEmployees;
     private Date deadline;
     private ArrayList<Subproject> subprojects;
+    private String ofSubprojects;
     //private int userID;
     private ArrayList<Integer> userID;
     private int subID;

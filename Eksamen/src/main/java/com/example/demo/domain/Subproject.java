@@ -6,7 +6,7 @@ public class Subproject {
     private String description;
     private int projectID;
 
-    public Subproject(int id, String name, String description, int projectID){
+    public Subproject(int id, String name, String description, int projectID) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -14,7 +14,7 @@ public class Subproject {
     }
 
 
-    public Subproject(){
+    public Subproject() {
 
 
     }
@@ -53,11 +53,7 @@ public class Subproject {
 
     @Override
     public String toString() {
-        return "Subproject{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", projectID=" + projectID +
-                '}';
-    }
+        return "Subproject\nName = " + name +
+                "\nDescription = " + description + "\n" ;
+    };
 }
