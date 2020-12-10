@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`user` (
                                                            `isAdmin` INT NOT NULL DEFAULT '0',
                                                            PRIMARY KEY (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 6
+    AUTO_INCREMENT = 7
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`projects` (
                                                                    FOREIGN KEY (`userID`)
                                                                        REFERENCES `projektoplysninger`.`user` (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 3
+    AUTO_INCREMENT = 4
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -59,18 +59,18 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`projects` (
 -- Table `projektoplysninger`.`subprojects`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projektoplysninger`.`subprojects` (
-                                                                  `id` INT NOT NULL AUTO_INCREMENT,
-                                                                  `name` VARCHAR(45) NULL DEFAULT NULL,
-                                                                  `description` VARCHAR(16000) NULL DEFAULT NULL,
+                                                                  `subId` INT NOT NULL AUTO_INCREMENT,
+                                                                  `subName` VARCHAR(45) NULL DEFAULT NULL,
+                                                                  `subDescription` VARCHAR(16000) NULL DEFAULT NULL,
                                                                   `projectID` INT NOT NULL,
-                                                                  PRIMARY KEY (`id`),
-                                                                  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+                                                                  PRIMARY KEY (`subId`),
+                                                                  UNIQUE INDEX `id_UNIQUE` (`subId` ASC),
                                                                   INDEX `projectID_idx` (`projectID` ASC),
                                                                   CONSTRAINT `projectID`
                                                                       FOREIGN KEY (`projectID`)
                                                                           REFERENCES `projektoplysninger`.`projects` (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 2
+    AUTO_INCREMENT = 6
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
