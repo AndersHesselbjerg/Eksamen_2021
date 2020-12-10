@@ -5,6 +5,7 @@ import com.example.demo.database.Mapper;
 import com.example.demo.domain.Subproject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.domain.Project;
 import org.springframework.web.context.request.WebRequest;
@@ -13,6 +14,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class projectsController {
@@ -28,13 +31,7 @@ public class projectsController {
     @GetMapping("/projects")
     public String projects(Model model) {
         ArrayList<Project> projectList = mapper.getProjects();
-        ArrayList<Subproject> subProjectList = new ArrayList<>();
-        for (Project project : projectList) {
-            ArrayList<Subproject> thisSubproject = mapper.getSubprojects(project.getId(), project);
-            subProjectList.addAll(thisSubproject);
-        }
         model.addAttribute("project", projectList);
-        model.addAttribute("subproject", subProjectList);
         return "projects";
     }
 

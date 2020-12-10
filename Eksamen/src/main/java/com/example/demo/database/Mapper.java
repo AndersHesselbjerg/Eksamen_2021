@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Repository
@@ -286,25 +288,51 @@ public class Mapper {
 
 
     public ArrayList<Project> getProjects(){
-        ArrayList<Project> projectList = new ArrayList<>();
+        ArrayList<Project> projectList = null;
         try {
             Connection connection = DBManager.getConnection();
-            String sqlproject = "SELECT * FROM projects";
-            PreparedStatement prepareStatement;
-            prepareStatement = connection.prepareStatement(sqlproject);
-            ResultSet resultSet = prepareStatement.executeQuery();
-
+            ArrayList<Subproject> subprojects = null;
+            Map<Integer,Project>  projectMap = new HashMap<>();
+            String sqlsubproject = "SELECT * FROM subprojects sub JOIN" +
+                    " projects proj ON proj.id= sub.projectID";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlsubproject);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String projectName =null;
+            String description =null;
+            int numberOfEmployees =0;
+            int projectId = 0;
+            Date deadline = null;
+            Project project = null;
             while(resultSet.next()){
-                int id = resultSet.getInt("id");
-                String projectName = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                int numberOfEmployees = resultSet.getInt("numberOfEmployees");
-                Date deadline = resultSet.getDate("deadline"); // Grunden til det ikke virkede før, er at den skal heder deadline og ikke deadlinedate
-                //Time deadlineTime = resultSet.getTime("currentTime");
+                projectId = resultSet.getInt("id");
+                projectName = resultSet.getString("name");
+                description = resultSet.getString("description");
+                numberOfEmployees = resultSet.getInt("numberOfEmployees");
+                deadline = resultSet.getDate("deadline");
+                if(!projectMap.containsKey(projectId)){
+                    int subID = resultSet.getInt("subId");
+                    String subprojectName = resultSet.getString("subName");
+                    String subprojectDes = resultSet.getString("subDescription");
+                    int subprojectID = resultSet.getInt("projectID");
+                    Subproject subproject = new Subproject(subID, subprojectName, subprojectDes, subprojectID);
+                    subprojects = new ArrayList<>();
+                    subprojects.add(subproject);
+                    project = new Project(projectId, projectName, description, numberOfEmployees, deadline, subprojects);
+                    projectMap.put(projectId,project);
+                }else{
+                    project = projectMap.get(projectId);
+                    int subID = resultSet.getInt("subId");
+                    String subprojectName = resultSet.getString("subName");
+                    String subprojectDes = resultSet.getString("subDescription");
+                    int subprojectID = resultSet.getInt("projectID");
+                    project.getSubprojects().add(new Subproject(subID, subprojectName, subprojectDes, subprojectID));
+                }
 
-                Project project = new Project(id, projectName, description, numberOfEmployees, deadline);
-                projectList.add(project);
+
             }
+
+            projectList = new ArrayList<>(projectMap.values());
+            //}
         } catch(SQLException exception){
             exception.printStackTrace();
             System.out.println("Fejl i nedhentning af projekter");
