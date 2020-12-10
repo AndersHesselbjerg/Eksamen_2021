@@ -11,6 +11,7 @@ import com.example.demo.domain.Project;
 import org.springframework.web.context.request.WebRequest;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,11 +36,12 @@ public class projectsController {
     }
 
     @PostMapping("/project")
-    public String project(@RequestParam Project project, Model model){
-        ArrayList<Project> oneProject = mapper.getOneProject(project);
+    public String project(@RequestParam Project project, Model model, int id) throws SQLException {
+        ArrayList<Project> oneProject = mapper.getOneProject(id);
         model.addAttribute("project", oneProject);
         return "project";
     }
+
     @PostMapping("/getOneProject")
     public String getOneProject(WebRequest request,
                                 @RequestParam String name,

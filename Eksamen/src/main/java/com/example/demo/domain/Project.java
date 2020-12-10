@@ -25,7 +25,7 @@ public class Project {
 
     }
 
-    public Project(int id, String name, String description, int numberOfEmployees, Date deadline) {
+    public Project(int id,String name, String description, int numberOfEmployees, Date deadline) {
         this.id = id;
         this.name = name;
         this.description = description;

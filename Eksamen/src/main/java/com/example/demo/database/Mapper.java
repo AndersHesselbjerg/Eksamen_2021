@@ -55,6 +55,26 @@ public class Mapper {
         return user;
     }
 
+/*
+    public Project updateProject(int id){
+        Connection connection = DBManager.getConnection();
+        String sqlStr = "UPDATE projects SET name = 'test', description = 'rdgts', numberOfEmployees = '9', userID = '6' WHERE id = '6' ";
+        PreparedStatement preparedStatement;
+        String userIDstr = "" + id;
+        User user = null;
+        try{
+            preparedStatement = connection.prepareStatement(sqlStr);
+            preparedStatement.setString(id, userIDstr );
+            preparedStatement.execute(sqlStr);
+            System.out.println("Tillykke bruger: " + preparedStatement + " er blevet slettet");
+        } catch(SQLException sqlerr){
+            System.out.println("Fejl =" + sqlerr);
+        }
+
+    }
+
+ */
+
     public User logIn(String mail, String password) {
         Connection connection = DBManager.getConnection();
         String searchLog = "select * FROM user WHERE mail = ? and password = ?; ";
@@ -125,6 +145,8 @@ public class Mapper {
         }
         return project;
     }
+
+
     public Subproject createSubProject(Subproject subproject, int userID){
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO subprojects(name, description, projectID) VALUES(?, ?, ?)";
