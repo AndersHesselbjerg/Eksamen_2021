@@ -43,7 +43,7 @@ public class myController {
         User user = (User) session.getAttribute("login");
         checkLogin(user);
         model.addAttribute("user");
-        System.out.println(mapper.deleteProject(id));
+        mapper.deleteProject(id);
         return "userProfile";
     }
 

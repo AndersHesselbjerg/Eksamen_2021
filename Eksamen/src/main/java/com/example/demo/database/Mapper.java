@@ -260,20 +260,17 @@ public class Mapper {
 
     public Project deleteProject(int projectID){
         Connection connection = DBManager.getConnection();
-        String sqlStr = "Delete from projects where id = '?' ";
+        String sqlStr = "Delete from projects where id = ? ";
         PreparedStatement preparedStatement;
         String projectIDstr = "" + projectID;
-        ResultSet resultSet;
+        boolean resultSet;
         Project project = null;
         try{
             preparedStatement = connection.prepareStatement(sqlStr);
-            preparedStatement.setString(projectID, projectIDstr);
-            resultSet = preparedStatement.executeQuery(sqlStr);
+            preparedStatement.setInt(1, projectID);
+            preparedStatement.execute();
             System.out.println("Tillykke project: " + preparedStatement + " er blevet slettet");
-            if (resultSet.next() == false) {
-                return project;
-            }
-            project = new Project(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("Description"), resultSet.getInt("numberOfemployees"));
+
         } catch(SQLException sqlerr){
 
             System.out.println("Fejl =" + sqlerr);
@@ -284,10 +281,34 @@ public class Mapper {
 
 
 
-
-
-
     public ArrayList<Project> getProjects(){
+        ArrayList<Project> projectList = new ArrayList<>();
+        try {
+            Connection connection = DBManager.getConnection();
+            String sqlproject = "SELECT * FROM projects";
+            PreparedStatement prepareStatement;
+            prepareStatement = connection.prepareStatement(sqlproject);
+            ResultSet resultSet = prepareStatement.executeQuery();
+
+            while(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String projectName = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                int numberOfEmployees = resultSet.getInt("numberOfEmployees");
+                Date deadline = resultSet.getDate("deadline"); // Grunden til det ikke virkede før, er at den skal heder deadline og ikke deadlinedate
+                //Time deadlineTime = resultSet.getTime("currentTime");
+
+                Project project = new Project(id, projectName, description, numberOfEmployees, deadline);
+                projectList.add(project);
+            }
+        } catch(SQLException exception){
+            exception.printStackTrace();
+            System.out.println("Fejl i nedhentning af projekter");
+        }
+        return projectList;
+    }
+
+    public ArrayList<Project> getsubProjects(){
         ArrayList<Project> projectList = null;
         try {
             Connection connection = DBManager.getConnection();

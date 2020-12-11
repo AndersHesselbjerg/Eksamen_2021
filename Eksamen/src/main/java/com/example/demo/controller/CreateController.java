@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CreateController {
@@ -45,6 +46,7 @@ public class CreateController {
 
     @GetMapping("/userProfile")
     public String userProfile(Model model) {
+        List<Project> projects = mapper.getProjects();
         model.addAttribute("projects", mapper.getProjects());
         return "userProfile";
     }

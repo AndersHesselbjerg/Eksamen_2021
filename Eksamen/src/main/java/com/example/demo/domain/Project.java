@@ -16,7 +16,7 @@ public class Project {
     private ArrayList<Integer> userID;
     private int subID;
     private String subName;
-    private String subDes;
+    private String subDescription;
     private int subProjectID;
 
     Mapper mapper = new Mapper();
@@ -33,6 +33,7 @@ public class Project {
         this.deadline = deadline;
         //this.subprojects = mapper.getSubprojects(id, this);
     }
+
     public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects) {
         this.id = id;
         this.name = name;
@@ -41,10 +42,10 @@ public class Project {
         this.deadline = deadline;
         this.subprojects = subprojects;
     }
-    public Project(int subID, String subName, String subDes, int subProjectID){
+    public Project(int subID, String subName, String subDescription, int subProjectID){
         this.subID = subID;
         this.subName = subName;
-        this.subDes = subDes;
+        this.subDescription = subDescription;
         this.subProjectID = subProjectID;
     }
 
@@ -130,6 +131,38 @@ public class Project {
 
     //public void setUserID(int userID) { this.userID = userID;
 
+
+    public int getSubID() {
+        return subID;
+    }
+
+    public void setSubID(int subID) {
+        this.subID = subID;
+    }
+
+    public String getSubDescription() {
+        return subDescription;
+    }
+
+    public void setSubDescription(String subDescription) {
+        this.subDescription = subDescription;
+    }
+
+    public int getSubProjectID() {
+        return subProjectID;
+    }
+
+    public void setSubProjectID(int subProjectID) {
+        this.subProjectID = subProjectID;
+    }
+
+    public Mapper getMapper() {
+        return mapper;
+    }
+
+    public void setMapper(Mapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public String toString() {
