@@ -254,7 +254,7 @@ public class Mapper {
     public ArrayList<Project> getOneProject(int id) throws SQLException {
         ArrayList<Project> allprojects = new ArrayList<>();
         Connection connection = DBManager.getConnection();
-        String sqlproject = "SELECT projects.id, projects.name, subprojects.name, subprojects.description, subprojects.id, subprojects.projectID, projects.description, projects.numberOfEmployees, projects.deadline FROM projects left join subprojects on projects.id = subprojects.projectID WHERE id = \'" + id + "\'";
+        String sqlproject = "SELECT projects.id, projects.name, projects.saved, subprojects.name, subprojects.description, subprojects.id, subprojects.projectID, projects.description, projects.numberOfEmployees, projects.deadline FROM projects left join subprojects on projects.id = subprojects.projectID WHERE id = \'" + id + "\'";
         PreparedStatement prepareStatement;
         prepareStatement = connection.prepareStatement(sqlproject);
         ResultSet resultSet = prepareStatement.executeQuery();
@@ -264,7 +264,7 @@ public class Mapper {
         String projectDes = resultSet.getString("projects.description");
         int numOfEmp = resultSet.getInt("projects.numberOfEmployees");
         Date deadline = resultSet.getDate("projects.deadline");
-        Date todaysDate = resultSet.getDate("saved");
+        Date todaysDate = resultSet.getDate("projects.saved");
         Project project = new Project(projectID, projectName, projectDes, numOfEmp, deadline, todaysDate);
         allprojects.add(project);
 

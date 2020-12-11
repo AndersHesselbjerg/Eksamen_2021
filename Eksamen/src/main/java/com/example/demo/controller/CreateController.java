@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
@@ -43,9 +44,17 @@ public class CreateController {
         return "addEmployees";
     }
 
-    @GetMapping("/userProfile")
+    /*@GetMapping("/userProfile")
     public String userProfile(Model model) {
         model.addAttribute("projects", mapper.getUserProjects());
+        return "userProfile";
+    }*/
+    @GetMapping("/userProfile")
+    public String userProfile(Model model, HttpServletRequest servletRequest) {
+        ArrayList<Project> projectList = mapper.getUserProjects();
+        model.addAttribute("project", projectList);
+        HttpSession session = servletRequest.getSession();
+        session.setAttribute("projectList",projectList);
         return "userProfile";
     }
 

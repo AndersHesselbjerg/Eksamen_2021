@@ -19,77 +19,41 @@
 
 <div class="right-panel">
 
+        <div class="container">
+            <h3 id="header3">PROJEKTER</h3>
+            <tr th:each="proj,stats: ${project}">
+                <b><td><a th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></a></td></b><br />
+                <td name="id" th:text="${proj.id}" /><br />
+                <td name="description" th:text="${proj.description}" /><br />
+                <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /><br />
+                <td name="deadline" th:text="${proj.deadline}" /><br />
+                <p th:each="subproject:${proj.subprojects}">
+                <td name="subName" th:text="${subproject.name}" /><br />
+                <td name="subDescription" th:text="${subproject.description}" /><br />
+                </p>
 
-    <div class="project-list-container">
-        <h2>Projekt oversigt</h2>
+                <div class="knapper">
+                    <form th:action="@{/project/{id}(id=${proj.id})}">
+                        <button th:href="@{/project/{id}(id=${proj.id})}" class="knap" name="subject" value="View" >View</button>
+                    </form>
+                </div>
 
-
-        <div class="project-list">
-
-
-            <th:block th:each="p : ${projects}">
-                <div class="project-list-item">
-                    Project 1
-
-        <div class="project-list-item">
-                    <p> Navn: </p><td th:text="${p.name}">...</td>
-                    <br> <p> Beskrivelse på projektet: </p><td th:text="${p.description}">...</td>
-                    <br> <p> Antal ansatte på projektet : </p><td th:text="${p.numberOfEmployees}">...</td>
-                    <br> <p> Subprojects på projektet: </p><th:block th:each="sp : ${p.subprojects}">
-                       <br><td th:text="${sp.name}" />
-                    </th:block>
-            <div class="project-list-item">
-                Project 2
-            </div>
-            <div class="project-list-item">
-                Project 3
-            </div>
-
-            <div class="project-list-item">
-                Project 4
-            </div>
-            <div class="project-list-item">
-                Project 5
-            </div>
-            <div class="project-list-item">
-                Project 6
-            </div>
-        </div>
-    </div>
-
-
-
-            <div class="knapper">
-                <form action="" method="GET">
-                    Choose one:
-                    <button class="knap" name="subject" type="submit" value="View">View</button>
+                <div class="knapper">
+                    <form th:action="@{/createNewProject}" method="GET">
+                        <button class="knap" name="subject" type="submit" value="update">Update</button>
+                    </form>
+                </div>
+                <form th:action="@{/removeProject}" method="post">
+                    <div class="knapper">
+                        <input name="id" type="hidden" th:value="${proj.id}">
+                        <button class="knap" name="subject" type="submit" value="delete">Delete</button>
+                    </div>
                 </form>
-            </div>
+            </tr>
 
-            <div class="knapper">
-                <form th:action="@{/createNewProject}" method="GET">
-                    <button class="knap" name="subject" type="submit" value="update">Update</button>
-                </form>
-            </div>
-
-            <form th:action="@{/removeProject}" method="post">
-            <div class="knapper">
-                <input name="id" type="hidden" th:value="${p.id}">
-                    <button class="knap" name="subject" type="submit" value="delete">Delete</button>
-            </div>
-            </form>
-
-            </th:block>
         </div>
 
-    </div>
-
-
-</div>
-
-
-
-
+        </div>
 
 <th:block th:include="/includes/footer :: footer"></th:block>
 </body>
