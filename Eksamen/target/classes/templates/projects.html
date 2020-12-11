@@ -13,18 +13,16 @@
 
 <div class="container">
     <h3 id="header3">PROJEKTER</h3>
-    <tr th:each="proj, subproj: ${project}">
-        <b><td name="name" th:text="${proj.name}"></td></b><br />
-        <!---pathVariable--->
+    <tr th:each="proj,stats: ${project}">
+        <b><td><a th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></a></td></b><br />
         <td name="id" th:text="${proj.id}" /><br />
         <td name="description" th:text="${proj.description}" /><br />
         <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /><br />
         <td name="deadline" th:text="${proj.deadline}" /><br />
-        <td name="subprojects" th:text="${proj.subprojects}" /><br/>
-        <!---<tr th:each="subproject:${proj.subprojects}">
-            <td name="subName" th:text="${subproject.get()}" /><br />
-            <td name="subDescription" th:text="${subproject.description}" /><br />
-        </tr>--->
+        <p th:each="subproject:${proj.subprojects}">
+        <td name="subName" th:text="${subproject.name}" /><br />
+        <td name="subDescription" th:text="${subproject.description}" /><br />
+        </p>
     </tr>
 
 </div>

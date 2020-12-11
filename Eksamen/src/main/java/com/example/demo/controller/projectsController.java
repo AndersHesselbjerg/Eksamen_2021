@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.domain.Project;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,19 +30,31 @@ public class projectsController {
     }
 
 
+
     @GetMapping("/projects")
-    public String projects(Model model) {
+    public String projects(Model model, HttpServletRequest servletRequest) {
         ArrayList<Project> projectList = mapper.getProjects();
         model.addAttribute("project", projectList);
+        HttpSession session = servletRequest.getSession();
+        session.setAttribute("projectList",projectList);
         return "projects";
     }
 
-    @PostMapping("/project")
-    public String project(@RequestParam Project project, Model model, int id) throws SQLException {
-        ArrayList<Project> oneProject = mapper.getOneProject(id);
+    @GetMapping("/project/{id}")
+    public String project(@PathVariable("id") int id, Model model, HttpServletRequest servletRequest){
+        HttpSession httpSession = servletRequest.getSession();
+
+        ArrayList<Project> projectList = (ArrayList<Project>) httpSession.getAttribute("projectList");
+        Project oneProject = null;
+        for(Project project:projectList){
+            if(project.getId()==id){
+                oneProject = project;
+            }
+        }
         model.addAttribute("project", oneProject);
         return "project";
     }
+
 
     @PostMapping("/getOneProject")
     public String getOneProject(WebRequest request,
