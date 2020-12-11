@@ -25,9 +25,10 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`user` (
                                                            `mail` VARCHAR(45) NOT NULL,
                                                            `password` VARCHAR(45) NOT NULL,
                                                            `isAdmin` INT NOT NULL DEFAULT '0',
+                                                           `adminID` INT NULL DEFAULT '0',
                                                            PRIMARY KEY (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 7
+    AUTO_INCREMENT = 8
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -40,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`projects` (
                                                                `name` VARCHAR(45) NULL DEFAULT NULL,
                                                                `description` VARCHAR(16000) NULL DEFAULT NULL,
                                                                `numberOfEmployees` INT NULL DEFAULT NULL,
-                                                               `DeadlineTime` TIME NULL DEFAULT NULL,
+                                                               `saved` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
                                                                `deadline` DATE NULL DEFAULT NULL,
                                                                `userID` INT NULL DEFAULT NULL,
                                                                PRIMARY KEY (`id`),
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`projects` (
                                                                    FOREIGN KEY (`userID`)
                                                                        REFERENCES `projektoplysninger`.`user` (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 4
+    AUTO_INCREMENT = 5
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`subprojects` (
                                                                       FOREIGN KEY (`projectID`)
                                                                           REFERENCES `projektoplysninger`.`projects` (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 6
+    AUTO_INCREMENT = 7
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
