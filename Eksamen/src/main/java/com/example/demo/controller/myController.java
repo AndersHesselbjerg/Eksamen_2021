@@ -79,7 +79,7 @@ public class myController {
             if(user.getIsAdmin() == 0) {
                 session.setAttribute("login", user); // her add vi session
                 System.out.println("User " + user + " er logget ind: ");
-                model.addAttribute("projects", mapper.getUserProjects());
+                model.addAttribute("projects", mapper.getProjects());
                 return "redirect:/userProfile";
             }
             else{
@@ -131,9 +131,9 @@ public class myController {
         webRequest.getParameter("mail");
         webRequest.getParameter("password");
         User theuser = (User) session.getAttribute("login");
-        int userid = theuser.getId();
-
         setSessionInfo(webRequest, user);
+        checkLogin(theuser);
+        mapper.updateProject(project);
         return "projects";
     }
 

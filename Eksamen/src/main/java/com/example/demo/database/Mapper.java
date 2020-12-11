@@ -14,7 +14,7 @@ import java.util.Map;
 @Repository
 public class Mapper {
 
-    public Mapper(){
+    public Mapper() {
 
     }
 
@@ -37,43 +37,73 @@ public class Mapper {
         return user;
     }
 
+    public ArrayList<Project> getProjects(){
+        ArrayList<Project> projectList = new ArrayList<>();
+        try {
+            Connection connection = DBManager.getConnection();
+            String sqlproject = "SELECT * FROM projects";
+            PreparedStatement prepareStatement;
+            prepareStatement = connection.prepareStatement(sqlproject);
+            ResultSet resultSet = prepareStatement.executeQuery();
 
-    public User deleteUser(int id){
+            while(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String projectName = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                int numberOfEmployees = resultSet.getInt("numberOfEmployees");
+                Date deadline = resultSet.getDate("deadline"); // Grunden til det ikke virkede før, er at den skal heder deadline og ikke deadlinedate
+                //Time deadlineTime = resultSet.getTime("currentTime");
+                Date todaysDate = resultSet.getDate("saved");
+
+                Project project = new Project(id, projectName, description, numberOfEmployees, deadline, todaysDate);
+                projectList.add(project);
+            }
+        } catch(SQLException exception){
+            exception.printStackTrace();
+            System.out.println("Fejl i nedhentning af projekter");
+        }
+        return projectList;
+    }
+
+
+    public User deleteUser(int id) {
         Connection connection = DBManager.getConnection();
         String sqlRemove = "DELETE FROM user WHERE id = '?' ";
         PreparedStatement preparedStatement;
         String userIDstr = "" + id;
         User user = null;
-        try{
+        try {
             preparedStatement = connection.prepareStatement(sqlRemove);
-            preparedStatement.setString(id, userIDstr );
+            preparedStatement.setString(id, userIDstr);
             preparedStatement.execute(sqlRemove);
             System.out.println("Tillykke bruger: " + preparedStatement + " er blevet slettet");
-        } catch(SQLException sqlerr){
+        } catch (SQLException sqlerr) {
             System.out.println("Fejl =" + sqlerr);
         }
         return user;
     }
 
-/*
-    public Project updateProject(int id){
+    public Project updateProject(Project project) {
         Connection connection = DBManager.getConnection();
-        String sqlStr = "UPDATE projects SET name = 'test', description = 'rdgts', numberOfEmployees = '9', userID = '6' WHERE id = '6' ";
+        String sqlStr = "UPDATE projects SET name = ?, description = ? , numberOfEmployees = ?, saved = ?, userID = ? WHERE id = ? ";
         PreparedStatement preparedStatement;
-        String userIDstr = "" + id;
-        User user = null;
-        try{
+
+        try {
             preparedStatement = connection.prepareStatement(sqlStr);
-            preparedStatement.setString(id, userIDstr );
-            preparedStatement.execute(sqlStr);
-            System.out.println("Tillykke bruger: " + preparedStatement + " er blevet slettet");
-        } catch(SQLException sqlerr){
-            System.out.println("Fejl =" + sqlerr);
+            preparedStatement.setString(1, project.getName());
+            preparedStatement.setString(2, project.getDescription());
+            preparedStatement.setInt(3, project.getNumberOfEmployees());
+            preparedStatement.setDate(4, project.getSaved());
+            preparedStatement.setArray(5, (Array) project.getUserID());
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            System.out.println("Tillykke brugeren: " + preparedStatement + " Er opdateret");
+
+        } catch (SQLException sqlerr) {
+            System.out.println("Fejl i opdate = " + sqlerr);
         }
-
+        return project;
     }
-
- */
 
     public User logIn(String mail, String password) {
         Connection connection = DBManager.getConnection();
@@ -180,8 +210,9 @@ public class Mapper {
                 int numberOfEmployees = resultSet.getInt("numberOfEmployees");
                 Date deadline = resultSet.getDate("deadlineDate"); // Grunden til det ikke virkede før, er at
                 //Time deadlineTime = resultSet.getTime("currentTime");
+                Date todaysDate = resultSet.getDate("saved");
 
-                Project project = new Project(id, projectName, description, numberOfEmployees, deadline);
+                Project project = new Project(id, projectName, description, numberOfEmployees, deadline, todaysDate);
                 return project;
             } else{
                 return null;
@@ -233,7 +264,8 @@ public class Mapper {
         String projectDes = resultSet.getString("projects.description");
         int numOfEmp = resultSet.getInt("projects.numberOfEmployees");
         Date deadline = resultSet.getDate("projects.deadline");
-        Project project = new Project(projectID, projectName, projectDes, numOfEmp, deadline);
+        Date todaysDate = resultSet.getDate("saved");
+        Project project = new Project(projectID, projectName, projectDes, numOfEmp, deadline, todaysDate);
         allprojects.add(project);
 
         while (resultSet.next()) {
@@ -260,27 +292,23 @@ public class Mapper {
 
     public Project deleteProject(int projectID){
         Connection connection = DBManager.getConnection();
-        String sqlStr = "Delete from projects where id = '?' ";
+        String sqlStr = "Delete from projects where id = ? ";
         PreparedStatement preparedStatement;
         String projectIDstr = "" + projectID;
-        ResultSet resultSet;
+        boolean resultSet;
         Project project = null;
         try{
             preparedStatement = connection.prepareStatement(sqlStr);
-            preparedStatement.setString(projectID, projectIDstr);
-            resultSet = preparedStatement.executeQuery(sqlStr);
+            preparedStatement.setInt(1, projectID);
+            preparedStatement.execute();
             System.out.println("Tillykke project: " + preparedStatement + " er blevet slettet");
-            if (resultSet.next() == false) {
-                return project;
-            }
-            project = new Project(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("Description"), resultSet.getInt("numberOfemployees"));
+
         } catch(SQLException sqlerr){
 
             System.out.println("Fejl =" + sqlerr);
         }
-            return project;
+        return project;
     }
-
 
 
 
@@ -314,10 +342,11 @@ public class Mapper {
                     String subprojectName = resultSet.getString("subName");
                     String subprojectDes = resultSet.getString("subDescription");
                     int subprojectID = resultSet.getInt("projectID");
+                    Date todaysDate = resultSet.getDate("saved");
                     Subproject subproject = new Subproject(subID, subprojectName, subprojectDes, subprojectID);
                     subprojects = new ArrayList<>();
                     subprojects.add(subproject);
-                    project = new Project(projectId, projectName, description, numberOfEmployees, deadline, subprojects);
+                    project = new Project(projectId, projectName, description, numberOfEmployees, deadline, subprojects, todaysDate);
                     projectMap.put(projectId,project);
                 }else{
                     project = projectMap.get(projectId);

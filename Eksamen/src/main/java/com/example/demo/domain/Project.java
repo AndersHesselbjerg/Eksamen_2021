@@ -19,6 +19,7 @@ public class Project {
     private String subName;
     private String subDescription;
     private int subProjectID;
+    private Date saved;
 
     Mapper mapper = new Mapper();
 
@@ -26,22 +27,24 @@ public class Project {
 
     }
 
-    public Project(int id,String name, String description, int numberOfEmployees, Date deadline) {
+    public Project(int id,String name, String description, int numberOfEmployees, Date deadline, Date saved) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
+        this.saved = saved;
         //this.subprojects = mapper.getSubprojects(id, this);
     }
 
-    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects) {
+    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects, Date saved) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
         this.subprojects = subprojects;
+        this.saved = saved;
     }
     public Project(int subID, String subName, String subDescription, int subProjectID){
         this.subID = subID;
@@ -163,6 +166,15 @@ public class Project {
 
     public void setMapper(Mapper mapper) {
         this.mapper = mapper;
+    }
+
+
+    public Date getSaved() {
+        return saved;
+    }
+
+    public void setSaved(Date saved) {
+        this.saved = saved;
     }
 
     @Override
