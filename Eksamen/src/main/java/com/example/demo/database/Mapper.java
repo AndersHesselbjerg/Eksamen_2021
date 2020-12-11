@@ -289,20 +289,22 @@ public class Mapper {
         // hent alle subprojekter fra databasen og tilføj dem til arraylisten der ligger i det enkelte projekt.
 
     }
+    Subproject subproject = new Subproject();
 
     public Project deleteProject(int projectID){
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from projects where id = ? ";
         PreparedStatement preparedStatement;
-        String projectIDstr = "" + projectID;
-        boolean resultSet;
+
         Project project = null;
         try{
             preparedStatement = connection.prepareStatement(sqlStr);
             preparedStatement.setInt(1, projectID);
-            preparedStatement.execute();
-            System.out.println("Tillykke project: " + preparedStatement + " er blevet slettet");
 
+            if (subproject.getProjectID() == project.getId()){
+                preparedStatement.execute();
+                System.out.println("Tillykke project: " + preparedStatement + " er blevet slettet");
+            }
         } catch(SQLException sqlerr){
 
             System.out.println("Fejl =" + sqlerr);
