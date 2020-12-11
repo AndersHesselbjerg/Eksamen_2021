@@ -28,7 +28,7 @@ class MapperTest {
         Mapper mapper = new Mapper();
         ArrayList<Project> projects = new ArrayList<>();
         projects.add(project);
-        mapper.getProjects();
+        mapper.getUserProjects();
 
     }
 

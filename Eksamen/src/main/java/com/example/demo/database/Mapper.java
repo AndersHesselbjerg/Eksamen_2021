@@ -287,7 +287,7 @@ public class Mapper {
 
 
 
-    public ArrayList<Project> getProjects(){
+    public ArrayList<Project> getUserProjects(){
         ArrayList<Project> projectList = null;
         try {
             Connection connection = DBManager.getConnection();

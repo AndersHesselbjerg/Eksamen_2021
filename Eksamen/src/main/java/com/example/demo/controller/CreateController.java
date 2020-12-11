@@ -45,7 +45,7 @@ public class CreateController {
 
     @GetMapping("/userProfile")
     public String userProfile(Model model) {
-        model.addAttribute("projects", mapper.getProjects());
+        model.addAttribute("projects", mapper.getUserProjects());
         return "userProfile";
     }
 

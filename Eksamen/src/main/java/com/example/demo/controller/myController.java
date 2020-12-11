@@ -79,7 +79,7 @@ public class myController {
             if(user.getIsAdmin() == 0) {
                 session.setAttribute("login", user); // her add vi session
                 System.out.println("User " + user + " er logget ind: ");
-                model.addAttribute("projects", mapper.getProjects());
+                model.addAttribute("projects", mapper.getUserProjects());
                 return "redirect:/userProfile";
             }
             else{

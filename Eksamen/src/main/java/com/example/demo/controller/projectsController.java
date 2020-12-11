@@ -33,7 +33,7 @@ public class projectsController {
 
     @GetMapping("/projects")
     public String projects(Model model, HttpServletRequest servletRequest) {
-        ArrayList<Project> projectList = mapper.getProjects();
+        ArrayList<Project> projectList = mapper.getUserProjects();
         model.addAttribute("project", projectList);
         HttpSession session = servletRequest.getSession();
         session.setAttribute("projectList",projectList);
