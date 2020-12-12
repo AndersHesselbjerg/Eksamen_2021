@@ -179,7 +179,7 @@ public class Mapper {
 
     public Subproject createSubProject(Subproject subproject, int userID){
         Connection connection = DBManager.getConnection();
-        String sqlstr = "INSERT INTO subprojects(name, description, projectID) VALUES(?, ?, ?)";
+        String sqlstr = "INSERT INTO subprojects(subName, subDescription, projectID) VALUES(?, ?, ?)";
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlstr);
@@ -254,7 +254,7 @@ public class Mapper {
     public ArrayList<Project> getOneProject(int id) throws SQLException {
         ArrayList<Project> allprojects = new ArrayList<>();
         Connection connection = DBManager.getConnection();
-        String sqlproject = "SELECT projects.id, projects.name, projects.saved, subprojects.name, subprojects.description, subprojects.id, subprojects.projectID, projects.description, projects.numberOfEmployees, projects.deadline FROM projects left join subprojects on projects.id = subprojects.projectID WHERE id = \'" + id + "\'";
+        String sqlproject = "SELECT projects.id, projects.name, subprojects.subName, subprojects.subDescription, subprojects.subId, subprojects.projectID, projects.description, projects.numberOfEmployees, projects.deadline FROM projects left join subprojects on projects.id = subprojects.projectID WHERE id = \'" + id + "\'";
         PreparedStatement prepareStatement;
         prepareStatement = connection.prepareStatement(sqlproject);
         ResultSet resultSet = prepareStatement.executeQuery();
@@ -264,7 +264,7 @@ public class Mapper {
         String projectDes = resultSet.getString("projects.description");
         int numOfEmp = resultSet.getInt("projects.numberOfEmployees");
         Date deadline = resultSet.getDate("projects.deadline");
-        Date todaysDate = resultSet.getDate("projects.saved");
+        Date todaysDate = resultSet.getDate("saved");
         Project project = new Project(projectID, projectName, projectDes, numOfEmp, deadline, todaysDate);
         allprojects.add(project);
 
@@ -291,7 +291,30 @@ public class Mapper {
     }
     Subproject subproject = new Subproject();
 
+    public Project deleteSubProjectsOfProject(int projectID){
+        Connection connection = DBManager.getConnection();
+        String sqlStr = "Delete from subprojects where projectID = ? ";
+        PreparedStatement preparedStatement;
+
+        Project project = null;
+        try{
+            preparedStatement = connection.prepareStatement(sqlStr);
+            preparedStatement.setInt(1, projectID);
+
+
+                preparedStatement.execute();
+                System.out.println("Tillykke  subproject: " + preparedStatement + " er blevet slettet");
+
+        } catch(SQLException sqlerr){
+
+            System.out.println("Fejl =" + sqlerr);
+        }
+        return project;
+    }
+
     public Project deleteProject(int projectID){
+
+        this.deleteSubProjectsOfProject(projectID);
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from projects where id = ? ";
         PreparedStatement preparedStatement;
@@ -301,17 +324,16 @@ public class Mapper {
             preparedStatement = connection.prepareStatement(sqlStr);
             preparedStatement.setInt(1, projectID);
 
-            if (subproject.getProjectID() == project.getId()){
-                preparedStatement.execute();
-                System.out.println("Tillykke project: " + preparedStatement + " er blevet slettet");
-            }
+
+            preparedStatement.execute();
+            System.out.println("Tillykke project: " + preparedStatement + " er blevet slettet");
+
         } catch(SQLException sqlerr){
 
             System.out.println("Fejl =" + sqlerr);
         }
         return project;
     }
-
 
 
 
