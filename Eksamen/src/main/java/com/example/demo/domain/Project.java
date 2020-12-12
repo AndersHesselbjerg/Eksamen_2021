@@ -12,13 +12,7 @@ public class Project {
     private int numberOfEmployees;
     private Date deadline;
     private ArrayList<Subproject> subprojects;
-    private String ofSubprojects;
-    //private int userID;
     private ArrayList<Integer> userID;
-    private int subID;
-    private String subName;
-    private String subDescription;
-    private int subProjectID;
     private Date saved;
 
     Mapper mapper = new Mapper();
@@ -34,7 +28,6 @@ public class Project {
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
         this.saved = saved;
-        //this.subprojects = mapper.getSubprojects(id, this);
     }
 
     public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects, Date saved) {
@@ -46,19 +39,11 @@ public class Project {
         this.subprojects = subprojects;
         this.saved = saved;
     }
-    public Project(int subID, String subName, String subDescription, int subProjectID){
-        this.subID = subID;
-        this.subName = subName;
-        this.subDescription = subDescription;
-        this.subProjectID = subProjectID;
-    }
-
     public Project(String name, String description, int numberOfEmployees, Date deadline) {
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
-        //this.subprojects = mapper.getSubprojects(id, this);
     }
 
     public Project(String name, String description, int numberOfEmployees, Date deadline, ArrayList userID) {
@@ -135,30 +120,6 @@ public class Project {
 
     //public void setUserID(int userID) { this.userID = userID;
 
-
-    public int getSubID() {
-        return subID;
-    }
-
-    public void setSubID(int subID) {
-        this.subID = subID;
-    }
-
-    public String getSubDescription() {
-        return subDescription;
-    }
-
-    public void setSubDescription(String subDescription) {
-        this.subDescription = subDescription;
-    }
-
-    public int getSubProjectID() {
-        return subProjectID;
-    }
-
-    public void setSubProjectID(int subProjectID) {
-        this.subProjectID = subProjectID;
-    }
 
     public Mapper getMapper() {
         return mapper;

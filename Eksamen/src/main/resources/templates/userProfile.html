@@ -39,8 +39,11 @@
                 </div>
 
                 <div class="knapper">
-                    <form th:action="@{/createNewProject}" method="GET">
-                        <button class="knap" name="subject" type="submit" value="update">Update</button>
+                    <form th:action="@{/createNewProject}" method="post">
+                        <div class="knapper">
+                            <input name="id" type="hidden" th:value="${proj.id}">
+                            <button class="knap" name="subject" type="submit" value="update">Update</button>
+                        </div>
                     </form>
                 </div>
                 <form th:action="@{/removeProject}" method="post">

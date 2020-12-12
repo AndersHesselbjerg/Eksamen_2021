@@ -87,7 +87,6 @@ public class Mapper {
         Connection connection = DBManager.getConnection();
         String sqlStr = "UPDATE projects SET name = ?, description = ? , numberOfEmployees = ?, saved = ?, userID = ? WHERE id = ? ";
         PreparedStatement preparedStatement;
-
         try {
             preparedStatement = connection.prepareStatement(sqlStr);
             preparedStatement.setString(1, project.getName());
@@ -268,16 +267,6 @@ public class Mapper {
         Project project = new Project(projectID, projectName, projectDes, numOfEmp, deadline, todaysDate);
         allprojects.add(project);
 
-        while (resultSet.next()) {
-            int subID = resultSet.getInt("subprojects.id");
-            String subName = resultSet.getString("subprojects.name");
-            String subDes = resultSet.getString("subprojects.description");
-            int subProjectID = resultSet.getInt("subprojects.projectID");
-            Project subproject = new Project(subID, subName, subDes, subProjectID);
-            allprojects.add(subproject);
-        }
-
-
         return allprojects;
 
 
@@ -300,13 +289,9 @@ public class Mapper {
         try{
             preparedStatement = connection.prepareStatement(sqlStr);
             preparedStatement.setInt(1, projectID);
-
-
                 preparedStatement.execute();
                 System.out.println("Tillykke  subproject: " + preparedStatement + " er blevet slettet");
-
         } catch(SQLException sqlerr){
-
             System.out.println("Fejl =" + sqlerr);
         }
         return project;

@@ -105,7 +105,6 @@ public class myController {
 
 
 
-
     @PostMapping("/createProject")
     public String createProject(Project project, HttpSession session){
         User user = (User) session.getAttribute("login");
@@ -127,14 +126,11 @@ public class myController {
     }
 
     @PostMapping("updateProject")
-    public String updateProject(WebRequest webRequest, Project project, User user, HttpSession session){
-        webRequest.getParameter("mail");
-        webRequest.getParameter("password");
+    public String updateProject(@RequestParam Project project, HttpSession session){
         User theuser = (User) session.getAttribute("login");
-        setSessionInfo(webRequest, user);
         checkLogin(theuser);
         mapper.updateProject(project);
-        return "projects";
+        return "userProfile";
     }
 
     private void checkLogin(User user) {

@@ -31,7 +31,6 @@ public class CreateController {
         int userid = theuser.getIsAdmin();
         if (userid == 1){
             theuser.adminID++;
-            //System.out.println("Admins id er: " + theuser.adminID);
             model.addAttribute("project", project);
             return "createProject";
         } else {
@@ -44,11 +43,7 @@ public class CreateController {
         return "addEmployees";
     }
 
-    /*@GetMapping("/userProfile")
-    public String userProfile(Model model) {
-        model.addAttribute("projects", mapper.getUserProjects());
-        return "userProfile";
-    }*/
+
     @GetMapping("/userProfile")
     public String userProfile(Model model, HttpServletRequest servletRequest) {
         ArrayList<Project> projectList = mapper.getUserProjects();
@@ -61,5 +56,10 @@ public class CreateController {
     @GetMapping("/removeProject")
     public String removeProject(){
         return ("removeProject");
+    }
+
+    @GetMapping("updateProject")
+    public String updateProject(){
+        return "userProfile";
     }
 }

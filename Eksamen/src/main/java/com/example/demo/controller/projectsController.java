@@ -23,13 +23,10 @@ import java.util.Map;
 public class projectsController {
 
     Mapper mapper = new Mapper();
-
     @GetMapping("/subProjects")
     public String subProjects(){
         return "subProjects";
     }
-
-
 
     @GetMapping("/projects")
     public String projects(Model model, HttpServletRequest servletRequest) {
