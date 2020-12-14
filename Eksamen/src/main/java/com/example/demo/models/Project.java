@@ -1,6 +1,6 @@
-package com.example.demo.domain;
+package com.example.demo.models;
 
-import com.example.demo.database.Mapper;
+import com.example.demo.repositories.Mapper;
 
 import java.sql.Date;
 import java.util.ArrayList;

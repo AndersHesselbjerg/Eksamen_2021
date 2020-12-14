@@ -1,23 +1,16 @@
-package com.example.demo.controller;
+package com.example.demo.controllers;
 
-import com.example.demo.database.DBManager;
-import com.example.demo.database.Mapper;
-import com.example.demo.domain.Subproject;
+import com.example.demo.repositories.Mapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.domain.Project;
+import com.example.demo.models.Project;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 public class projectsController {

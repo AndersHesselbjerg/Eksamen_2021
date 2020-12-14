@@ -1,11 +1,8 @@
-package com.example.demo.controller;
+package com.example.demo.controllers;
 
-import com.example.demo.database.DBManager;
-import com.example.demo.database.Mapper;
-import com.example.demo.domain.Project;
-import com.example.demo.domain.Subproject;
-import com.example.demo.domain.User;
-import com.fasterxml.jackson.annotation.JsonGetter;
+import com.example.demo.repositories.Mapper;
+import com.example.demo.models.Project;
+import com.example.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

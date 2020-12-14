@@ -1,8 +1,8 @@
-package com.example.demo.database;
+package com.example.demo.repositories;
 
-import com.example.demo.domain.Project;
-import com.example.demo.domain.Subproject;
-import com.example.demo.domain.User;
+import com.example.demo.models.Project;
+import com.example.demo.models.Subproject;
+import com.example.demo.models.User;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -255,7 +255,7 @@ public class Mapper {
     public ArrayList<Project> getOneProject(int id) throws SQLException {
         ArrayList<Project> allprojects = new ArrayList<>();
         Connection connection = DBManager.getConnection();
-        String sqlproject = "SELECT projects.id, projects.name, subprojects.subName, subprojects.subDescription, subprojects.subId, subprojects.projectID, projects.description, projects.numberOfEmployees, projects.deadline FROM projects left join subprojects on projects.id = subprojects.projectID WHERE id = \'" + id + "\'";
+        String sqlproject = "SELECT projects.id, projects.name, subprojects.subName, subprojects.subDescription, subprojects.subId, subprojects.projectID, projects.description, projects.numberOfEmployees, projects.deadline FROM projects left join subprojects on projects.id = subprojects.projectID WHERE id = ?";
         PreparedStatement prepareStatement;
         prepareStatement = connection.prepareStatement(sqlproject);
         ResultSet resultSet = prepareStatement.executeQuery();

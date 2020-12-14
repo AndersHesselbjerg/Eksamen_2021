@@ -1,4 +1,4 @@
-package com.example.demo.database;
+package com.example.demo.repositories;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,7 +1,7 @@
-package com.example.demo.database;
+package com.example.demo.repositories;
 
-import com.example.demo.domain.Project;
-import com.example.demo.domain.User;
+import com.example.demo.models.Project;
+import com.example.demo.models.User;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
