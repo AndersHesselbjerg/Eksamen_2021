@@ -27,10 +27,6 @@
                 <td name="description" th:text="${proj.description}" /><br />
                 <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /><br />
                 <td name="deadline" th:text="${proj.deadline}" /><br />
-                <p th:each="subproject:${proj.subprojects}">
-                <td name="subName" th:text="${subproject.name}" /><br />
-                <td name="subDescription" th:text="${subproject.description}" /><br />
-                </p>
 
                 <div class="knapper">
                     <form th:action="@{/project/{id}(id=${proj.id})}">

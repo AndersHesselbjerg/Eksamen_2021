@@ -37,15 +37,17 @@ public class Mapper {
         return user;
     }
 
-    public ArrayList<Project> getProjects(){
+    public ArrayList<Project> getProjects(int userid){
         ArrayList<Project> projectList = new ArrayList<>();
+
         try {
             Connection connection = DBManager.getConnection();
-            String sqlproject = "SELECT * FROM projects";
+            String sqlproject = "SELECT * FROM projects where userID = ?";
             PreparedStatement prepareStatement;
             prepareStatement = connection.prepareStatement(sqlproject);
-            ResultSet resultSet = prepareStatement.executeQuery();
 
+            prepareStatement.setInt(1, userid);
+            ResultSet resultSet = prepareStatement.executeQuery();
             while(resultSet.next()){
                 int id = resultSet.getInt("id");
                 String projectName = resultSet.getString("name");
@@ -267,6 +269,7 @@ public class Mapper {
         Project project = new Project(projectID, projectName, projectDes, numOfEmp, deadline, todaysDate);
         allprojects.add(project);
 
+
         return allprojects;
 
 
@@ -278,8 +281,9 @@ public class Mapper {
         // hent alle subprojekter fra databasen og tilføj dem til arraylisten der ligger i det enkelte projekt.
 
     }
-    Subproject subproject = new Subproject();
 
+
+    Subproject subproject = new Subproject();
     public Project deleteSubProjectsOfProject(int projectID){
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from subprojects where projectID = ? ";
@@ -298,7 +302,6 @@ public class Mapper {
     }
 
     public Project deleteProject(int projectID){
-
         this.deleteSubProjectsOfProject(projectID);
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from projects where id = ? ";
