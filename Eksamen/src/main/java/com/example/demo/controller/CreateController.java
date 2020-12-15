@@ -2,11 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.database.Mapper;
 import com.example.demo.domain.Project;
+import com.example.demo.domain.Subproject;
 import com.example.demo.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,6 +26,39 @@ public class CreateController {
         this.mapper = mapper;
     }
 
+    @GetMapping("/createUser")
+    public String createUser(){
+        return "createUser";
+    }
+
+    @PostMapping("/createProject")
+    public String createProject(Project project, HttpSession session){
+        User user = (User) session.getAttribute("login");
+        int userid = user.getId();
+        mapper.createProject(project, userid);
+        checkLogin(user);
+        System.out.println("Project created successfully");
+        return "userProfile";
+    }
+
+    @PostMapping("/createSubProject")
+    public String createSubProject(Subproject subproject, HttpSession session){
+        User theuser = (User) session.getAttribute("login");
+        int userid = theuser.getId();
+        mapper.createSubProject(subproject, userid);
+
+        System.out.println("Project created successfully");
+        return "userProfile";
+    }
+
+    @PostMapping("updateProject")
+    public String updateProject(@RequestParam Project project, HttpSession session){
+        User theuser = (User) session.getAttribute("login");
+        checkLogin(theuser);
+        mapper.updateProject(project);
+        return "userProfile";
+    }
+
 
 
     @GetMapping("/createNewProject")
@@ -31,7 +67,6 @@ public class CreateController {
         int userid = theuser.getIsAdmin();
         if (userid == 1){
             theuser.adminID++;
-            //System.out.println("Admins id er: " + theuser.adminID);
             model.addAttribute("project", project);
             return "createProject";
         } else {
@@ -44,22 +79,18 @@ public class CreateController {
         return "addEmployees";
     }
 
-    /*@GetMapping("/userProfile")
-    public String userProfile(Model model) {
-        model.addAttribute("projects", mapper.getUserProjects());
-        return "userProfile";
-    }*/
-    @GetMapping("/userProfile")
-    public String userProfile(Model model, HttpServletRequest servletRequest) {
-        ArrayList<Project> projectList = mapper.getUserProjects();
-        model.addAttribute("project", projectList);
-        HttpSession session = servletRequest.getSession();
-        session.setAttribute("projectList",projectList);
+
+    @GetMapping("updateProject")
+    public String updateProject(){
         return "userProfile";
     }
 
-    @GetMapping("/removeProject")
-    public String removeProject(){
-        return ("removeProject");
+    private void checkLogin(User user) {
+        System.out.println("Bruger: " + user + ", er stadig logget ind! ");
+    }
+
+    private void setSessionInfo(WebRequest request, User user) {
+        // Place user info on session
+        request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
     }
 }
