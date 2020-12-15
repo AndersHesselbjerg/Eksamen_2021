@@ -28,6 +28,8 @@
                 <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /><br />
                 <td name="deadline" th:text="${proj.deadline}" /><br />
 
+                </p>
+
                 <div class="knapper">
                     <form th:action="@{/project/{id}(id=${proj.id})}">
                         <button th:href="@{/project/{id}(id=${proj.id})}" class="knap" name="subject" value="View" >View</button>
@@ -42,14 +44,15 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="knapper">
                 <form th:action="@{/removeProject}" method="post">
-                    <div class="knapper">
                         <input name="id" type="hidden" th:value="${proj.id}">
                         <button class="knap" name="subject" type="submit" value="delete">Delete</button>
-                    </div>
                 </form>
-            </tr>
 
+                </div>
+            </tr>
         </div>
 
         </div>
