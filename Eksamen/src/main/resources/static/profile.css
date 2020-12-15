@@ -63,10 +63,6 @@ body {
 
 
 .right-panel {
-
-    position: absolute;
-    right: 10%;
-    top: 20%;
     color: #fff;
     background-color: rgba(0, 0, 0, 0.5);
 

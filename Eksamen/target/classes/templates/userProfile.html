@@ -16,25 +16,27 @@
 
 <!-- overview - current projects-->
 
-
-<div class="right-panel">
-
         <div class="container">
             <h3 id="header3">PROJEKTER</h3>
             <tr th:each="proj,stats: ${project}">
-                <b><td><a th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></a></td></b><br />
-                <td name="id" th:text="${proj.id}" /><br />
-                <td name="description" th:text="${proj.description}" /><br />
-                <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /><br />
-                <td name="deadline" th:text="${proj.deadline}" /><br />
+                <b><h2><td><a th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></td></h2></b>
+                <p>Beskrivelse: <td name="description" th:text="${proj.description}" /></p>
+                <p>Antal medarbejdere: <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /></p>
+                <p>Deadline: <td name="deadline" th:text="${proj.deadline}" /></p><br />
+                <h3>Tilhørende delprojekter: </h3>
                 <p th:each="subproject:${proj.subprojects}">
-                <td name="subName" th:text="${subproject.name}" /><br />
-                <td name="subDescription" th:text="${subproject.description}" /><br />
+                    <td name="subName" th:text="${subproject.name}" /><br />
+                    <td name="subDescription" th:text="${subproject.description}" /><br />
+                    <!---<p th:each="task:${subproject.tasks}">
+                        <td name="taskName" th:text="${task.name}"/>
+                        <td name="taskDescription" th:text="${task.description}"/>
+                    </p>--->
                 </p>
+
 
                 <div class="knapper">
                     <form th:action="@{/project/{id}(id=${proj.id})}">
-                        <button th:href="@{/project/{id}(id=${proj.id})}" class="knap" name="subject" value="View" >View</button>
+                        <button class="knap" name="subject" value="View" >View</button>
                     </form>
                 </div>
 
@@ -43,15 +45,18 @@
                         <button class="knap" name="subject" type="submit" value="update">Update</button>
                     </form>
                 </div>
+                <div class="knapper">
                 <form th:action="@{/removeProject}" method="post">
-                    <div class="knapper">
                         <input name="id" type="hidden" th:value="${proj.id}">
                         <button class="knap" name="subject" type="submit" value="delete">Delete</button>
-                    </div>
                 </form>
+                </div>
+                <div class="knapper">
+                <form th:action="@{/createSubProject/{id}(id=${proj.id})}" method="post">
+                    <button class="knap" name="subject" value="Add Subproject">Add Subproject</button>
+                </form>
+                </div>
             </tr>
-
-        </div>
 
         </div>
 

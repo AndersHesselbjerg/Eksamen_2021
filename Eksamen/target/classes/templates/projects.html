@@ -24,6 +24,11 @@
         <td name="subDescription" th:text="${subproject.description}" /><br />
 
         </p>
+        <p th:each="task:${proj.tasks}">
+        <td name="taskName" th:text="${task.name}" /><br />
+        <td name="taskDescription" th:text="${task.description}" /><br />
+
+        </p>
     </tr>
 
 </div>

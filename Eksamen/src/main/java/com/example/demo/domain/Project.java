@@ -3,6 +3,8 @@ package com.example.demo.domain;
 import com.example.demo.database.Mapper;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Project {
@@ -12,14 +14,13 @@ public class Project {
     private int numberOfEmployees;
     private Date deadline;
     private ArrayList<Subproject> subprojects;
-    private String ofSubprojects;
-    //private int userID;
+    private ArrayList<Task> tasks;
     private ArrayList<Integer> userID;
     private int subID;
     private String subName;
     private String subDescription;
     private int subProjectID;
-    private Date saved;
+    private Timestamp saved;
 
     Mapper mapper = new Mapper();
 
@@ -27,7 +28,7 @@ public class Project {
 
     }
 
-    public Project(int id,String name, String description, int numberOfEmployees, Date deadline, Date saved) {
+    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, Timestamp saved) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -37,7 +38,7 @@ public class Project {
         //this.subprojects = mapper.getSubprojects(id, this);
     }
 
-    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects, Date saved) {
+    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects, Timestamp saved, ArrayList<Task> tasks) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -45,6 +46,7 @@ public class Project {
         this.deadline = deadline;
         this.subprojects = subprojects;
         this.saved = saved;
+        this.tasks = tasks;
     }
     public Project(int subID, String subName, String subDescription, int subProjectID){
         this.subID = subID;
@@ -169,12 +171,20 @@ public class Project {
     }
 
 
-    public Date getSaved() {
+    public Timestamp getSaved() {
         return saved;
     }
 
-    public void setSaved(Date saved) {
+    public void setSaved(Timestamp saved) {
         this.saved = saved;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
