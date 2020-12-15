@@ -283,7 +283,6 @@ public class Mapper {
     }
 
 
-    Subproject subproject = new Subproject();
     public Project deleteSubProjectsOfProject(int projectID){
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from subprojects where projectID = ? ";
@@ -311,8 +310,6 @@ public class Mapper {
         try{
             preparedStatement = connection.prepareStatement(sqlStr);
             preparedStatement.setInt(1, projectID);
-
-
             preparedStatement.execute();
             System.out.println("Tillykke project: " + preparedStatement + " er blevet slettet");
 

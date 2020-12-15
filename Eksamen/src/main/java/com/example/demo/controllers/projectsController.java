@@ -26,7 +26,7 @@ public class projectsController {
         ArrayList<Project> projectList = mapper.getUserProjects();
         model.addAttribute("project", projectList);
         HttpSession session = servletRequest.getSession();
-        session.setAttribute("projectList",projectList);
+        session.setAttribute("projects",projectList);
         return "projects";
     }
 
@@ -34,7 +34,7 @@ public class projectsController {
     public String project(@PathVariable("id") int id, Model model, HttpServletRequest servletRequest){
         HttpSession httpSession = servletRequest.getSession();
 
-        ArrayList<Project> projectList = (ArrayList<Project>) httpSession.getAttribute("projectList");
+        ArrayList<Project> projectList = (ArrayList<Project>) httpSession.getAttribute("projects");
         Project oneProject = null;
         for(Project project:projectList){
             if(project.getId()==id){
