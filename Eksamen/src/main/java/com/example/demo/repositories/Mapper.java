@@ -1,9 +1,9 @@
-package com.example.demo.database;
+package com.example.demo.repositories;
 
-import com.example.demo.domain.Project;
-import com.example.demo.domain.Subproject;
-import com.example.demo.domain.Task;
-import com.example.demo.domain.User;
+import com.example.demo.models.Project;
+import com.example.demo.models.Subproject;
+import com.example.demo.models.Task;
+import com.example.demo.models.User;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;

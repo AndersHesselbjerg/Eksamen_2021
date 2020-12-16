@@ -3,7 +3,6 @@ package com.example.demo.models;
 import com.example.demo.repositories.Mapper;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 

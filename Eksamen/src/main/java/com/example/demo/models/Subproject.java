@@ -1,7 +1,5 @@
 package com.example.demo.models;
 
-import java.util.ArrayList;
-
 public class Subproject {
     private int id;
     private String name;
