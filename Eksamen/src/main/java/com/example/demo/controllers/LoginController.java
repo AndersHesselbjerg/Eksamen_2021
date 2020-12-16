@@ -42,15 +42,21 @@ public class LoginController {
                 session.setAttribute("login", user); // her add vi session
                 System.out.println("User " + user + " er logget ind: ");
                 ArrayList<Project> ps = mapper.getProjects();
-                if (!ps.isEmpty()) {
+                if (ps.size() > 0) {
                     model.addAttribute("projects", ps);
                 }
-                return "userProfile";
+                return "redirect:/userProfile";
             }
             session.setAttribute("login", user);
             System.out.println("Admin " + user + " er logget ind: ");
-            return "admin";
+            return "redirect:/admin";
         }
+    }
+
+    @GetMapping("/logud")
+    public String logud(HttpSession session){
+        session.removeAttribute("login");
+        return "index";
     }
 
     private void checkLogin(User user) {

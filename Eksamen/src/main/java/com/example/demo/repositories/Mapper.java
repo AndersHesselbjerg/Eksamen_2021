@@ -347,6 +347,7 @@ public class Mapper {
             String sqlsubproject = "SELECT * FROM subprojects sub JOIN" +
                     " projects proj ON proj.id= sub.projectID" +
                     " LEFT OUTER JOIN tasks task ON task.projectIDTask = proj.id";
+
             PreparedStatement preparedStatement = connection.prepareStatement(sqlsubproject);
             ResultSet resultSet = preparedStatement.executeQuery();
             String projectName = null;
