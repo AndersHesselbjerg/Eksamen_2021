@@ -3,6 +3,8 @@ package com.example.demo.models;
 import com.example.demo.repositories.Mapper;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Project {
@@ -12,8 +14,13 @@ public class Project {
     private int numberOfEmployees;
     private Date deadline;
     private ArrayList<Subproject> subprojects;
+    private ArrayList<Task> tasks;
     private ArrayList<Integer> userID;
-    private Date saved;
+    private int subID;
+    private String subName;
+    private String subDescription;
+    private int subProjectID;
+    private Timestamp saved;
 
     Mapper mapper = new Mapper();
 
@@ -21,16 +28,17 @@ public class Project {
 
     }
 
-    public Project(int id,String name, String description, int numberOfEmployees, Date deadline, Date saved) {
+    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, Timestamp saved) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
         this.saved = saved;
+        //this.subprojects = mapper.getSubprojects(id, this);
     }
 
-    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects, Date saved) {
+    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects, Timestamp saved, ArrayList<Task> tasks) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -38,12 +46,21 @@ public class Project {
         this.deadline = deadline;
         this.subprojects = subprojects;
         this.saved = saved;
+        this.tasks = tasks;
     }
+    public Project(int subID, String subName, String subDescription, int subProjectID){
+        this.subID = subID;
+        this.subName = subName;
+        this.subDescription = subDescription;
+        this.subProjectID = subProjectID;
+    }
+
     public Project(String name, String description, int numberOfEmployees, Date deadline) {
         this.name = name;
         this.description = description;
         this.numberOfEmployees = numberOfEmployees;
         this.deadline = deadline;
+        //this.subprojects = mapper.getSubprojects(id, this);
     }
 
     public Project(String name, String description, int numberOfEmployees, Date deadline, ArrayList userID) {
@@ -121,6 +138,30 @@ public class Project {
     //public void setUserID(int userID) { this.userID = userID;
 
 
+    public int getSubID() {
+        return subID;
+    }
+
+    public void setSubID(int subID) {
+        this.subID = subID;
+    }
+
+    public String getSubDescription() {
+        return subDescription;
+    }
+
+    public void setSubDescription(String subDescription) {
+        this.subDescription = subDescription;
+    }
+
+    public int getSubProjectID() {
+        return subProjectID;
+    }
+
+    public void setSubProjectID(int subProjectID) {
+        this.subProjectID = subProjectID;
+    }
+
     public Mapper getMapper() {
         return mapper;
     }
@@ -130,12 +171,20 @@ public class Project {
     }
 
 
-    public Date getSaved() {
+    public Timestamp getSaved() {
         return saved;
     }
 
-    public void setSaved(Date saved) {
+    public void setSaved(Timestamp saved) {
         this.saved = saved;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
