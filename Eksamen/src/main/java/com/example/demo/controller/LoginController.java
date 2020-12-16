@@ -41,7 +41,7 @@ public class LoginController {
             if(user.getIsAdmin() == 0) {
                 session.setAttribute("login", user); // her add vi session
                 System.out.println("User " + user + " er logget ind: ");
-                ArrayList<Project> ps = mapper.getProjects(user.getId());
+                ArrayList<Project> ps = mapper.getProjects();
                 if (!ps.isEmpty()) {
                     model.addAttribute("projects", ps);
                 }
