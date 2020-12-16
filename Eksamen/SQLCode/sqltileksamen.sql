@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`projects` (
                                                                    FOREIGN KEY (`userID`)
                                                                        REFERENCES `projektoplysninger`.`user` (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 5
+    AUTO_INCREMENT = 6
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -71,7 +71,27 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`subprojects` (
                                                                       FOREIGN KEY (`projectID`)
                                                                           REFERENCES `projektoplysninger`.`projects` (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 7
+    AUTO_INCREMENT = 9
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `projektoplysninger`.`tasks`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `projektoplysninger`.`tasks` (
+                                                            `taskID` INT NOT NULL AUTO_INCREMENT,
+                                                            `taskName` VARCHAR(45) NOT NULL,
+                                                            `taskDes` VARCHAR(45) NOT NULL,
+                                                            `projectIDTask` INT NOT NULL,
+                                                            `taskDeadline` DATE NOT NULL,
+                                                            PRIMARY KEY (`taskID`),
+                                                            UNIQUE INDEX `idtasks_UNIQUE` (`taskID` ASC),
+                                                            INDEX `projectIDTask_idx` (`projectIDTask` ASC),
+                                                            CONSTRAINT `projectIDTask`
+                                                                FOREIGN KEY (`projectIDTask`)
+                                                                    REFERENCES `projektoplysninger`.`projects` (`id`))
+    ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
