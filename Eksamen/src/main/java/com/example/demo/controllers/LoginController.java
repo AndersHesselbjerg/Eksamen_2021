@@ -27,7 +27,7 @@ public class LoginController {
         return "index";
     }
 
-    @PostMapping("/login")//Her
+    @PostMapping("/login")
     public String login(@RequestParam String mail, @RequestParam String password, WebRequest webRequest, Model model, HttpSession session){
         mail = webRequest.getParameter("mail");
         password = webRequest.getParameter("password");
@@ -57,10 +57,6 @@ public class LoginController {
     public String logud(HttpSession session){
         session.removeAttribute("login");
         return "index";
-    }
-
-    private void checkLogin(User user) {
-        System.out.println("Bruger: " + user + ", er stadig logget ind! ");
     }
 
     private void setSessionInfo(WebRequest request, User user) {

@@ -9,6 +9,10 @@ public class Task {
     private Date deadline;
     private int projectIDTask;
 
+    public Task(){
+
+    }
+
     public Task(int id, String name, String description, Date deadline, int projectIDTask) {
         this.id = id;
         this.name = name;

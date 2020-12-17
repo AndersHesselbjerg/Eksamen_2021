@@ -23,11 +23,14 @@
                 <p>Beskrivelse: <td name="description" th:text="${proj.description}" /></p>
                 <p>Antal medarbejdere: <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /></p>
                 <p>Deadline: <td name="deadline" th:text="${proj.deadline}" /></p><br />
+
+
                 <h3>Tilhørende delprojekter: </h3>
                 <p th:each="subproject:${proj.subprojects}">
                     <td name="subName" th:text="${subproject.name}" /><br />
                     <td name="subDescription" th:text="${subproject.description}" /><br />
                 </p>
+                <h3> Tilhørende tasks til dette projekt: </h3>
                 <p th:each="task:${proj.tasks}">
                     <td name="taskName" th:text="${task.name}" /><br />
                     <td name="taskDescription" th:text="${task.description}" /><br />

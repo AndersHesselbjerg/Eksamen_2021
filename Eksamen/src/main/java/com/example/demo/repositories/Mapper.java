@@ -290,7 +290,25 @@ public class Mapper {
 
     }
 
-    Subproject subproject = new Subproject();
+
+    public Project deleteTaskOfProject(int tasksID){
+        Connection connection = DBManager.getConnection();
+        String sqlStr = "Delete from tasks where taskID = ?";
+
+        PreparedStatement preparedStatement;
+
+        Project project = null;
+        try {
+            preparedStatement = connection.prepareStatement(sqlStr);
+            preparedStatement.setInt(1, tasksID);
+            preparedStatement.execute();
+            System.out.println("Tillykke  task: " + preparedStatement + " er blevet slettet");
+
+        } catch (SQLException sqlerr) {
+            System.out.println("Fejl = " + sqlerr);
+        }
+        return project;
+    }
 
     public Project deleteSubProjectsOfProject(int projectID) {
         Connection connection = DBManager.getConnection();
@@ -301,8 +319,6 @@ public class Mapper {
         try {
             preparedStatement = connection.prepareStatement(sqlStr);
             preparedStatement.setInt(1, projectID);
-
-
             preparedStatement.execute();
             System.out.println("Tillykke  subproject: " + preparedStatement + " er blevet slettet");
 
@@ -313,9 +329,11 @@ public class Mapper {
         return project;
     }
 
-    public Project deleteProject(int projectID) {
 
+
+    public Project deleteProject(int projectID) {
         this.deleteSubProjectsOfProject(projectID);
+
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from projects where id = ? ";
         PreparedStatement preparedStatement;
@@ -415,7 +433,7 @@ public class Mapper {
 
 
             }
-            projectList=new ArrayList<>(projectMap.values());
+            projectList = new ArrayList<>(projectMap.values());
         } catch (SQLException e) {
             System.out.println(e);
         }
