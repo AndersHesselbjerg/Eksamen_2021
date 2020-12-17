@@ -2,7 +2,7 @@
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
 -- Schema mydb
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`user` (
                                                            `adminID` INT NULL DEFAULT '0',
                                                            PRIMARY KEY (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 8
+    AUTO_INCREMENT = 12
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -45,13 +45,13 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`projects` (
                                                                `deadline` DATE NULL DEFAULT NULL,
                                                                `userID` INT NULL DEFAULT NULL,
                                                                PRIMARY KEY (`id`),
-                                                               UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-                                                               INDEX `user_idx` (`userID` ASC),
+                                                               UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+                                                               INDEX `user_idx` (`userID` ASC) VISIBLE,
                                                                CONSTRAINT `user`
                                                                    FOREIGN KEY (`userID`)
                                                                        REFERENCES `projektoplysninger`.`user` (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 6
+    AUTO_INCREMENT = 7
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -64,14 +64,15 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`subprojects` (
                                                                   `subName` VARCHAR(45) NULL DEFAULT NULL,
                                                                   `subDescription` VARCHAR(16000) NULL DEFAULT NULL,
                                                                   `projectID` INT NOT NULL,
+                                                                  `estimatedTime` INT NULL DEFAULT NULL,
                                                                   PRIMARY KEY (`subId`),
-                                                                  UNIQUE INDEX `id_UNIQUE` (`subId` ASC),
-                                                                  INDEX `projectID_idx` (`projectID` ASC),
+                                                                  UNIQUE INDEX `id_UNIQUE` (`subId` ASC) VISIBLE,
+                                                                  INDEX `projectID_idx` (`projectID` ASC) VISIBLE,
                                                                   CONSTRAINT `projectID`
                                                                       FOREIGN KEY (`projectID`)
                                                                           REFERENCES `projektoplysninger`.`projects` (`id`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 9
+    AUTO_INCREMENT = 13
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -86,12 +87,13 @@ CREATE TABLE IF NOT EXISTS `projektoplysninger`.`tasks` (
                                                             `projectIDTask` INT NOT NULL,
                                                             `taskDeadline` DATE NOT NULL,
                                                             PRIMARY KEY (`taskID`),
-                                                            UNIQUE INDEX `idtasks_UNIQUE` (`taskID` ASC),
-                                                            INDEX `projectIDTask_idx` (`projectIDTask` ASC),
+                                                            UNIQUE INDEX `idtasks_UNIQUE` (`taskID` ASC) VISIBLE,
+                                                            INDEX `projectIDTask_idx` (`projectIDTask` ASC) VISIBLE,
                                                             CONSTRAINT `projectIDTask`
                                                                 FOREIGN KEY (`projectIDTask`)
                                                                     REFERENCES `projektoplysninger`.`projects` (`id`))
     ENGINE = InnoDB
+    AUTO_INCREMENT = 3
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
