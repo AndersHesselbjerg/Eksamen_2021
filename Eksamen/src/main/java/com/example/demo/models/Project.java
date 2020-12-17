@@ -14,6 +14,7 @@ public class Project {
     private Date deadline;
     private ArrayList<Subproject> subprojects;
     private ArrayList<Task> tasks;
+    private int totalEstimatedTime;
     private ArrayList<Integer> userID;
     private int subID;
     private String subName;
@@ -37,7 +38,8 @@ public class Project {
         //this.subprojects = mapper.getSubprojects(id, this);
     }
 
-    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects, Timestamp saved, ArrayList<Task> tasks) {
+    public Project(int id, String name, String description, int numberOfEmployees, Date deadline, ArrayList<Subproject> subprojects,
+                   Timestamp saved, ArrayList<Task> tasks, int totalEstimatedTime) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -46,6 +48,7 @@ public class Project {
         this.subprojects = subprojects;
         this.saved = saved;
         this.tasks = tasks;
+        this.totalEstimatedTime = totalEstimatedTime;
     }
     public Project(int subID, String subName, String subDescription, int subProjectID){
         this.subID = subID;
@@ -133,6 +136,13 @@ public class Project {
         return subprojects.get(id).getProjectID();
     }
 
+    public int getTotalEstimatedTime() {
+        return totalEstimatedTime;
+    }
+
+    public void setTotalEstimatedTime(int totalEstimatedTime) {
+        this.totalEstimatedTime = totalEstimatedTime;
+    }
 
     //public void setUserID(int userID) { this.userID = userID;
 

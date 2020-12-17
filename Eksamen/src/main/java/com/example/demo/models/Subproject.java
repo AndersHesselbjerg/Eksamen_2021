@@ -5,12 +5,14 @@ public class Subproject {
     private String name;
     private String description;
     private int projectID;
+    private int estimatedTime;
 
-    public Subproject(int id, String name, String description, int projectID) {
+    public Subproject(int id, String name, String description, int projectID, int estimatedTime) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.projectID = projectID;
+        this.estimatedTime = estimatedTime;
     }
 
 
@@ -51,9 +53,22 @@ public class Subproject {
         this.projectID = projectID;
     }
 
+    public int getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(int estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
+
     @Override
     public String toString() {
-        return "Subproject\nName = " + name +
-                "\nDescription = " + description + "\n" ;
-    };
+        return "Subproject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", projectID=" + projectID +
+                ", estimatedTime=" + estimatedTime +
+                '}';
+    }
 }

@@ -224,7 +224,7 @@ public class Mapper {
         }
     }
 
-    public ArrayList<Subproject> getSubprojects(int projectID, Project project1) {
+    /*public ArrayList<Subproject> getSubprojects(int projectID, Project project1) {
         ArrayList<Subproject> subprojectList = new ArrayList<>();
         Connection connection = DBManager.getConnection();
         String sqlSubproject = "SELECT * FROM subprojects WHERE projectID = \'" + projectID + "\'";
@@ -241,6 +241,7 @@ public class Mapper {
                 String subProjectname = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 int projectID1 = resultSet.getInt("projectID");
+                int
 
                 Subproject subproject = new Subproject(id, subProjectname, description, projectID1);
                 subprojectList.add(subproject);
@@ -249,7 +250,7 @@ public class Mapper {
             System.out.println("Fejl i underprojekter" + sqlerr);
         }
         return subprojectList;
-    }
+    }*/
 
     public ArrayList<Project> getOneProject(int id) throws SQLException {
         ArrayList<Project> allprojects = new ArrayList<>();
@@ -375,6 +376,7 @@ public class Mapper {
             Date deadline = null;
             Project project = null;
             Timestamp saved = null;
+            int totalEstimatedTime = 0;
             while (resultSet.next()) {
                 projectId = resultSet.getInt("id");
                 projectName = resultSet.getString("name");
@@ -387,9 +389,11 @@ public class Mapper {
                     String subprojectName = resultSet.getString("subName");
                     String subprojectDes = resultSet.getString("subDescription");
                     int subprojectID = resultSet.getInt("projectID");
-                    Subproject subproject = new Subproject(subID, subprojectName, subprojectDes, subprojectID);
+                    int estimatedTime = resultSet.getInt("estimatedTime");
+                    Subproject subproject = new Subproject(subID, subprojectName, subprojectDes, subprojectID, estimatedTime);
                     subprojects = new ArrayList<>();
                     subprojects.add(subproject);
+                    totalEstimatedTime += estimatedTime;
                     int taskId = resultSet.getInt("taskID");
                     String taskName = resultSet.getString("taskName");
                     String taskDescription = resultSet.getString("taskDes");
@@ -398,7 +402,7 @@ public class Mapper {
                     Task task = new Task(taskId, taskName, taskDescription, taskDeadLine, projectIdTask);
                     tasks = new ArrayList<>();
                     tasks.add(task);
-                    project = new Project(projectId, projectName, description, numberOfEmployees, deadline, subprojects, saved, tasks);
+                    project = new Project(projectId, projectName, description, numberOfEmployees, deadline, subprojects, saved, tasks, totalEstimatedTime);
                     projectMap.put(projectId, project);
                 } else {
                     project = projectMap.get(projectId);
@@ -406,6 +410,8 @@ public class Mapper {
                     String subprojectName = resultSet.getString("subName");
                     String subprojectDes = resultSet.getString("subDescription");
                     int subprojectID = resultSet.getInt("projectID");
+                    int estimatedTime = resultSet.getInt("estimatedTime");
+                    totalEstimatedTime += estimatedTime;
 
                     int taskId = resultSet.getInt("taskID");
                     String taskName = resultSet.getString("taskName");
@@ -425,7 +431,10 @@ public class Mapper {
                     if (newTaskFound) {
                         newTasks.add(new Task(taskId, taskName, taskDescription, taskDeadLine, projectIdTask));
                     }
-                    project.getSubprojects().add(new Subproject(subID, subprojectName, subprojectDes, subprojectID));
+                    project.getSubprojects().add(new Subproject(subID, subprojectName, subprojectDes, subprojectID, estimatedTime));
+                    project.setTotalEstimatedTime(totalEstimatedTime);
+                    totalEstimatedTime = 0;
+
                     if (newTasks != null && newTasks.size() > 0) {
                         project.getTasks().addAll(newTasks);
                     }
