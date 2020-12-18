@@ -292,16 +292,16 @@ public class Mapper {
     }
 
 
-    public Project deleteTaskOfProject(int tasksID){
+    public Project deleteTaskOfProject(int projectID){
         Connection connection = DBManager.getConnection();
-        String sqlStr = "Delete from tasks where taskID = ?";
+        String sqlStr = "Delete from tasks where projectIDTask = ?";
 
         PreparedStatement preparedStatement;
 
         Project project = null;
         try {
             preparedStatement = connection.prepareStatement(sqlStr);
-            preparedStatement.setInt(1, tasksID);
+            preparedStatement.setInt(1, projectID);
             preparedStatement.execute();
             System.out.println("Tillykke  task: " + preparedStatement + " er blevet slettet");
 
@@ -312,6 +312,8 @@ public class Mapper {
     }
 
     public Project deleteSubProjectsOfProject(int projectID) {
+        this.deleteTaskOfProject(projectID);
+
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from subprojects where projectID = ? ";
         PreparedStatement preparedStatement;
@@ -333,6 +335,7 @@ public class Mapper {
 
 
     public Project deleteProject(int projectID) {
+
         this.deleteSubProjectsOfProject(projectID);
 
         Connection connection = DBManager.getConnection();

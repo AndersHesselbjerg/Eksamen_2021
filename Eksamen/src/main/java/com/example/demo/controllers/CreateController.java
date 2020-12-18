@@ -62,6 +62,7 @@ public class CreateController {
     @GetMapping("/createNewProject")
     public String showCreateProject(Project project, Model model, HttpSession session) {// Model model fletter data, og tager dem fra thymeleaf og bruger dem
         User theuser = (User) session.getAttribute("login");
+        checkLogin(theuser );
         int userid = theuser.getIsAdmin();
         if (userid == 1){
             theuser.adminID++;
@@ -88,7 +89,6 @@ public class CreateController {
     }
 
     private void setSessionInfo(WebRequest request, User user) {
-        // Place user info on session
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
     }
 }
