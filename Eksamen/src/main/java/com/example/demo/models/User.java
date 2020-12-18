@@ -13,6 +13,10 @@ public class User {
 
     }
 
+    public User(int id){
+        this.id = id;
+    }
+
     public User(int id, String mail, String password, int isAdmin, int adminID) {
         this.id = id;
         this.mail = mail;

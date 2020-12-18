@@ -20,7 +20,8 @@ class MapperTest {
     @Test
     void creatProject(){
         Mapper mapper = new Mapper();
-        //mapper.createProject(project);
+        Project project = new Project(6, "test projecter");
+        mapper.updateProject(project);
     }
 
     @Test
