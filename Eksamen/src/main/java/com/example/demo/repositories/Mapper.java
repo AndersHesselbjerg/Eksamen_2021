@@ -179,13 +179,14 @@ public class Mapper {
 
     public Subproject createSubProject(Subproject subproject, int userID) {
         Connection connection = DBManager.getConnection();
-        String sqlstr = "INSERT INTO subprojects(subName, subDescription, projectID) VALUES(?, ?, ?)";
+        String sqlstr = "INSERT INTO subprojects(subName, subDescription, projectID, estimatedTime) VALUES(?, ?, ?, ?)";
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, subproject.getName());
             preparedStatement.setString(2, subproject.getDescription());
             preparedStatement.setInt(3, subproject.getProjectID());
+            preparedStatement.setInt(4, subproject.getEstimatedTime());
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
             System.out.println("Tillykke delprojekt: " + preparedStatement + " blev oprettet.");
@@ -250,7 +251,7 @@ public class Mapper {
             System.out.println("Fejl i underprojekter" + sqlerr);
         }
         return subprojectList;
-    }*/
+    }
 
     public ArrayList<Project> getOneProject(int id) throws SQLException {
         ArrayList<Project> allprojects = new ArrayList<>();
@@ -289,7 +290,7 @@ public class Mapper {
         // Den skal først retuneere et objekt. tage et parameter som er et id. i metoden skal vi hente et objekt fra databasen. Hent et objekt fra databasen
         // hent alle subprojekter fra databasen og tilføj dem til arraylisten der ligger i det enkelte projekt.
 
-    }
+    }*/
 
 
     public Project deleteTaskOfProject(int tasksID){

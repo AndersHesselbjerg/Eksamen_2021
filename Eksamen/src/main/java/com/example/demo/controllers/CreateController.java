@@ -7,11 +7,14 @@ import com.example.demo.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 public class CreateController {
@@ -36,18 +39,26 @@ public class CreateController {
         mapper.createProject(project, userid);
         checkLogin(user);
         System.out.println("Project created successfully");
-        return "userProfile";
+        return "redirect:/createNewSubProject";
     }
 
     @PostMapping("/createSubProject")
     public String createSubProject(Subproject subproject, HttpSession session){
-        User theuser = (User) session.getAttribute("login");
-        int userid = theuser.getId();
+        User user = (User) session.getAttribute("login");
+        int userid = user.getId();
         mapper.createSubProject(subproject, userid);
-
-        System.out.println("Project created successfully");
+        checkLogin(user);
+        System.out.println("Subproject created successfully");
         return "userProfile";
     }
+
+    @GetMapping("/createNewSubProject")
+    public String showCreateSubProject(Subproject subproject, Model model, HttpSession session) {
+        User theuser = (User) session.getAttribute("login");
+        model.addAttribute("subproject", subproject);
+        return "createSubProject";
+    }
+
 
     @PostMapping("updateProject")
     public String updateProject(@RequestParam Project project, HttpSession session){

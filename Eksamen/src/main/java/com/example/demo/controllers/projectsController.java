@@ -17,22 +17,6 @@ public class projectsController {
 
     Mapper mapper = new Mapper();
 
-    @GetMapping("/createSubProject/{id}")
-    public String createSubProject(@PathVariable("id") int id, Model model, HttpServletRequest servletRequest){
-        HttpSession httpSession = servletRequest.getSession();
-
-        ArrayList<Project> projectList = (ArrayList<Project>) httpSession.getAttribute("projectList");
-        Project oneProject = null;
-        for(Project project:projectList){
-            if(project.getId()==id){
-                oneProject = project;
-            }
-        }
-        model.addAttribute("project", oneProject);
-        return "createSubProject";
-    }
-
-
     @GetMapping("/projects")
     public String projects(Model model, HttpServletRequest servletRequest) {
         ArrayList<Project> projectList = mapper.getUserProjects();
