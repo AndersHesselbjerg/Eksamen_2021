@@ -49,7 +49,7 @@ public class CreateController {
         mapper.createSubProject(subproject, userid);
         checkLogin(user);
         System.out.println("Subproject created successfully");
-        return "userProfile";
+        return "redirect:/projects";
     }
 
     @GetMapping("/createNewSubProject")
