@@ -38,6 +38,8 @@ public class Mapper {
         return user;
     }
 
+
+
     public ArrayList<Project> getProjects() {
         ArrayList<Project> projectList = new ArrayList<>();
         try {
@@ -181,6 +183,7 @@ public class Mapper {
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO subprojects(subName, subDescription, projectID, estimatedTime) VALUES(?, ?, ?, ?)";
         PreparedStatement preparedStatement;
+
         try {
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, subproject.getName());
@@ -192,6 +195,27 @@ public class Mapper {
             System.out.println("Tillykke delprojekt: " + preparedStatement + " blev oprettet.");
         } catch (SQLException sqlerror) {
             System.out.println("Fejl i oprettelse af delprojekt=" + sqlerror);
+        }
+        return subproject;
+    }
+
+    public Subproject updateSubProject(Subproject subproject){
+        Connection connection = DBManager.getConnection(); // tjek connection
+        String SqlStr = "update subProjects set subName = ?, subDescription = ?, projectID = ?, estimatedTime = ? where subId = ? ";
+        PreparedStatement preparedStatement;
+        try{
+            preparedStatement = connection.prepareStatement(SqlStr);
+            preparedStatement.setString(1, subproject.getName());
+            preparedStatement.setString(2, subproject.getDescription());
+            preparedStatement.setInt(3, subproject.getProjectID());
+            preparedStatement.setInt(4,subproject.getEstimatedTime());
+            int row = preparedStatement.executeUpdate();
+            System.out.println("Antal rækker: " + row);
+            System.out.println("Tillykke update succesfully sub projekt til: " + preparedStatement);
+
+
+        } catch (SQLException sqlErr){
+            System.out.println("Fejl i update af subproject: = " + sqlErr);
         }
         return subproject;
     }
