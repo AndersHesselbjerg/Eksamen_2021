@@ -32,26 +32,26 @@
 
         <div class="knapper">
             <form th:action="@{/project/{id}(id=${proj.id})}">
-                <button class="knap" name="subject" value="View" >View</button>
+                <button class="knap" name="subject" value="View" >Se projekt</button>
             </form>
         </div>
 
         <div class="knapper">
             <form th:action="@{/createNewProject}" method="GET">
-                <button class="knap" name="subject" type="submit" value="update">Update</button>
+                <button class="knap" name="subject" type="submit" value="update">Rediger projekt</button>
             </form>
         </div>
 
         <div class="knapper">
             <form th:action="@{/createSubProject/{id}(id=${proj.id})}" method="post">
-                <button class="knap" name="subject" value="Add Subproject">Add Subproject</button>
+                <button class="knap" name="subject" value="Add Subproject">tilføj delprojekt</button>
             </form>
         </div>
 
         <div class="knapper">
             <form th:action="@{/removeProject}" method="post">
                 <input name="id" type="hidden" th:value="${proj.id}">
-                <button class="knap" name="subject" type="submit" value="delete">Delete</button>
+                <button class="knap" name="subject" type="submit" value="delete">Slet projekt</button>
             </form>
         </div>
     </tr>
