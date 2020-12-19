@@ -7,18 +7,17 @@ public class Subproject {
     private int projectID;
     private int estimatedTime;
 
+
+
+    public Subproject() {
+    }
+
     public Subproject(int id, String name, String description, int projectID, int estimatedTime) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.projectID = projectID;
         this.estimatedTime = estimatedTime;
-    }
-
-
-    public Subproject() {
-
-
     }
 
     public int getId() {

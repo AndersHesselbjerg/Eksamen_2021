@@ -31,6 +31,11 @@
                     <td name="subName" th:text="${subproject.name}" /><br />
                     <td name="subDescription" th:text="${subproject.description}" /><br />
                 </p>
+                <div>
+                    <form th: action="/updateSubProject" method="post">
+                        <button class="knap" name="subject" type="submit" value="update"> Update delprojekt</button>
+                    </form>
+                </div>
                 <h3> Tilhørende tasks til dette projekt: </h3>
                 <p th:each="task:${proj.tasks}">
                     <td name="taskName" th:text="${task.name}" /><br />

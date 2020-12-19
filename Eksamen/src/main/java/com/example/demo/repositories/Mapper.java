@@ -200,7 +200,7 @@ public class Mapper {
     }
 
     public Subproject updateSubProject(Subproject subproject){
-        Connection connection = DBManager.getConnection(); // tjek connection
+        Connection connection = DBManager.getConnection();
         String SqlStr = "update subProjects set subName = ?, subDescription = ?, projectID = ?, estimatedTime = ? where subId = ? ";
         PreparedStatement preparedStatement;
         try{
@@ -219,6 +219,7 @@ public class Mapper {
         }
         return subproject;
     }
+
 
     public Project getProjectByName(String name) {
         try {
