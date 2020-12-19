@@ -16,52 +16,53 @@
 
 <!-- overview - current projects-->
 
-        <div class="container">
-            <h3 id="header3">PROJEKTER</h3>
-            <tr th:each="proj,stats: ${project}">
-                <b><h2><td><a th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></td></h2></b>
-                <p>Beskrivelse: <td name="description" th:text="${proj.description}" /></p>
-                <p>Antal medarbejdere: <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /></p>
-                <p>Deadline: <td name="deadline" th:text="${proj.deadline}" /></p><br />
-                <p> Estimated time: <td name="totalEstimatedTime" th:text="${proj.totalEstimatedTime}"></td></p>
+<div class="container">
+    <h3 id="header3">PROJEKTER</h3>
+    <tr th:each="proj,stats: ${project}">
+        <b><h2><td><a th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></td></h2></b>
+        <p>Beskrivelse: <td name="description" th:text="${proj.description}" /></p>
+        <p>Antal medarbejdere: <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /></p>
+        <p>Deadline: <td name="deadline" th:text="${proj.deadline}" /></p><br />
+        <p> Estimated time: <td name="totalEstimatedTime" th:text="${proj.totalEstimatedTime}"></td></p>
 
 
-                <h3>Tilhørende delprojekter: </h3>
-                <p th:each="subproject:${proj.subprojects}">
-                    <td name="subName" th:text="${subproject.name}" /><br />
-                    <td name="subDescription" th:text="${subproject.description}" /><br />
-                </p>
-                <div>
-                    <form th: action="/updateSubProject" method="post">
-                        <button class="knap" name="subject" type="submit" value="update"> Update delprojekt</button>
-                    </form>
-                </div>
-                <h3> Tilhørende tasks til dette projekt: </h3>
-                <p th:each="task:${proj.tasks}">
-                    <td name="taskName" th:text="${task.name}" /><br />
-                    <td name="taskDescription" th:text="${task.description}" /><br />
-                </p>
+        <h3>Tilhørende delprojekter: </h3>
+        <p th:each="subproject:${proj.subprojects}">
+        <td name="subName" th:text="${subproject.name}" /><br />
+        <td name="subDescription" th:text="${subproject.description}" /><br />
+        </p>
 
-                <div class="knapper">
-                    <form th:action="@{/project/{id}(id=${proj.id})}">
-                        <button class="knap" name="subject" value="View" >View</button>
-                    </form>
-                </div>
-
-                <div class="knapper">
-                    <form th:action="@{/createNewProject}" method="GET">
-                        <button class="knap" name="subject" type="submit" value="update">Update</button>
-                    </form>
-                </div>
-
-                <div class="knapper">
-                <form th:action="@{/createSubProject/{id}(id=${proj.id})}" method="post">
-                    <button class="knap" name="subject" value="Add Subproject">Add Subproject</button>
-                </form>
-                </div>
-            </tr>
-
+        <h3> Tilhørende tasks til dette projekt: </h3>
+        <p th:each="task:${proj.tasks}">
+        <td name="taskName" th:text="${task.name}" /><br />
+        <td name="taskDescription" th:text="${task.description}" /><br />
+        </p>
+        <div class="knapper">
+            <form th:action="@{/updateSubProject/{id}(id=${proj.id})}" method="post">
+                <button class="knap" name="subject" value="Add Subproject">Add Subproject</button>
+            </form>
         </div>
+
+        <div class="knapper">
+            <form th:action="@{/project/{id}(id=${proj.id})}">
+                <button class="knap" name="subject" value="View" >View</button>
+            </form>
+        </div>
+
+        <div class="knapper">
+            <form th:action="@{/createNewProject}" method="GET">
+                <button class="knap" name="subject" type="submit" value="update">Update</button>
+            </form>
+        </div>
+
+        <div class="knapper">
+            <form th:action="@{/createSubProject/{id}(id=${proj.id})}" method="post">
+                <button class="knap" name="subject" value="Add Subproject">Add Subproject</button>
+            </form>
+        </div>
+    </tr>
+
+</div>
 
 <th:block th:include="/includes/footer :: footer"></th:block>
 </body>

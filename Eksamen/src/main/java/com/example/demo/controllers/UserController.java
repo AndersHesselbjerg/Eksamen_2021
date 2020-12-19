@@ -35,7 +35,7 @@ public class UserController {
             ArrayList<User> userList = new ArrayList<>();
             model.addAttribute("users", userList);
             User user = new User(mail, password);
-            mapper.createUser(user);
+            mapper.createUser(user); 
             return "index";
 
         } else if (mail.isEmpty() || password.isEmpty()){
