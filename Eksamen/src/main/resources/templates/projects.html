@@ -12,7 +12,7 @@
 <th:block th:include="/includes/header :: header"></th:block>
 
 <div class="container">
-    <h3 id="header3">PROJEKTER</h3>
+    <h3 id="header3">Projekter</h3>
     <tr th:each="proj,stats: ${project}">
         <b><td><a th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></a></td></b><br />
         <td name="id" th:text="${proj.id}" /><br />
