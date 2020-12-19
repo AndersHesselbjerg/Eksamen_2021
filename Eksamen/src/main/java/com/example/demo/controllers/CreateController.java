@@ -48,8 +48,12 @@ public class CreateController {
         int userid = user.getId();
         mapper.createSubProject(subproject, userid);
         checkLogin(user);
-        System.out.println("Subproject created successfully");
-        return "redirect:/projects";
+        int checkIfAdmin = user.getIsAdmin();
+        if(checkIfAdmin == 1){
+            return "redirect:/projects";
+        } else{
+            return "redirect:/userProfile";
+        }
     }
 
     @GetMapping("/createNewSubProject")
