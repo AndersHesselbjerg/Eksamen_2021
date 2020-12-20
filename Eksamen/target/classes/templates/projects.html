@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="myCSS.css">
@@ -11,9 +11,13 @@
 <div class="slider" />
 <th:block th:include="/includes/header :: header"></th:block>
 
-<div class="container">
-    <h3 id="header3">PROJEKTER</h3>
-    <tr th:each="proj,stats: ${project}">
+<div class="right-panel">
+
+    <div class="project-list-container">
+
+        <h3 id="header3">khjkh</h3>
+
+        <tr th:each="proj,stats: ${project}">
         <b><td><a th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></a></td></b><br />
         <td name="id" th:text="${proj.id}" /><br />
         <td name="description" th:text="${proj.description}" /><br />
@@ -44,20 +48,93 @@
 
         <div class="knapper">
             <form th:action="@{/createSubProject/{id}(id=${proj.id})}" method="post">
-                <button class="knap" name="subject" value="Add Subproject">tilføj delprojekt</button>
+                <button class="knap" name="subject" value="Add Subproject">Tilføj delprojekt</button>
             </form>
         </div>
 
-        <div class="knapper">
-            <form th:action="@{/removeProject}" method="post">
-                <input name="id" type="hidden" th:value="${proj.id}">
-                <button class="knap" name="subject" type="submit" value="delete">Slet projekt</button>
-            </form>
-        </div>
-    </tr>
+            <div class="knapper">
+                <form th:action="@{/removeProject}" method="post">
+                 <input name="id" type="hidden" th:value="${proj.id}">
+                    <button class="knap" name="subject" type="submit" value="delete">Slet projekt</button>
+                </form>
+            </div>
+        </tr>
+
+    </div>
 
 </div>
 
 </body>
 <th:block th:include="/includes/footer :: footer"></th:block>
+</html> -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/%22%3E">
+<head>
+    <meta charset="UTF-8" />
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="myCSS.css" />
+    <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+<div class="slider" />
+<th:block th:include="/includes/header :: header"></th:block>
+<div class="project-list-container">
+    <h3 id="header3">Projekter</h3>
+    <div class="project-list">
+        <div class="project-list-item" th:each="project: ${projects}">
+            <div class="project-name">
+                <a
+                        th:href="@{/project/{id}(id=${project.id})}"
+                        th:text="${project.name}"
+                >
+                </a>
+            </div>
+            <div name="id" th:text="${project.id}" />
+            <div name="description" th:text="${project.description}" />
+            <div
+                    name="numberOfEmployees"
+                    th:text="${project.numberOfEmployees}"
+            />
+            <div name="deadline" th:text="${project.deadline}" />
+            <div th:each="subproject:${project.subprojects}">
+                <div name="subName" th:text="${subproject.name}" />
+                <div name="subDescription" th:text="${subproject.description}" />
+            </div>
+            <div th:each="task:${project.tasks}">
+                <div name="taskName" th:text="${task.name}" />
+                <div name="taskDescription" th:text="${task.description}" />
+            </div>
+            <div class="knapper">
+                <form th:action="@{/createNewProject}" method="GET">
+                    <button class="knap" name="subject" type="submit" value="update">
+                        Rediger projekt
+                    </button>
+                </form>
+            </div>
+
+            <div class="knapper">
+                <form
+                        th:action="@{/createSubProject/{id}(id=${project.id})}"
+                        method="post"
+                >
+                    <button class="knap" name="subject" value="Add Subproject">
+                        Tilføj delprojekt
+                    </button>
+                </form>
+            </div>
+
+            <div class="knapper">
+                <form th:action="@{/removeProject}" method="post">
+                    <input name="id" type="hidden" th:value="${project.id}" />
+                    <button class="knap" name="subject" type="submit" value="delete">
+                        Slet projekt
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:include="/includes/footer :: footer"></th:block>
+</body>
 </html>

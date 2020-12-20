@@ -37,6 +37,11 @@
         <td name="taskName" th:text="${task.name}" /><br />
         <td name="taskDescription" th:text="${task.description}" /><br />
         </p>
+        <div class="knapper">
+            <form th:action="@{/updateSubProject/{id}(id=${proj.id})}" method="post">
+                <button class="knap" name="subject" value="updateSubProject">Upate subproject</button>
+            </form>
+        </div>
 
         <div class="knapper">
             <form th:action="@{/project/{id}(id=${proj.id})}">
@@ -55,14 +60,6 @@
                 <button class="knap" name="subject" value="Add Subproject">Add Subproject</button>
             </form>
         </div>
-
-        <div class="knapper">
-            <form th:action="@{/updateSubProject/{id}(id=${proj.id})}" method="post">
-                <button class="knap" name="subject" value="updateSubProject">Update Subproject</button>
-            </form>
-        </div>
-
-
     </tr>
 
 </div>
