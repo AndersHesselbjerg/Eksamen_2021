@@ -55,11 +55,15 @@ public class projectsController {
     }
 
     @PostMapping("/updateSubProject")
-    public String updateSub(Model model,Subproject subproject, HttpSession session){
-        User user = (User) session.getAttribute("login");
-        this.checkLogin(user);
-        model.addAttribute("user");
-        mapper.updateSubProject(subproject);
+    public String updateSub(@PathVariable("id") int id,Subproject subproject, HttpSession session){
+        ArrayList<Subproject> projectList = (ArrayList<Subproject>) session.getAttribute("projectList");
+        Subproject oneProject;
+        for(Subproject subproject1: projectList){
+            if(subproject.getId()==id){
+                oneProject = subproject1;
+                mapper.updateSubProject(subproject1);
+            }
+        }
         return "subProject";
     }
 

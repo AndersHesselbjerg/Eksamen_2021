@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Project {
     private int id;
+    private int userid;
     private String name;
     private String description;
     private int numberOfEmployees;
@@ -28,9 +29,10 @@ public class Project {
 
     }
 
-    public Project(int id, String name){
+    public Project(int id, String name, int userid){
         this.id = id;
         this.name = name;
+        this.userid = userid;
     }
 
     public Project(int id, String name, String description, int numberOfEmployees, Date deadline, Timestamp saved) {
