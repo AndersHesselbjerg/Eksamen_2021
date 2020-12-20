@@ -16,10 +16,11 @@
 
 <!-- overview - current projects-->
 
-<div class="container">
+<div class="project-list-container">
     <h3 id="header3">PROJEKTER</h3>
+    <div class="project-list">
     <tr th:each="proj,stats: ${project}">
-        <b><h2><td><a th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></td></h2></b>
+        <b><h2><td><a class="project-list-item" th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></td></h2></b>
         <p>Beskrivelse: <td name="description" th:text="${proj.description}" /></p>
         <p>Antal medarbejdere: <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /></p>
         <p>Deadline: <td name="deadline" th:text="${proj.deadline}" /></p><br />
@@ -61,6 +62,7 @@
             </form>
         </div>
     </tr>
+    </div>
 
 </div>
 
