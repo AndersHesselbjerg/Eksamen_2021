@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="myCSS.css">
+    <link rel="stylesheet" th:href="@{/myCSS.css}">
     <link rel="stylesheet" href="profile.css">
     <meta charset="UTF-8">
     <title>Opret nyt projekt</title>
@@ -18,11 +18,11 @@
         <label for="subName">Delprojektetes navn</label><br>
         <input type="text" id="subName" th:field="*{name}"><br>
 
-        <label for="description">Beskrivelse</label><br>
-        <textarea style="height: 200px; width: 400px;" placeholder="Skriv her, hvad projektet omhandler" id="description" th:field="*{description}"></textarea><br>
+        <label for="subDescription">Beskrivelse</label><br>
+        <textarea style="height: 200px; width: 400px;" placeholder="Skriv her, hvad projektet omhandler" id="subDescription" th:field="*{description}"></textarea><br>
 
         <label for="projectID">ProjectID</label><br>
-        <input type="text" id="projectID" th:field="*{projectID}"><br>
+        <input type="text" id="projectID" th:value="${projectId}" name="projectID"><br>
 
         <label for="estimatedTime">Estimated Time</label><br>
         <input type="text" id="estimatedTime" th:field="*{estimatedTime}"><br>

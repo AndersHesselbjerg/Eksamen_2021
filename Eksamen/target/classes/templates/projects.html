@@ -43,7 +43,7 @@
         </div>
 
         <div class="knapper">
-            <form th:action="@{/createSubProject/{id}(id=${proj.id})}" method="post">
+            <form th:action="@{/createNewSubProject/{projectId}(projectId=${proj.id})}" method="get">
                 <button class="knap" name="subject" value="Add Subproject">Add Subproject</button>
             </form>
         </div>
