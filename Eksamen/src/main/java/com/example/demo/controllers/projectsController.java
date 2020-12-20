@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Subproject;
+import com.example.demo.models.User;
 import com.example.demo.repositories.Mapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +22,7 @@ public class projectsController {
     @GetMapping("/projects")
     public String projects(Model model, HttpServletRequest servletRequest) {
         ArrayList<Project> projectList = mapper.getUserProjects();
-        model.addAttribute("project", projectList);
+        model.addAttribute("projects", projectList);
         HttpSession session = servletRequest.getSession();
         session.setAttribute("projectList",projectList);
         return "projects";
@@ -43,11 +45,26 @@ public class projectsController {
 
 
     @PostMapping("/getOneProject")
-    public String getOneProject(WebRequest request,
-                                @RequestParam String name,
-                                @RequestParam String description,
-                                @RequestParam int numberOfEmployees,
-                                @RequestParam Date deadline) {
+    public String getOneProject() {
         return "redirect:/project";
+    }
+
+    @GetMapping("/updateSubProject")
+    public String updateSubProject(){
+        return "userProfile";
+    }
+
+    @PostMapping("/updateSubProject")
+    public String updateSub(Model model,Subproject subproject, HttpSession session){
+        User user = (User) session.getAttribute("login");
+        this.checkLogin(user);
+        model.addAttribute("user");
+        mapper.updateSubProject(subproject);
+        return "subProject";
+    }
+
+
+    private void checkLogin(User user) {
+        System.out.println("Bruger: " + user + ", er stadig logget ind! ");
     }
 }

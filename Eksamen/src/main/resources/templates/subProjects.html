@@ -1,21 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">--->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <meta charset="UTF-8">
+    <title>Rediger delprojekter</title>
     <link rel="stylesheet" href="myCSS.css">
     <link rel="stylesheet" href="profile.css">
-    <meta charset="UTF-8">
-    <title>Delprojekter</title>
+
 </head>
+<body>
 
 <body>
 <div class="slider" />
 <th:block th:include="/includes/header :: header"></th:block>
 
 <div class="container">
-    <h3 id="header3">DELPROJEKTER</h3>
+    <h3 id="header3">Rediger delprojekter</h3>
+    <tr th:each="sub: ${subprojects}">
+        <b><h2><td><a th:href="@{/subProjects/{id}(id=${sub.id})}" th:text="${sub.name}"></a></td></h2></b>
+        <p>Name: <td name="name" th:text="${sub.name}"/></p>
+        <p>Beskrivelse: <td name="description" th:text="${sub.description}"/></p>
+        <p>Task deadline: <td name="taskDeadline" th:text="${sub.taskDeadline}"/></td></ts></p>
+
+        <div>
+
+            <form th: action="/userProfile" method="post">
+                <button class="knap" name="subject" type="submit" value="update"> Update delprojekt</button>
+            </form>
+        </div>
+    </tr>
 
 </div>
 
 </body>
 <th:block th:include="/includes/footer :: footer"></th:block>
+</body>
 </html>
