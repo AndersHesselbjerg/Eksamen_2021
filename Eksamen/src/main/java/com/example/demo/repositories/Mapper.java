@@ -6,6 +6,7 @@ import com.example.demo.models.Task;
 import com.example.demo.models.User;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -251,72 +252,22 @@ public class Mapper {
         }
     }
 
-    /*public ArrayList<Subproject> getSubprojects(int projectID, Project project1) {
-        ArrayList<Subproject> subprojectList = new ArrayList<>();
+    public int getLastProjectID()  {
         Connection connection = DBManager.getConnection();
-        String sqlSubproject = "SELECT * FROM subprojects WHERE projectID = \'" + projectID + "\'";
-        PreparedStatement prepareStatement;
-        ResultSet resultSet;
+        String sqlstr = "SELECT max(id) FROM projects";
+        int lastProjectID = 0;
         try {
-            prepareStatement = connection.prepareStatement(sqlSubproject);
-            resultSet = prepareStatement.executeQuery();
-            System.out.println(resultSet);
-
-            System.out.println(subprojectList);
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String subProjectname = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                int projectID1 = resultSet.getInt("projectID");
-                int
-
-                Subproject subproject = new Subproject(id, subProjectname, description, projectID1);
-                subprojectList.add(subproject);
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(sqlstr);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                lastProjectID = resultSet.getInt("max(id)");
             }
-        } catch (SQLException sqlerr) {
-            System.out.println("Fejl i underprojekter" + sqlerr);
+        } catch (SQLException sqlerr){
+            System.out.println("Kunne ikke finde det sidste projekts id");
         }
-        return subprojectList;
+        return lastProjectID;
     }
-
-    public ArrayList<Project> getOneProject(int id) throws SQLException {
-        ArrayList<Project> allprojects = new ArrayList<>();
-        Connection connection = DBManager.getConnection();
-        String sqlproject = "SELECT projects.id, projects.name, subprojects.subName, subprojects.subDescription, subprojects.subId, subprojects.projectID, projects.description, projects.numberOfEmployees, projects.deadline FROM projects left join subprojects on projects.id = subprojects.projectID WHERE id = \'" + id + "\'";
-        PreparedStatement prepareStatement;
-        prepareStatement = connection.prepareStatement(sqlproject);
-        ResultSet resultSet = prepareStatement.executeQuery();
-        System.out.println(resultSet);
-        int projectID = resultSet.getInt("projects.id");
-        String projectName = resultSet.getString("projects.name");
-        String projectDes = resultSet.getString("projects.description");
-        int numOfEmp = resultSet.getInt("projects.numberOfEmployees");
-        Date deadline = resultSet.getDate("projects.deadline");
-        Timestamp todaysDate = resultSet.getTimestamp("saved");
-        Project project = new Project(projectID, projectName, projectDes, numOfEmp, deadline, todaysDate);
-        allprojects.add(project);
-
-        while (resultSet.next()) {
-            int subID = resultSet.getInt("subprojects.id");
-            String subName = resultSet.getString("subprojects.name");
-            String subDes = resultSet.getString("subprojects.description");
-            int subProjectID = resultSet.getInt("subprojects.projectID");
-            Project subproject = new Project(subID, subName, subDes, subProjectID);
-            allprojects.add(subproject);
-        }
-
-
-        return allprojects;
-
-
-        //SELECT projects.name, subprojects.name, projects.description, projects.numberOfEmployees, projects.deadline,
-        // FROM projects
-        //left join subprojects on projects.id = subprojects.projectID
-        //order by projects.name
-        // Den skal først retuneere et objekt. tage et parameter som er et id. i metoden skal vi hente et objekt fra databasen. Hent et objekt fra databasen
-        // hent alle subprojekter fra databasen og tilføj dem til arraylisten der ligger i det enkelte projekt.
-
-    }*/
 
 
     public Project deleteTaskOfProject(int projectID){
@@ -384,7 +335,6 @@ public class Mapper {
         }
         return project;
     }
-
 
     public ArrayList<Project> getUserProjects() {
         ArrayList<Project> projectList = null;

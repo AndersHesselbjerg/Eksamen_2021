@@ -14,6 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Controller
@@ -33,21 +34,27 @@ public class CreateController {
     }
 
     @PostMapping("/createProject")
-    public String createProject(Project project, HttpSession session){
+    public String createProject(Project project, HttpSession session, Model model, HttpServletRequest servletRequest) {
         User user = (User) session.getAttribute("login");
         int userid = user.getId();
         mapper.createProject(project, userid);
+        int lastProjectID = mapper.getLastProjectID();
         checkLogin(user);
+        ArrayList<Project> projectList = mapper.getUserProjects();
+
         System.out.println("Project created successfully");
-        return "redirect:/createNewSubProject";
+        model.addAttribute("project", projectList);
+        session = servletRequest.getSession();
+        session.setAttribute("projectList", projectList);
+        return "redirect:/createNewSubProject/" + lastProjectID;
     }
 
     @PostMapping("/createSubProject")
     public String createSubProject(Subproject subproject, HttpSession session){
         User user = (User) session.getAttribute("login");
         int userid = user.getId();
-        mapper.createSubProject(subproject, userid);
         checkLogin(user);
+        mapper.createSubProject(subproject, userid);
         int checkIfAdmin = user.getIsAdmin();
         if(checkIfAdmin == 1){
             return "redirect:/projects";
@@ -55,13 +62,47 @@ public class CreateController {
             return "redirect:/userProfile";
         }
     }
-
-    @GetMapping("/createNewSubProject")
+    /*@GetMapping("/createNewSubProject")
     public String showCreateSubProject(Subproject subproject, Model model, HttpSession session) {
         User theuser = (User) session.getAttribute("login");
+        checkLogin(theuser);
         model.addAttribute("subproject", subproject);
         return "createSubProject";
+    }*/
+    @GetMapping("/createNewSubProject/{projectId}")
+    public String showCreateSubProject(@PathVariable("projectId") int projectId, Model model, Model model1,
+                                       HttpSession session, HttpServletRequest servletRequest) {
+        HttpSession httpSession = servletRequest.getSession();
+        User theuser = (User) session.getAttribute("login");
+        model.addAttribute("subproject", new Subproject());
+        model.addAttribute("projectId", projectId);
+        ArrayList<Project> projectList = (ArrayList<Project>) httpSession.getAttribute("projectList");
+        Project oneProject = null;
+        for(Project project:projectList){
+            if(project.getId()==projectId){
+                oneProject = project;
+            }else{
+                System.out.println("No project found");
+            }
+        }
+        model1.addAttribute("project", oneProject);
+        return "createSubProject";
     }
+
+    /*@GetMapping("/project/{id}")
+    public String project(@PathVariable("id") int id, Model model, HttpServletRequest servletRequest){
+        HttpSession httpSession = servletRequest.getSession();
+
+        ArrayList<Project> projectList = (ArrayList<Project>) httpSession.getAttribute("projectList");
+        Project oneProject = null;
+        for(Project project:projectList){
+            if(project.getId()==id){
+                oneProject = project;
+            }
+        }
+        model.addAttribute("project", oneProject);
+        return "project";
+    }*/
 
 
     @PostMapping("updateProject")
