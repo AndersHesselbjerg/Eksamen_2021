@@ -86,20 +86,23 @@
             <div class="project-name">
                 <a
                         th:href="@{/project/{id}(id=${project.id})}"
-                        th:text="${project.name}"
+                        th:text="'Navn: ' + ${project.name}"
                 >
                 </a>
             </div>
-            <div name="id" th:text="${project.id}" />
-            <div name="description" th:text="${project.description}" />
+            <div name="id" th:text=" 'ProjektID: ' + ${project.id}" />
+            <div name="description" th:text="'Beskrivelse: ' + ${project.description}" />
             <div
                     name="numberOfEmployees"
-                    th:text="${project.numberOfEmployees}"
+                    th:text="'Antal ansatte: ' + ${project.numberOfEmployees}"
             />
-            <div name="deadline" th:text="${project.deadline}" />
+            <div name="deadline" th:text=" 'Deadline: ' + ${project.deadline}" > hello:</div>
+
+
+
             <div th:each="subproject:${project.subprojects}">
-                <div name="subName" th:text="${subproject.name}" />
-                <div name="subDescription" th:text="${subproject.description}" />
+                <div name="subName" th:text="'Sub project navn: ' + ${subproject.name}" />
+                <div name="subDescription" th:text=" 'Sub project beskrivelse: ' + ${subproject.description}" />
             </div>
             <div th:each="task:${project.tasks}">
                 <div name="taskName" th:text="${task.name}" />
