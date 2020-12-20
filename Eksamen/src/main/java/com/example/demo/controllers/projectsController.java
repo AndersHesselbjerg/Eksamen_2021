@@ -22,7 +22,7 @@ public class projectsController {
     @GetMapping("/projects")
     public String projects(Model model, HttpServletRequest servletRequest) {
         ArrayList<Project> projectList = mapper.getUserProjects();
-        model.addAttribute("project", projectList);
+        model.addAttribute("projects", projectList);
         HttpSession session = servletRequest.getSession();
         session.setAttribute("projectList",projectList);
         return "projects";
