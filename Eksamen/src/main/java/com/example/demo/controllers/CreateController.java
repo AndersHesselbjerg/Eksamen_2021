@@ -62,13 +62,7 @@ public class CreateController {
             return "redirect:/userProfile";
         }
     }
-    /*@GetMapping("/createNewSubProject")
-    public String showCreateSubProject(Subproject subproject, Model model, HttpSession session) {
-        User theuser = (User) session.getAttribute("login");
-        checkLogin(theuser);
-        model.addAttribute("subproject", subproject);
-        return "createSubProject";
-    }*/
+
     @GetMapping("/createNewSubProject/{projectId}")
     public String showCreateSubProject(@PathVariable("projectId") int projectId, Model model, Model model1,
                                        HttpSession session, HttpServletRequest servletRequest) {
@@ -89,22 +83,6 @@ public class CreateController {
         return "createSubProject";
     }
 
-    /*@GetMapping("/project/{id}")
-    public String project(@PathVariable("id") int id, Model model, HttpServletRequest servletRequest){
-        HttpSession httpSession = servletRequest.getSession();
-
-        ArrayList<Project> projectList = (ArrayList<Project>) httpSession.getAttribute("projectList");
-        Project oneProject = null;
-        for(Project project:projectList){
-            if(project.getId()==id){
-                oneProject = project;
-            }
-        }
-        model.addAttribute("project", oneProject);
-        return "project";
-    }*/
-
-
     @PostMapping("updateProject")
     public String updateProject(@RequestParam Project project, HttpSession session){
         User theuser = (User) session.getAttribute("login");
@@ -112,8 +90,6 @@ public class CreateController {
         mapper.updateProject(project);
         return "userProfile";
     }
-
-
 
     @GetMapping("/createNewProject")
     public String showCreateProject(Project project, Model model, HttpSession session) {// Model model fletter data, og tager dem fra thymeleaf og bruger dem
@@ -127,11 +103,6 @@ public class CreateController {
         } else {
             return "index";
         }
-    }
-
-    @GetMapping("/addEmployees")
-    public String addEmployees() {
-        return "addEmployees";
     }
 
 

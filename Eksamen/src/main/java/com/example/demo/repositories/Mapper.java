@@ -221,36 +221,6 @@ public class Mapper {
         return subproject;
     }
 
-
-    public Project getProjectByName(String name) {
-        try {
-            Connection connection = DBManager.getConnection();
-            String sqlproject = "SELECT * FROM projects WHERE name = '" + name + "'";
-            PreparedStatement prepareStatement;
-            prepareStatement = connection.prepareStatement(sqlproject);
-            ResultSet resultSet = prepareStatement.executeQuery();
-
-            if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String projectName = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                int numberOfEmployees = resultSet.getInt("numberOfEmployees");
-                Date deadline = resultSet.getDate("deadlineDate"); // Grunden til det ikke virkede før, er at
-                //Time deadlineTime = resultSet.getTime("currentTime");
-                Timestamp todaysDate = resultSet.getTimestamp("saved");
-
-                Project project = new Project(id, projectName, description, numberOfEmployees, deadline, todaysDate);
-                return project;
-            } else {
-                return null;
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            System.out.println("Fejl i nedhentning af projekter");
-            return null;
-        }
-    }
-
     public int getLastProjectID()  {
         Connection connection = DBManager.getConnection();
         String sqlstr = "SELECT max(id) FROM projects";
@@ -269,6 +239,7 @@ public class Mapper {
     }
 
 
+    //Hvis delete task ikke bliver færdigt, slettes denne metode
     public Project deleteTaskOfProject(int projectID){
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from tasks where projectIDTask = ?";
