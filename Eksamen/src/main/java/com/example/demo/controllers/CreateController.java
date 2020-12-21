@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Task;
 import com.example.demo.repositories.Mapper;
 import com.example.demo.models.Project;
 import com.example.demo.models.Subproject;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
@@ -50,17 +52,17 @@ public class CreateController {
     }
 
     @PostMapping("/createSubProject")
-    public String createSubProject(Subproject subproject, HttpSession session){
+    public String createSubProject(Subproject subproject, HttpSession session, HttpServletRequest servletRequest ){
         User user = (User) session.getAttribute("login");
         int userid = user.getId();
+        int lastProjectID = mapper.getLastProjectID();
         checkLogin(user);
+        ArrayList<Project> projectList = mapper.getUserProjects();
         mapper.createSubProject(subproject, userid);
-        int checkIfAdmin = user.getIsAdmin();
-        if(checkIfAdmin == 1){
-            return "redirect:/projects";
-        } else{
-            return "redirect:/userProfile";
-        }
+        session = servletRequest.getSession();
+        session.setAttribute("projectList", projectList);
+
+        return "redirect:/createNewTask/" + lastProjectID;
     }
 
     @GetMapping("/createNewSubProject/{projectId}")
@@ -83,6 +85,7 @@ public class CreateController {
         return "createSubProject";
     }
 
+
     @PostMapping("updateProject")
     public String updateProject(@RequestParam Project project, HttpSession session){
         User theuser = (User) session.getAttribute("login");
@@ -90,6 +93,8 @@ public class CreateController {
         mapper.updateProject(project);
         return "userProfile";
     }
+
+
 
     @GetMapping("/createNewProject")
     public String showCreateProject(Project project, Model model, HttpSession session) {// Model model fletter data, og tager dem fra thymeleaf og bruger dem
@@ -103,6 +108,54 @@ public class CreateController {
         } else {
             return "index";
         }
+    }
+
+
+    @GetMapping("/createNewTask/{projectId}")
+    public String createTask(@PathVariable("projectId") int projectId, HttpServletRequest servletRequest, Task task, Model model, HttpSession session){
+
+        HttpSession httpSession = servletRequest.getSession();
+        User user = (User) session.getAttribute("login");
+        checkLogin(user);
+        model.addAttribute("task", task);
+
+        model.addAttribute("subproject", new Subproject());
+        model.addAttribute("projectId", projectId);
+
+        Project oneProject = null;
+        /*
+            for(Task task: projectList){
+                if(project1.getId()==projectId){
+                    oneProject = project1;
+                }else{
+                    System.out.println("No project found");
+                }
+
+            }
+
+         */
+            model.addAttribute("project", oneProject);
+
+            return "createTasks";
+    }
+
+    @PostMapping("/createTasks")
+    public String createTask(HttpSession session, Model model, HttpServletRequest servletRequest, Task task){
+        User user = (User) session.getAttribute("login");
+        checkLogin(user);
+        mapper.createTask(task);
+
+        model.addAttribute("tasks", task);
+        session = servletRequest.getSession();
+        session.setAttribute("tasks", task);
+            return "redirect:/userProfile";
+        }
+
+
+
+    @GetMapping("/addEmployees")
+    public String addEmployees() {
+        return "addEmployees";
     }
 
 
