@@ -19,7 +19,7 @@
 <div class="project-list-container">
     <h3 id="header3">PROJEKTER</h3>
     <div class="project-list">
-    <tr th:each="proj,stats: ${project}">
+    <div  class="project-list-item" th:each="proj,stats: ${project}">
         <b><h2><td><a class="project-list-item" th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></td></h2></b>
         <p>Beskrivelse: <td name="description" th:text="${proj.description}" /></p>
         <p>Antal medarbejdere: <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /></p>
@@ -38,6 +38,11 @@
         <td name="taskName" th:text="${task.name}" /><br />
         <td name="taskDescription" th:text="${task.description}" /><br />
         </p>
+        <div class="knapper">
+            <form th:action="@{/updateSubProject/{id}(id=${proj.id})}" method="post">
+                <button class="knap" name="subject" value="updateSubProject">Upate subproject</button>
+            </form>
+        </div>
 
         <div class="knapper">
             <form th:action="@{/project/{id}(id=${proj.id})}">
@@ -56,15 +61,7 @@
                 <button class="knap" name="subject" value="Add Subproject">Add Subproject</button>
             </form>
         </div>
-
-        <div class="knapper">
-            <form th:action="@{/updateSubProject/{id}(id=${proj.id})}" method="post">
-                <button class="knap" name="subject" value="updateSubProject">Update Subproject</button>
-            </form>
-        </div>
-
-
-    </tr>
+    </div>
     </div>
 
 </div>
