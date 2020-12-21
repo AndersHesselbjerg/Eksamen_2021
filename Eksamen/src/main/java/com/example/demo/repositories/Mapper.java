@@ -8,9 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.Date;
+import java.util.*;
 
 
 @Repository
@@ -68,6 +67,31 @@ public class Mapper {
         }
         return projectList;
     }
+
+    public int getLatestSubProject() {
+
+            Connection connection = DBManager.getConnection();
+            ArrayList<Integer> ids = new ArrayList<>();
+            String sqlproject = "SELECT subId FROM subprojects";
+            PreparedStatement prepareStatement;
+        try {
+            prepareStatement = connection.prepareStatement(sqlproject);
+            ResultSet resultSet = prepareStatement.executeQuery();
+
+            while(resultSet.next()) {
+                int id = resultSet.getInt("subId");
+                ids.add(id);
+            }
+            Integer max = Collections.max(ids);
+            return max;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
 
 
     public User deleteUser(int id) {
@@ -163,6 +187,7 @@ public class Mapper {
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees, deadline, userID) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement;
+
         try {
             preparedStatement = connection.prepareStatement(sqlstr);
             preparedStatement.setString(1, project.getName());
@@ -200,6 +225,28 @@ public class Mapper {
         return subproject;
     }
 
+
+    public Task createTask(Task task){
+        Connection connection = DBManager.getConnection();
+        String sqlStr = "INSERT INTO tasks (taskName, taskDes, projectIDTask, taskDeadline) VALUES(?, ?, ?, ?)";
+        PreparedStatement preparedStatement;
+        try{
+            preparedStatement = connection.prepareStatement(sqlStr);
+            preparedStatement.setString(1, task.getName());
+            preparedStatement.setString(2, task.getDescription());
+            preparedStatement.setInt(3, task.getProjectIDTask());
+            preparedStatement.setDate(4, (Date) task.getTaskDeadline());
+
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            System.out.println("Tillykke delprojekt: " + preparedStatement + " blev oprettet.");
+
+        }catch (SQLException sqlErr){
+            System.out.println("Fejl i oprettelse af task = " + sqlErr);
+        }
+        return task;
+    }
+
     public Subproject updateSubProject(Subproject subproject){
         Connection connection = DBManager.getConnection();
         String SqlStr = "update subProjects set subName = ?, subDescription = ?, projectID = ?, estimatedTime = ? where subId = ? ";
@@ -221,36 +268,6 @@ public class Mapper {
         return subproject;
     }
 
-
-    public Project getProjectByName(String name) {
-        try {
-            Connection connection = DBManager.getConnection();
-            String sqlproject = "SELECT * FROM projects WHERE name = '" + name + "'";
-            PreparedStatement prepareStatement;
-            prepareStatement = connection.prepareStatement(sqlproject);
-            ResultSet resultSet = prepareStatement.executeQuery();
-
-            if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String projectName = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                int numberOfEmployees = resultSet.getInt("numberOfEmployees");
-                Date deadline = resultSet.getDate("deadlineDate"); // Grunden til det ikke virkede før, er at
-                //Time deadlineTime = resultSet.getTime("currentTime");
-                Timestamp todaysDate = resultSet.getTimestamp("saved");
-
-                Project project = new Project(id, projectName, description, numberOfEmployees, deadline, todaysDate);
-                return project;
-            } else {
-                return null;
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            System.out.println("Fejl i nedhentning af projekter");
-            return null;
-        }
-    }
-
     public int getLastProjectID()  {
         Connection connection = DBManager.getConnection();
         String sqlstr = "SELECT max(id) FROM projects";
@@ -269,6 +286,7 @@ public class Mapper {
     }
 
 
+    //Hvis delete task ikke bliver færdigt, slettes denne metode
     public Project deleteTaskOfProject(int projectID){
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from tasks where projectIDTask = ?";
