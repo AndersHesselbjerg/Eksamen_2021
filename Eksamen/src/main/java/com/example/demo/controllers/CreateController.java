@@ -123,20 +123,9 @@ public class CreateController {
         model.addAttribute("projectId", projectId);
 
         Project oneProject = null;
-        /*
-            for(Task task: projectList){
-                if(project1.getId()==projectId){
-                    oneProject = project1;
-                }else{
-                    System.out.println("No project found");
-                }
+        model.addAttribute("project", oneProject);
 
-            }
-
-         */
-            model.addAttribute("project", oneProject);
-
-            return "createTasks";
+        return "createTasks";
     }
 
     @PostMapping("/createTasks")

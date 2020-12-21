@@ -239,7 +239,7 @@ public class Mapper {
 
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
-            System.out.println("Tillykke delprojekt: " + preparedStatement + " blev oprettet.");
+            System.out.println("Tillykke task: " + preparedStatement + " blev oprettet.");
 
         }catch (SQLException sqlErr){
             System.out.println("Fejl i oprettelse af task = " + sqlErr);
