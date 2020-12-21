@@ -19,15 +19,6 @@ public class projectsController {
 
     Mapper mapper = new Mapper();
 
-    @GetMapping("/projects")
-    public String projects(Model model, HttpServletRequest servletRequest) {
-        ArrayList<Project> projectList = mapper.getUserProjects();
-        model.addAttribute("projects", projectList);
-        HttpSession session = servletRequest.getSession();
-        session.setAttribute("projectList",projectList);
-        return "projects";
-    }
-
     @GetMapping("/project/{id}")
     public String project(@PathVariable("id") int id, Model model, HttpServletRequest servletRequest){
         HttpSession httpSession = servletRequest.getSession();

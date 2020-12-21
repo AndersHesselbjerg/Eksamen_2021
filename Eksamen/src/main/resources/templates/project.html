@@ -12,18 +12,26 @@
 <th:block th:include="/includes/header :: header"></th:block>
 
 <div class="container">
-    <h3 id="header3">PROJEKTER</h3>
-    <tr th:each="proj,stats:${project}">
-        <p>Projektnavn: <td th:text="${proj.name}"></td><br /><p />
-        <td th:text="${proj.description}" /><br />
-        <td th:text="${proj.numberOfEmployees}" /><br />
-        <td th:text="${proj.deadline}" /><br />
+    <tr th:each="proj,stats: ${project}">
+        <h2>Navn: <td name="name" th:text="${proj.name}" /></h2>
+        <p><b>Beskrivelse: </b><td name="description" th:text="${proj.description}" /></p>
+        <p><b>Antal medarbejdere: </b><td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /></p>
+        <p><b>Deadline: </b><td name="deadline" th:text="${proj.deadline}" /></p>
+        <p><b>Estimeret tid: </b><td name="totalEstimatedTime" th:text="${proj.totalEstimatedTime}"></td></p>
+
+        <h3>Tilhørende delprojekter: </h3>
         <p th:each="subproject:${proj.subprojects}">
-        <td name="subName" th:text="${subproject.name}" /><br />
-        <td name="subDescription" th:text="${subproject.description}" /><br />
+            <b>Navn: </b><td name="subName" th:text="${subproject.name}" /><br />
+            <b>Beskrivelse: </b><td name="subDescription" th:text="${subproject.description}" /><br />
         </p>
 
+        <h3> Tilhørende tasks til dette projekt: </h3>
+        <p th:each="task:${proj.tasks}">
+            <b>Navn: </b><td name="taskName" th:text="${task.name}" /><br />
+            <b>Beskrivelse: </b><td name="taskDescription" th:text="${task.description}" />
+        </p>
     </tr>
+
 </div>
 
 </body>

@@ -5,8 +5,6 @@ import com.example.demo.models.Subproject;
 import com.example.demo.models.Task;
 import com.example.demo.models.User;
 import org.springframework.stereotype.Repository;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;

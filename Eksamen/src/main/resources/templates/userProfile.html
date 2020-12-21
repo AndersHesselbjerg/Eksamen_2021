@@ -23,8 +23,8 @@
         <b><h2><td><a class="project-list-item" th:href="@{/project/{id}(id=${proj.id})}" th:text="${proj.name}"></a></td></h2></b>
         <p>Beskrivelse: <td name="description" th:text="${proj.description}" /></p>
         <p>Antal medarbejdere: <td name="numberOfEmployees" th:text="${proj.numberOfEmployees}" /></p>
-        <p>Deadline: <td name="deadline" th:text="${proj.deadline}" /></p><br />
-        <p> Estimated time: <td name="totalEstimatedTime" th:text="${proj.totalEstimatedTime}"></td></p>
+        <p>Deadline: <td name="deadline" th:text="${proj.deadline}" /></p>
+        <p> Estimeret tid: <td name="totalEstimatedTime" th:text="${proj.totalEstimatedTime}"></td></p>
 
 
         <h3>Tilhørende delprojekter: </h3>
@@ -66,7 +66,7 @@
 
     </tr>
     </div>
-
+<hr>
 </div>
 
 <th:block th:include="/includes/footer :: footer"></th:block>

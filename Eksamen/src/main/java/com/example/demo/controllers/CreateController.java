@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
-
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Controller
@@ -24,7 +21,6 @@ public class CreateController {
 
 
     Mapper mapper;
-    Project project;
 
     public CreateController(Mapper mapper){
         this.mapper = mapper;
@@ -123,20 +119,10 @@ public class CreateController {
         model.addAttribute("projectId", projectId);
 
         Project oneProject = null;
-        /*
-            for(Task task: projectList){
-                if(project1.getId()==projectId){
-                    oneProject = project1;
-                }else{
-                    System.out.println("No project found");
-                }
 
-            }
+        model.addAttribute("project", oneProject);
 
-         */
-            model.addAttribute("project", oneProject);
-
-            return "createTasks";
+        return "createTasks";
     }
 
     @PostMapping("/createTasks")
@@ -150,14 +136,6 @@ public class CreateController {
         session.setAttribute("tasks", task);
             return "redirect:/userProfile";
         }
-
-
-
-    @GetMapping("/addEmployees")
-    public String addEmployees() {
-        return "addEmployees";
-    }
-
 
     @GetMapping("updateProject")
     public String updateProject(){
