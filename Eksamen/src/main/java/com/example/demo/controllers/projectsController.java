@@ -68,6 +68,8 @@ public class projectsController {
     }
 
 
+
+
     private void checkLogin(User user) {
         System.out.println("Bruger: " + user + ", er stadig logget ind! ");
     }

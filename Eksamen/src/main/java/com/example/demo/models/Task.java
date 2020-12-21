@@ -6,18 +6,18 @@ public class Task {
     private int id;
     private String name;
     private String description;
-    private Date deadline;
+    private Date taskDeadline;
     private int projectIDTask;
 
     public Task(){
 
     }
 
-    public Task(int id, String name, String description, Date deadline, int projectIDTask) {
+    public Task(int id, String name, String description, Date taskDeadline, int projectIDTask) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.deadline = deadline;
+        this.taskDeadline = taskDeadline;
         this.projectIDTask = projectIDTask;
     }
 
@@ -45,12 +45,12 @@ public class Task {
         this.description = description;
     }
 
-    public Date getDeadline() {
-        return deadline;
+    public Date getTaskDeadline() {
+        return taskDeadline;
     }
 
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
+    public void setTaskDeadline(Date taskDeadline) {
+        this.taskDeadline = taskDeadline;
     }
 
     public int getProjectIDTask() {
@@ -66,7 +66,7 @@ public class Task {
         return "Task{" +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", deadline=" + deadline +
+                ", deadline=" + taskDeadline +
                 '}';
     }
 }

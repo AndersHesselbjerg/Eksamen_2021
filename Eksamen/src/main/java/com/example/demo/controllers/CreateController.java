@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Task;
 import com.example.demo.repositories.Mapper;
 import com.example.demo.models.Project;
 import com.example.demo.models.Subproject;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
@@ -50,25 +52,19 @@ public class CreateController {
     }
 
     @PostMapping("/createSubProject")
-    public String createSubProject(Subproject subproject, HttpSession session){
+    public String createSubProject(Subproject subproject, HttpSession session, HttpServletRequest servletRequest ){
         User user = (User) session.getAttribute("login");
         int userid = user.getId();
+        int lastProjectID = mapper.getLastProjectID();
         checkLogin(user);
+        ArrayList<Project> projectList = mapper.getUserProjects();
         mapper.createSubProject(subproject, userid);
-        int checkIfAdmin = user.getIsAdmin();
-        if(checkIfAdmin == 1){
-            return "redirect:/projects";
-        } else{
-            return "redirect:/userProfile";
-        }
+        session = servletRequest.getSession();
+        session.setAttribute("projectList", projectList);
+
+        return "redirect:/createNewTask/" + lastProjectID;
     }
-    /*@GetMapping("/createNewSubProject")
-    public String showCreateSubProject(Subproject subproject, Model model, HttpSession session) {
-        User theuser = (User) session.getAttribute("login");
-        checkLogin(theuser);
-        model.addAttribute("subproject", subproject);
-        return "createSubProject";
-    }*/
+
     @GetMapping("/createNewSubProject/{projectId}")
     public String showCreateSubProject(@PathVariable("projectId") int projectId, Model model, Model model1,
                                        HttpSession session, HttpServletRequest servletRequest) {
@@ -88,21 +84,6 @@ public class CreateController {
         model1.addAttribute("project", oneProject);
         return "createSubProject";
     }
-
-    /*@GetMapping("/project/{id}")
-    public String project(@PathVariable("id") int id, Model model, HttpServletRequest servletRequest){
-        HttpSession httpSession = servletRequest.getSession();
-
-        ArrayList<Project> projectList = (ArrayList<Project>) httpSession.getAttribute("projectList");
-        Project oneProject = null;
-        for(Project project:projectList){
-            if(project.getId()==id){
-                oneProject = project;
-            }
-        }
-        model.addAttribute("project", oneProject);
-        return "project";
-    }*/
 
 
     @PostMapping("updateProject")
@@ -128,6 +109,49 @@ public class CreateController {
             return "index";
         }
     }
+
+
+    @GetMapping("/createNewTask/{projectId}")
+    public String createTask(@PathVariable("projectId") int projectId, HttpServletRequest servletRequest, Task task, Model model, HttpSession session){
+
+        HttpSession httpSession = servletRequest.getSession();
+        User user = (User) session.getAttribute("login");
+        checkLogin(user);
+        model.addAttribute("task", task);
+
+        model.addAttribute("subproject", new Subproject());
+        model.addAttribute("projectId", projectId);
+
+        Project oneProject = null;
+        /*
+            for(Task task: projectList){
+                if(project1.getId()==projectId){
+                    oneProject = project1;
+                }else{
+                    System.out.println("No project found");
+                }
+
+            }
+
+         */
+            model.addAttribute("project", oneProject);
+
+            return "createTasks";
+    }
+
+    @PostMapping("/createTasks")
+    public String createTask(HttpSession session, Model model, HttpServletRequest servletRequest, Task task){
+        User user = (User) session.getAttribute("login");
+        checkLogin(user);
+        mapper.createTask(task);
+
+        model.addAttribute("tasks", task);
+        session = servletRequest.getSession();
+        session.setAttribute("tasks", task);
+            return "redirect:/userProfile";
+        }
+
+
 
     @GetMapping("/addEmployees")
     public String addEmployees() {
