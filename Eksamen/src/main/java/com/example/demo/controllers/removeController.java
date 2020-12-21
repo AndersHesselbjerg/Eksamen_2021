@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
-
+//Lavet af Alexander
 
 @Controller
 public class removeController {

@@ -16,7 +16,7 @@ public class Mapper {
     public Mapper() {
 
     }
-
+    //Lavet af Alexander
     public User createUser(User u) {
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO user (mail, password ) VALUES (?, ?);";
@@ -37,7 +37,7 @@ public class Mapper {
     }
 
 
-
+    //Lavet af Alexander og Daniel
     public ArrayList<Project> getProjects() {
         ArrayList<Project> projectList = new ArrayList<>();
         try {
@@ -66,32 +66,7 @@ public class Mapper {
         return projectList;
     }
 
-    public int getLatestSubProject() {
-
-            Connection connection = DBManager.getConnection();
-            ArrayList<Integer> ids = new ArrayList<>();
-            String sqlproject = "SELECT subId FROM subprojects";
-            PreparedStatement prepareStatement;
-        try {
-            prepareStatement = connection.prepareStatement(sqlproject);
-            ResultSet resultSet = prepareStatement.executeQuery();
-
-            while(resultSet.next()) {
-                int id = resultSet.getInt("subId");
-                ids.add(id);
-            }
-            Integer max = Collections.max(ids);
-            return max;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-
-
-
+    //Lavet af Alexander
     public User deleteUser(int id) {
         Connection connection = DBManager.getConnection();
         String sqlRemove = "DELETE FROM user WHERE id = '?' ";
@@ -108,7 +83,7 @@ public class Mapper {
         }
         return user;
     }
-
+    //Lavet af Alexander
     public Project updateProject(Project project) {
         Connection connection = DBManager.getConnection();
         String sqlStr = "UPDATE projects SET name = ?, description = ? , numberOfEmployees = ?, saved = ?, userID = ? WHERE id = ? ";
@@ -130,7 +105,7 @@ public class Mapper {
         }
         return project;
     }
-
+    //Lavet af Alexander
     public User logIn(String mail, String password) {
         Connection connection = DBManager.getConnection();
         String searchLog = "select * FROM user WHERE mail = ? and password = ?; ";
@@ -156,7 +131,7 @@ public class Mapper {
         return user;
     }
 
-
+    //Lavet af Alexander
     public Boolean userExist(String mail) {
         Connection connection = DBManager.getConnection();
         String searchString = "select * FROM user WHERE mail = ?";
@@ -180,7 +155,7 @@ public class Mapper {
 
     }
 
-
+    //Lavet af Daniel
     public Project createProject(Project project, int userID) {
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees, deadline, userID) VALUES(?, ?, ?, ?, ?)";
@@ -202,7 +177,7 @@ public class Mapper {
         return project;
     }
 
-
+    //Lavet af Daniel
     public Subproject createSubProject(Subproject subproject, int userID) {
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO subprojects(subName, subDescription, projectID, estimatedTime) VALUES(?, ?, ?, ?)";
@@ -223,7 +198,7 @@ public class Mapper {
         return subproject;
     }
 
-
+    //Lavet af Alexander
     public Task createTask(Task task){
         Connection connection = DBManager.getConnection();
         String sqlStr = "INSERT INTO tasks (taskName, taskDes, projectIDTask, taskDeadline) VALUES(?, ?, ?, ?)";
@@ -244,7 +219,7 @@ public class Mapper {
         }
         return task;
     }
-
+    //Lavet af Alexander
     public Subproject updateSubProject(Subproject subproject){
         Connection connection = DBManager.getConnection();
         String SqlStr = "update subProjects set subName = ?, subDescription = ?, projectID = ?, estimatedTime = ? where subId = ? ";
@@ -265,7 +240,7 @@ public class Mapper {
         }
         return subproject;
     }
-
+    //Lavet af Daniel
     public int getLastProjectID()  {
         Connection connection = DBManager.getConnection();
         String sqlstr = "SELECT max(id) FROM projects";
@@ -284,7 +259,7 @@ public class Mapper {
     }
 
 
-    //Hvis delete task ikke bliver færdigt, slettes denne metode
+    //Lavet af Alexander
     public Project deleteTaskOfProject(int projectID){
         Connection connection = DBManager.getConnection();
         String sqlStr = "Delete from tasks where projectIDTask = ?";
@@ -303,7 +278,7 @@ public class Mapper {
         }
         return project;
     }
-
+    //Lavet af Alexander
     public Project deleteSubProjectsOfProject(int projectID) {
         this.deleteTaskOfProject(projectID);
 
@@ -326,7 +301,7 @@ public class Mapper {
     }
 
 
-
+    //Lavet af Alexander
     public Project deleteProject(int projectID) {
 
         this.deleteSubProjectsOfProject(projectID);
@@ -350,7 +325,7 @@ public class Mapper {
         }
         return project;
     }
-
+    //Lavet af Daniel
     public ArrayList<Project> getUserProjects() {
         ArrayList<Project> projectList = null;
         try {

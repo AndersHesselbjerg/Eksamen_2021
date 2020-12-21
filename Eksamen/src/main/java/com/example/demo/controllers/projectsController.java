@@ -18,7 +18,7 @@ import java.util.Date;
 public class projectsController {
 
     Mapper mapper = new Mapper();
-
+    //Lavet af Daniel
     @GetMapping("/project/{id}")
     public String project(@PathVariable("id") int id, Model model, HttpServletRequest servletRequest){
         HttpSession httpSession = servletRequest.getSession();
@@ -32,12 +32,6 @@ public class projectsController {
         }
         model.addAttribute("project", oneProject);
         return "project";
-    }
-
-
-    @PostMapping("/getOneProject")
-    public String getOneProject() {
-        return "redirect:/project";
     }
 
     @GetMapping("/updateSubProject")

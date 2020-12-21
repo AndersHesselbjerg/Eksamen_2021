@@ -1,5 +1,5 @@
 package com.example.demo.models;
-
+//Lavet af Daniel
 import com.example.demo.repositories.Mapper;
 
 import java.sql.Date;

@@ -18,7 +18,7 @@ public class UserController {
 
     @Autowired
     Mapper mapper;
-
+    //Lavet af Daniel
     @GetMapping("/userProfile") //post mapping er: creatNewProject og removeProject
     public String userProfile(Model model, HttpServletRequest servletRequest) {
         ArrayList<Project> projectList = mapper.getUserProjects();
@@ -27,7 +27,7 @@ public class UserController {
         session.setAttribute("projectList",projectList);
         return "userProfile";
     }
-
+    //Lavet af Alexander
     @PostMapping("/createUser")
     public String createUser(@RequestParam String mail, @RequestParam String password, Model model){
         Boolean userCheck = mapper.userExist(mail);
@@ -45,7 +45,7 @@ public class UserController {
             return "createUser";
         }
     }
-
+    //Lavet af Alexander
     @GetMapping("/admin")
     public String admin(Model model){
         return "admin";

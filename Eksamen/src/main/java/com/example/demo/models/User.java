@@ -1,5 +1,5 @@
 package com.example.demo.models;
-
+//Lavet af Anders
 public class User {
     public int id;
     public String mail;

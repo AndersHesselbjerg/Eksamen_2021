@@ -1,7 +1,7 @@
 package com.example.demo.models;
 
 import java.util.Date;
-
+//Lavet af Alexander
 public class Task {
     private int id;
     private String name;
