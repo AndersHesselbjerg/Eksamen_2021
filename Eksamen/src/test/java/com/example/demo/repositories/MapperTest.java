@@ -1,35 +1,51 @@
 package com.example.demo.repositories;
 
-import com.example.demo.models.Project;
+import com.example.demo.models.Task;
 import com.example.demo.models.User;
+import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Date;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class MapperTest {
-    Project project = new Project("Alexander","Dette er en test", 5, Date.valueOf("2020-10-10"));
+    Mapper mapper = new Mapper();
 
     @Test
-    void createUser() {
-        Mapper mapper = new Mapper();
-        User user = new User("a", "abc");
-        mapper.createUser(user);
+    public void testConnection() {
+        Connection connection = DBManager.getConnection();
+        assertEquals(true, true);
+
     }
 
     @Test
-    void creatProject(){
-        Mapper mapper = new Mapper();
-        Project project = new Project(9, "Dette er en test fra admin 4", 9);
-        mapper.createProject(project, 9);
+    void userExist() {
+        String mail = "admin@stohn.dk";
+        boolean status = mapper.userExist(mail);
+        if (status == false) {
+            fail();
+
+        } else if (status == true){
+            assertEquals(true, true);
+            System.out.println("Status er: " + status);
+        }
     }
 
     @Test
-    void getProject(){
-        Mapper mapper = new Mapper();
-        ArrayList<Project> projects = new ArrayList<>();
-        projects.add(project);
-        mapper.getUserProjects();
-    }
+    void login() {
+       String mail = "test@test.dk";
+       String password = "test";
+       User user = mapper.logIn(mail, password);
 
+       if (mail.matches(user.getMail()) || password.matches(password)){
+           assertEquals(user, user);
+           System.out.println("Status er: " + user);
+
+       } else {
+           fail();
+       }
+    }
 }
