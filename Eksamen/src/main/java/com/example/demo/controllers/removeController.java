@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 //Lavet af Alexander
 
 @Controller
-public class removeController {
+public class   removeController {
     @Autowired
     Mapper mapper;
 

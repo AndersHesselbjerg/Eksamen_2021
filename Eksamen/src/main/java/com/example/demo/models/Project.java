@@ -53,21 +53,13 @@ public class Project {
         this.totalEstimatedTime = totalEstimatedTime;
     }
 
-    public Project(String name, String description, int numberOfEmployees, Date deadline) {
-        this.name = name;
-        this.description = description;
-        this.numberOfEmployees = numberOfEmployees;
-        this.deadline = deadline;
+    public int getUserid() {
+        return userid;
     }
 
-    public Project(String name, String description, int numberOfEmployees, Date deadline, ArrayList userID) {
-        this.name = name;
-        this.description = description;
-        this.numberOfEmployees = numberOfEmployees;
-        this.deadline = deadline;
-        this.userID = userID;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
-
 
     public int getId() {
         return id;
@@ -166,10 +158,6 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" +
-                ",name=' " + name + '\'' +
-                ", description=' " + description + '\'' +
-                ", numberOfEmployees= " + numberOfEmployees +
-                '}';
+        return "ID: " + id + ", Navn: " + name + ", Userid: " + userid;
     }
 }

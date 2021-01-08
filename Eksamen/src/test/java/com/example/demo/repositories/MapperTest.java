@@ -1,51 +1,55 @@
 package com.example.demo.repositories;
 
+import com.example.demo.models.Project;
 import com.example.demo.models.Task;
 import com.example.demo.models.User;
 import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MapperTest {
     Mapper mapper = new Mapper();
 
     @Test
-    public void testConnection() {
+    public void testCon(){
         Connection connection = DBManager.getConnection();
-        assertEquals(true, true);
-
     }
 
     @Test
-    void userExist() {
-        String mail = "admin@stohn.dk";
-        boolean status = mapper.userExist(mail);
-        if (status == false) {
-            fail();
+    public void createUser() {
+        Mapper mapper = new Mapper();
+        User user = new User("test@newTest", "test");
+        mapper.createUser(user);
+    }
 
-        } else if (status == true){
-            assertEquals(true, true);
-            System.out.println("Status er: " + status);
-        }
+
+    @Test
+    public void userExist() {
+        String mail = "test@newTest";
+        assertEquals(true, mapper.userExist(mail));
+    }
+
+
+    @Test
+    public void createProject(){
+        Mapper mapper = new Mapper();
+        Project project = new Project(9, "Dette er en test fra admin 4", 9);
+        mapper.createProject(project, 9);
     }
 
     @Test
-    void login() {
-       String mail = "test@test.dk";
-       String password = "test";
-       User user = mapper.logIn(mail, password);
+    public void testDeleteTask(){
+        int projectID = 9;
+        int id = 9;
+        String name = "Test 1";
+        int userid = 15;
 
-       if (mail.matches(user.getMail()) || password.matches(password)){
-           assertEquals(user, user);
-           System.out.println("Status er: " + user);
-
-       } else {
-           fail();
-       }
+        Project project = new Project(id, name, userid);
+        project = mapper.deleteTaskOfProject(projectID);
     }
 }
