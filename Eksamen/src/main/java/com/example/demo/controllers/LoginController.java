@@ -18,8 +18,10 @@ import java.util.ArrayList;
 
 @Controller
 public class LoginController {
+
     @Autowired
     Mapper mapper;
+
     //Lavet af Alexander
     @GetMapping("/")
     public String index() {
@@ -52,10 +54,12 @@ public class LoginController {
             return "redirect:/admin";
         }
     }
+
     //Lavet af Alexander
     @GetMapping("/logud")
     public String logud(HttpSession session){
         session.removeAttribute("login");
+
         return "index";
     }
     //Lavet af Alexander
@@ -63,7 +67,5 @@ public class LoginController {
         // Place user info on session
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
     }
-
-
 
 }

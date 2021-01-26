@@ -22,6 +22,7 @@ public class Mapper {
         String sqlstr = "INSERT INTO user (mail, password ) VALUES (?, ?);";
         PreparedStatement preparedStatement;
         User user = null;
+
         try {
             preparedStatement = connection.prepareStatement(sqlstr);
             System.out.println(sqlstr);
@@ -30,6 +31,7 @@ public class Mapper {
             int row = preparedStatement.executeUpdate();
             System.out.println(row);
             System.out.println("Tillykke brugeren: " + preparedStatement + " Er oprettet");
+
         } catch (SQLException sqlerr) {
             System.out.println("Fejl i oprettels =" + sqlerr);
         }
@@ -47,15 +49,18 @@ public class Mapper {
             prepareStatement = connection.prepareStatement(sqlproject);
             ResultSet resultSet = prepareStatement.executeQuery();
 
+
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String projectName = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 int numberOfEmployees = resultSet.getInt("numberOfEmployees");
-                Date deadline = resultSet.getDate("deadline"); // Grunden til det ikke virkede før, er at den skal heder deadline og ikke deadlinedate
-                //Time deadlineTime = resultSet.getTime("currentTime");
+                Date deadline = resultSet.getDate("deadline");
+                /*
+                    Grunden til det ikke virkede før, er at den skal heder deadline og ikke deadlinedate
+                    Time deadlineTime = resultSet.getTime("currentTime");
+                */
                 Timestamp todaysDate = resultSet.getTimestamp("saved");
-
                 Project project = new Project(id, projectName, description, numberOfEmployees, deadline, todaysDate);
                 projectList.add(project);
             }
@@ -83,6 +88,7 @@ public class Mapper {
         }
         return user;
     }
+
     //Lavet af Alexander
     public Project updateProject(Project project) {
         Connection connection = DBManager.getConnection();
@@ -105,11 +111,12 @@ public class Mapper {
         }
         return project;
     }
+
     //Lavet af Alexander
     public User logIn(String mail, String password) {
         Connection connection = DBManager.getConnection();
         String searchLog = "select * FROM user WHERE mail = ? and password = ?; ";
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement; // ærstatter vores spørgspørgsmål med faktiske værdier, i vores sql query
         ResultSet resultSet;
         User user = null;
         //int isItAdmin = user.getIsAdmin();
@@ -127,8 +134,7 @@ public class Mapper {
         } catch (SQLException sqlerr) {
             System.out.println("Fejl i søgning = " + sqlerr.getMessage());
         }
-
-        return user;
+            return user;
     }
 
     //Lavet af Alexander
@@ -325,6 +331,7 @@ public class Mapper {
         }
         return project;
     }
+
     //Lavet af Daniel
     public ArrayList<Project> getUserProjects() {
         ArrayList<Project> projectList = null;
@@ -347,6 +354,7 @@ public class Mapper {
             Project project = null;
             Timestamp saved = null;
             int totalEstimatedTime = 0;
+
             while (resultSet.next()) {
                 projectId = resultSet.getInt("id");
                 projectName = resultSet.getString("name");
@@ -354,7 +362,8 @@ public class Mapper {
                 numberOfEmployees = resultSet.getInt("numberOfEmployees");
                 deadline = resultSet.getDate("deadline");
                 saved = resultSet.getTimestamp("saved");
-                if (!projectMap.containsKey(projectId)) {
+                if (!projectMap.containsKey(projectId)) { // tjekker om der er et projekt med et projekt i hashmapp (projectID). og hvis der ikke er det, tilføjer den!
+                    // Hvis der er et projekt, med det projectID så tilføjer den alle datilhørende tasks og subproject i else!!
                     int subID = resultSet.getInt("subId");
                     String subprojectName = resultSet.getString("subName");
                     String subprojectDes = resultSet.getString("subDescription");
@@ -381,8 +390,7 @@ public class Mapper {
                     String subprojectDes = resultSet.getString("subDescription");
                     int subprojectID = resultSet.getInt("projectID");
                     int estimatedTime = resultSet.getInt("estimatedTime");
-                    totalEstimatedTime += estimatedTime;
-
+                    totalEstimatedTime =+ estimatedTime;
                     int taskId = resultSet.getInt("taskID");
                     String taskName = resultSet.getString("taskName");
                     String taskDescription = resultSet.getString("taskDes");
@@ -403,7 +411,7 @@ public class Mapper {
                     }
                     project.getSubprojects().add(new Subproject(subID, subprojectName, subprojectDes, subprojectID, estimatedTime));
                     project.setTotalEstimatedTime(totalEstimatedTime);
-                    totalEstimatedTime = 0;
+                    totalEstimatedTime = 0; // reset! så næste projekt har sit eget totalEstimatedTime!
 
                     if (newTasks != null && newTasks.size() > 0) {
                         project.getTasks().addAll(newTasks);

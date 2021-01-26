@@ -30,6 +30,7 @@ public class CreateController {
     public String createUser(){
         return "createUser";
     }
+
     //Lavet af Daniel
     @PostMapping("/createProject")
     public String createProject(Project project, HttpSession session, Model model, HttpServletRequest servletRequest) {

@@ -43,13 +43,9 @@ class MapperTest {
     }
 
     @Test
-    public void testDeleteTask(){
-        int projectID = 9;
-        int id = 9;
-        String name = "Test 1";
-        int userid = 15;
-
-        Project project = new Project(id, name, userid);
-        project = mapper.deleteTaskOfProject(projectID);
+    public void deleteProject(){
+        Mapper mapper = new Mapper();
+        Project project = new Project(39, "test2021", 9);
+        mapper.deleteProject(39);
     }
 }
