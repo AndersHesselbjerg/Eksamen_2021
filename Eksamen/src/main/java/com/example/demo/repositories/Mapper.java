@@ -207,14 +207,14 @@ public class Mapper {
     //Lavet af Alexander
     public Task createTask(Task task){
         Connection connection = DBManager.getConnection();
-        String sqlStr = "INSERT INTO tasks (taskName, taskDes, projectIDTask, taskDeadline) VALUES(?, ?, ?, ?)";
+        String sqlStr = "INSERT INTO tasks (taskName, taskDes, taskDeadline, projectIDTask) VALUES(?, ?, ?, ?)";
         PreparedStatement preparedStatement;
         try{
             preparedStatement = connection.prepareStatement(sqlStr);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setString(2, task.getDescription());
-            preparedStatement.setInt(3, task.getProjectIDTask());
-            preparedStatement.setDate(4, (Date) task.getTaskDeadline());
+            preparedStatement.setDate(3, task.getTaskDeadline());
+            preparedStatement.setInt(4, task.getProjectIDTask());
 
             int row = preparedStatement.executeUpdate();
             System.out.println(row);

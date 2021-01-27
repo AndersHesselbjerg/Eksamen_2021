@@ -37,6 +37,7 @@
         <p th:each="task:${proj.tasks}">
         <td name="taskName" th:text="${task.name}" /><br />
         <td name="taskDescription" th:text="${task.description}" /><br />
+        <td name="deadline" th:text="${task.taskDeadline}" /></p>
         </p>
 
         <div class="knapper">

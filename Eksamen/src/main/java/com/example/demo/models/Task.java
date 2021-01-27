@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
-import java.util.Date;
+import java.sql.Date;
+
 //Lavet af Alexander
 public class Task {
     private int id;

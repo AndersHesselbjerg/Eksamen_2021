@@ -10,19 +10,19 @@
 <div th:fragment="header">
     <div class="header">
             <div class="header-left">
-            <li class="home-btn"><a class="active" href="/">Forside</a></li>
+            <li class="home-btn"><a class="active" href="/userProfile">Forside</a></li>
             </div>
 
         <div class="header-right">
             <li class="home-btn"><a class="active" th:href="@{/logud}">Log ud</a></li>
         </div>
 
-            <div class="header-right">
+        <div class="header-right">
             <ul class="nav">
                 <li><a th:href="@{/createNewProject}"> Opret projekt </a></li>
             </ul>
         </div>
-        </ul>
+    </ul>
 
     </div>
 </div>
