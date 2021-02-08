@@ -45,7 +45,7 @@ public class UserController {
             return "createUser";
         }
     }
-    //Lavet af Alexander
+
     @GetMapping("/admin")
     public String admin(Model model){
         return "admin";

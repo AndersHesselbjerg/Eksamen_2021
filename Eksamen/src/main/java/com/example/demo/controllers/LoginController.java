@@ -28,7 +28,7 @@ public class LoginController {
         DBManager.getConnection();
         return "index";
     }
-    //Lavet af Alexander
+
     @PostMapping("/login")
     public String login(@RequestParam String mail, @RequestParam String password, WebRequest webRequest, Model model, HttpSession session){
         mail = webRequest.getParameter("mail");
@@ -55,14 +55,14 @@ public class LoginController {
         }
     }
 
-    //Lavet af Alexander
+
     @GetMapping("/logud")
     public String logud(HttpSession session){
         session.removeAttribute("login");
 
         return "index";
     }
-    //Lavet af Alexander
+
     private void setSessionInfo(WebRequest request, User user) {
         // Place user info on session
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);

@@ -47,7 +47,7 @@ public class CreateController {
         session.setAttribute("projectList", projectList);
         return "redirect:/createNewSubProject/" + lastProjectID;
     }
-    //Lavet af Daniel
+
     @PostMapping("/createSubProject")
     public String createSubProject(Subproject subproject, HttpSession session, HttpServletRequest servletRequest ){
         User user = (User) session.getAttribute("login");
@@ -61,7 +61,7 @@ public class CreateController {
 
         return "redirect:/createNewTask/" + lastProjectID;
     }
-    //Lavet af Daniel
+
     @GetMapping("/createNewSubProject/{projectId}")
     public String showCreateSubProject(@PathVariable("projectId") int projectId, Model model, Model model1,
                                        HttpSession session, HttpServletRequest servletRequest) {
@@ -82,7 +82,7 @@ public class CreateController {
         return "createSubProject";
     }
 
-    //Lavet af Alexander
+
     @PostMapping("updateProject")
     public String updateProject(@RequestParam Project project, HttpSession session){
         User theuser = (User) session.getAttribute("login");
@@ -92,7 +92,7 @@ public class CreateController {
     }
 
 
-    //Lavet af Daniel
+
     @GetMapping("/createNewProject")
     public String showCreateProject(Project project, Model model, HttpSession session) {// Model model fletter data, og tager dem fra thymeleaf og bruger dem
         User theuser = (User) session.getAttribute("login");
@@ -125,7 +125,7 @@ public class CreateController {
 
         return "createTasks";
     }
-    //Lavet af Alexander
+
     @PostMapping("/createTasks")
     public String createTask(HttpSession session, Model model, HttpServletRequest servletRequest, Task task){
         User user = (User) session.getAttribute("login");
@@ -137,16 +137,14 @@ public class CreateController {
         session.setAttribute("tasks", task);
             return "redirect:/userProfile";
         }
-    //Lavet af Alexander
+
     @GetMapping("updateProject")
     public String updateProject(){
         return "userProfile";
     }
-    //Lavet af Alexander
     private void checkLogin(User user) {
         System.out.println("Bruger: " + user + ", er stadig logget ind! ");
     }
-    //Lavet af Alexander
     private void setSessionInfo(WebRequest request, User user) {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
     }

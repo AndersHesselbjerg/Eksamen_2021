@@ -183,7 +183,7 @@ public class Mapper {
         return project;
     }
 
-    //Lavet af Daniel
+
     public Subproject createSubProject(Subproject subproject, int userID) {
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO subprojects(subName, subDescription, projectID, estimatedTime) VALUES(?, ?, ?, ?)";
@@ -225,7 +225,7 @@ public class Mapper {
         }
         return task;
     }
-    //Lavet af Alexander
+
     public Subproject updateSubProject(Subproject subproject){
         Connection connection = DBManager.getConnection();
         String SqlStr = "update subProjects set subName = ?, subDescription = ?, projectID = ?, estimatedTime = ? where subId = ? ";
