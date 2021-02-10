@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.repositories.DBManager;
 import com.example.demo.repositories.Mapper;
 import com.example.demo.models.Project;
 import com.example.demo.models.User;
@@ -61,3 +62,4 @@ public class UserController {
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
     }
 }
+

@@ -16,7 +16,7 @@ public class Mapper {
     public Mapper() {
 
     }
-    //Lavet af Alexander
+    //Lavet af Alexander og Anders
     public User createUser(User u) {
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO user (mail, password ) VALUES (?, ?);";
@@ -112,7 +112,7 @@ public class Mapper {
         return project;
     }
 
-    //Lavet af Alexander
+    //Lavet af Alexander og Anders
     public User logIn(String mail, String password) {
         Connection connection = DBManager.getConnection();
         String searchLog = "select * FROM user WHERE mail = ? and password = ?; ";
@@ -161,7 +161,7 @@ public class Mapper {
 
     }
 
-    //Lavet af Daniel
+    //Lavet af Daniel og Anders
     public Project createProject(Project project, int userID) {
         Connection connection = DBManager.getConnection();
         String sqlstr = "INSERT INTO projects(name, description, numberOfEmployees, deadline, userID) VALUES(?, ?, ?, ?, ?)";
